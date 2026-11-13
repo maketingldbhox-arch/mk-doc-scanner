@@ -340,6 +340,7 @@ body.home #toasts{bottom:calc(24px + var(--safe-b))}
       <div><svg class="i"><use href="#i-wand"/></svg>ຟິວເຕີ<br>ເອກະສານ</div>
       <div><svg class="i"><use href="#i-share"/></svg>ແຊ<br>WhatsApp</div>
     </div>
+    <a class="install" id="webBtn" href="https://maketingldbhox-arch.github.io/mk-doc-scanner/" target="_blank" rel="noopener" style="text-decoration:none"><svg class="i"><use href="#i-camera"/></svg>ເປີດສະບັບເວັບ — ກ້ອງສະແກນສົດ + ຕິດຕັ້ງເປັນແອັບ</a>
     <button class="install" id="installBtn"><svg class="i"><use href="#i-down"/></svg>ຕິດຕັ້ງເປັນແອັບໃນໜ້າຈໍຫຼັກ</button>
     <p class="foot"><svg class="i s"><use href="#i-lock"/></svg>ຮູບຖືກປະມວນຜົນໃນເຄື່ອງຂອງທ່ານເອງ · <span id="verTxt"></span></p>
   </section>
@@ -412,7 +413,7 @@ body.home #toasts{bottom:calc(24px + var(--safe-b))}
       <button class="cside" id="camDone" aria-label="ສຳເລັດ"><svg class="i"><use href="#i-check"/></svg></button>
     </div>
   </div>
-  <div id="camErr"><svg class="i l"><use href="#i-camera"/></svg><b>ເປີດກ້ອງສົດບໍ່ໄດ້</b><p id="camErrMsg"></p><button class="btn primary" id="camNative"><svg class="i s"><use href="#i-camera"/></svg>ໃຊ້ແອັບກ້ອງຂອງໂທລະສັບ</button><button class="btn" id="camErrClose" style="background:#1a2331;color:#fff;border-color:transparent">ປິດ</button></div>
+  <div id="camErr"><svg class="i l"><use href="#i-camera"/></svg><b>ເປີດກ້ອງສົດບໍ່ໄດ້</b><p id="camErrMsg"></p><button class="btn primary" id="camNative"><svg class="i s"><use href="#i-camera"/></svg>ໃຊ້ແອັບກ້ອງຂອງໂທລະສັບ</button><a class="btn ghost" id="camWeb" href="https://maketingldbhox-arch.github.io/mk-doc-scanner/" target="_blank" rel="noopener" style="display:none;text-decoration:none">ເປີດສະບັບເວັບ (ກ້ອງສົດ)</a><button class="btn" id="camErrClose" style="background:#1a2331;color:#fff;border-color:transparent">ປິດ</button></div>
   <input type="file" id="camGalInput" accept="image/*" multiple hidden>
 </div>
 
@@ -1748,6 +1749,7 @@ $('shareBtn').onclick=doShare;
 $('mergeJpg').onchange=updateExportUI;
 $('driveBtn').onclick=doDrive;
 $('verTxt').textContent='v'+APP_VERSION+(IS_GAS?' · GAS':'');
+if(IS_GAS){ $('webBtn').classList.add('on'); $('camWeb').style.display=''; }
 renderModes(); renderSlots(); renderPages(); setCvPill(); setView('home'); updateBadges();
 
 /* =================================================================
@@ -1768,6 +1770,12 @@ function firstEmptyIdx(){
 }
 async function openCamera(startIdx){
   CAM.idx = (startIdx==null || startIdx<0) ? firstEmptyIdx() : startIdx;
+  if(!camAvailable()){
+    // e.g. inside the Google Apps Script frame: camera is blocked → use the phone's camera app (still auto-crops)
+    var md=curMode(); nativeCapture(md.group, md.slots[CAM.idx]);
+    if(IS_GAS) toast('ກ້ອງສົດໃຊ້ໄດ້ໃນສະບັບເວັບ (GitHub) — ຢູ່ນີ້ໃຊ້ແອັບກ້ອງແທນ', null, 4500);
+    return;
+  }
   CAM.shots=0; CAM.quad=null; CAM.disp=null; CAM.stable=0;
   $('cam').classList.add('on'); document.body.style.overflow='hidden';
   $('camErr').classList.remove('on');

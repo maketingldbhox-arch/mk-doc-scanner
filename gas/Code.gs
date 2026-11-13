@@ -73,3 +73,12 @@ function getFolder_() {
 function clearCache() {
   CacheService.getScriptCache().remove('src_n');
 }
+
+/** ທົດສອບວ່າດຶງໂຄດຈາກ GitHub ໄດ້ (ກົດ Run ຟັງຊັນນີ້ ຄັ້ງທຳອິດເພື່ອອະນຸຍາດ UrlFetchApp) */
+function checkGithub() {
+  var res = UrlFetchApp.fetch(SOURCE_URL + '?t=' + Date.now(), { muteHttpExceptions: true });
+  var txt = res.getContentText('UTF-8');
+  var m = txt.match(/APP_VERSION='([^']+)'/);
+  Logger.log('HTTP ' + res.getResponseCode() + ' · version ' + (m ? m[1] : '?') + ' · ' + txt.length + ' bytes');
+  clearCache();
+}
