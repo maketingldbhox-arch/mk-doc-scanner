@@ -1,0 +1,47 @@
+name: Check & deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Check JavaScript syntax in index.html
+        run: |
+          node -e "
+          const h=require('fs').readFileSync('index.html','utf8');
+          const re=/<script>([\s\S]*?)<\/script>/g; let m, n=0;
+          while((m=re.exec(h))){ new Function(m[1]); n++; }
+          if(!n) throw new Error('no inline scripts found');
+          console.log('OK —', n, 'inline scripts parsed');
+          "
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - id: deployment
+        uses: actions/deploy-pages@v4

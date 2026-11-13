@@ -1,0 +1,17 @@
+{
+  "name": "ສະແກນເອກະສານ · ສຳມະໂນຄົວ & ບັດປະຈຳຕົວ",
+  "short_name": "ສະແກນເອກະສານ",
+  "description": "ສະແກນ ຕັດຂອບອັດຕະໂນມັດ ແລະ ຈັດວາງ ປື້ມສຳມະໂນຄົວ / ບັດປະຈຳຕົວ ລົງເຈ້ຍ A4 — ສົ່ງອອກ PDF / JPG",
+  "lang": "lo",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f2f5fa",
+  "theme_color": "#1d64a6",
+  "icons": [
+    {"src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png"},
+    {"src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png"},
+    {"src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}

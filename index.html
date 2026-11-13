@@ -1,0 +1,1973 @@
+<!DOCTYPE html>
+<html lang="lo">
+<head>
+<base target="_top">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1d64a6">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ສະແກນເອກະສານ">
+<meta name="description" content="ສະແກນ ແລະ ຈັດວາງ ປື້ມສຳມະໂນຄົວ ແລະ ບັດປະຈຳຕົວ ລົງເຈ້ຍ A4 — ຕັດຂອບອັດຕະໂນມັດ, ສົ່ງອອກ PDF / JPG">
+<title>ສະແກນເອກະສານ · ສຳມະໂນຄົວ & ບັດປະຈຳຕົວ</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --brand:#2778b9; --brand-d:#1b5f9c; --brand-dd:#123f69; --brand-l:#e7f1fb; --brand-ll:#f3f8fd;
+  --grad:linear-gradient(135deg,#3b93dc 0%,#2778b9 45%,#1a5996 100%);
+  --ink:#0d1b2a; --ink2:#334155; --muted:#6b7a8c; --line:#e3e9f1; --bg:#f2f5fa; --card:#fff;
+  --ok:#0f8a52; --ok-l:#e3f7ec; --warn:#a85a06; --warn-l:#fdf1d8; --err:#c62832;
+  --r:22px; --sh:0 1px 2px rgba(15,30,60,.04),0 8px 24px rgba(15,30,60,.07);
+  --sh2:0 12px 32px rgba(23,85,145,.28);
+  --safe-b:env(safe-area-inset-bottom,0px); --safe-t:env(safe-area-inset-top,0px);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{font-family:'Noto Sans Lao','Phetsarath OT',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;overscroll-behavior-y:none}
+button,input,select{font:inherit;color:inherit}
+button{touch-action:manipulation;cursor:pointer}
+svg.i{width:22px;height:22px;flex:none;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+svg.i.s{width:18px;height:18px}
+svg.i.l{width:28px;height:28px}
+
+/* ---------- app bar ---------- */
+.bar{position:sticky;top:0;z-index:20;padding:calc(10px + var(--safe-t)) 14px 10px;background:rgba(242,245,250,.82);backdrop-filter:saturate(1.6) blur(16px);-webkit-backdrop-filter:saturate(1.6) blur(16px);border-bottom:1px solid transparent;transition:border-color .2s,box-shadow .2s}
+.bar.scrolled{border-bottom-color:var(--line);box-shadow:0 4px 18px rgba(15,30,60,.05)}
+.bar .row{max-width:880px;margin:0 auto;display:flex;align-items:center;gap:10px;min-height:44px}
+.bar .logo{width:40px;height:40px;border-radius:13px;background:var(--grad);display:grid;place-items:center;color:#fff;flex:none;box-shadow:0 6px 16px rgba(39,120,185,.35)}
+.bar .ttl{flex:1;min-width:0}
+.bar h1{font-size:16.5px;margin:0;font-weight:700;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.1px}
+.bar .sub{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.dot{width:7px;height:7px;border-radius:50%;background:#cbd5e1;display:inline-block}
+.dot.ok{background:#22c55e;box-shadow:0 0 0 3px rgba(34,197,94,.18)}
+.dot.warn{background:#f59e0b}
+.ibtn{width:42px;height:42px;border-radius:14px;border:0;background:#fff;color:var(--ink);display:grid;place-items:center;flex:none;box-shadow:var(--sh);padding:0;transition:transform .1s}
+.ibtn:active{transform:scale(.92)}
+#backBtn{display:none}
+body.work #backBtn{display:grid}
+body.work .bar .logo{display:none}
+
+main{max-width:880px;margin:0 auto;padding:6px 14px 24px}
+
+/* ---------- home ---------- */
+#home{max-width:600px;margin:0 auto}
+.hero{position:relative;overflow:hidden;border-radius:28px;padding:22px 20px 20px;color:#fff;background:var(--grad);box-shadow:var(--sh2);margin:6px 0 18px}
+.hero:before{content:'';position:absolute;right:-60px;top:-70px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.12)}
+.hero:after{content:'';position:absolute;right:40px;bottom:-90px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.08)}
+.hero h2{margin:0 0 4px;font-size:21px;font-weight:700;position:relative}
+.hero p{margin:0 0 16px;font-size:13.5px;opacity:.9;position:relative;max-width:420px}
+.hero .chips{display:flex;gap:6px;flex-wrap:wrap;position:relative}
+.hero .chip{font-size:12px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.22);padding:4px 10px;border-radius:99px;display:inline-flex;align-items:center;gap:5px}
+.sec-t{font-size:13px;font-weight:600;color:var(--muted);margin:0 4px 10px;letter-spacing:.2px}
+.modes{display:grid;gap:12px}
+.mode{display:flex;align-items:center;gap:14px;width:100%;text-align:left;border:0;background:#fff;border-radius:var(--r);padding:14px 14px 14px 14px;box-shadow:var(--sh);transition:transform .12s,box-shadow .2s;position:relative}
+.mode:active{transform:scale(.975)}
+.mode .art{width:72px;height:72px;border-radius:20px;display:grid;place-items:center;flex:none;background:var(--brand-l);color:var(--brand)}
+.mode[data-mode=id2] .art{background:#e2f6f1;color:#0f8a72}
+.mode[data-mode=id1] .art{background:#fdf2dc;color:#b7700a}
+.mode .mt{flex:1;min-width:0}
+.mode b{display:block;font-size:16px;font-weight:600;line-height:1.35}
+.mode small{display:block;font-size:12.5px;color:var(--muted);line-height:1.45;margin-top:3px}
+.mode .badge{position:absolute;top:10px;right:12px;font-size:11px;background:var(--ok-l);color:var(--ok);border-radius:99px;padding:1px 9px;font-weight:600}
+.mode .badge:empty{display:none}
+.mode .go{width:36px;height:36px;border-radius:12px;background:var(--brand-ll);color:var(--brand);display:grid;place-items:center;flex:none}
+.feat{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
+.feat div{background:#fff;border-radius:18px;padding:12px 10px;text-align:center;font-size:12px;color:var(--ink2);box-shadow:var(--sh)}
+.feat svg{color:var(--brand);margin:0 auto 4px;display:block}
+.foot{text-align:center;color:var(--muted);font-size:12px;margin:18px 0 6px;display:flex;justify-content:center;align-items:center;gap:6px}
+.install{display:none;margin-top:14px;width:100%;border:1.5px dashed #b9cfe6;background:var(--brand-ll);color:var(--brand-d);border-radius:18px;padding:12px;font-weight:600;align-items:center;justify-content:center;gap:8px}
+.install.on{display:flex}
+
+#work{display:none}
+body.work #work{display:block;animation:vin .25s cubic-bezier(.2,.8,.2,1)}
+body.work #home{display:none}
+body.home #home{animation:vin .25s cubic-bezier(.2,.8,.2,1)}
+body.home .dock{display:none}
+body.work{padding-bottom:calc(158px + var(--safe-b))}
+@keyframes vin{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+/* ---------- work ---------- */
+.card{background:var(--card);border-radius:var(--r);padding:16px;margin-bottom:14px;box-shadow:var(--sh)}
+.card-h{display:flex;align-items:center;gap:10px;margin:0 0 12px}
+.card-h h2{font-size:15.5px;margin:0;font-weight:700;flex:1}
+.step{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:10px;background:var(--brand-l);color:var(--brand);font-size:13px;font-weight:700;flex:none}
+.prog{font-size:12px;font-weight:600;color:var(--brand-d);background:var(--brand-l);border-radius:99px;padding:3px 10px}
+.prog.done{background:var(--ok-l);color:var(--ok)}
+.scanrow{display:grid;grid-template-columns:1.6fr 1fr;gap:10px;margin-bottom:12px}
+.big{border:0;border-radius:18px;min-height:64px;display:flex;align-items:center;justify-content:center;gap:10px;font-weight:700;font-size:15.5px;transition:transform .1s}
+.big:active{transform:scale(.97)}
+.big.cam{background:var(--grad);color:#fff;box-shadow:0 10px 24px rgba(39,120,185,.32)}
+.big.gal{background:var(--brand-l);color:var(--brand-d)}
+.big small{display:block;font-weight:500;font-size:11.5px;opacity:.85}
+.big .t{text-align:left;line-height:1.25}
+
+.slots{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.slot{border-radius:18px;background:var(--brand-ll);border:1.5px dashed #c3d6ea;overflow:hidden;transition:.15s;display:flex;flex-direction:column}
+.slot.filled{border:1.5px solid var(--line);background:#fff}
+.slot.drag{border-color:var(--brand);background:var(--brand-l)}
+.slot .top{display:flex;justify-content:space-between;align-items:center;gap:6px;padding:10px 12px 0}
+.slot .top b{font-weight:600;font-size:14px}
+.slot .num{font-size:11px;color:var(--muted);background:#e6edf5;border-radius:99px;padding:2px 9px;white-space:nowrap;font-weight:600}
+.slot.filled .num{background:var(--ok-l);color:var(--ok)}
+.thumb{height:190px;margin:10px;border-radius:14px;display:grid;place-items:center;overflow:hidden;position:relative;transition:.15s;border:0;width:calc(100% - 20px);padding:0;background:transparent}
+.slot.filled .thumb{background:repeating-conic-gradient(#eef2f7 0 25%,#f8fafc 0 50%) 0 0/18px 18px}
+.thumb:active{transform:scale(.985)}
+.thumb canvas{max-width:92%;max-height:92%;border-radius:5px;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+.thumb .ph{color:var(--muted);font-size:12.5px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:4px}
+.thumb .ph .pi{width:56px;height:56px;border-radius:18px;background:#fff;color:var(--brand);display:grid;place-items:center;box-shadow:var(--sh);margin-bottom:6px}
+.thumb .ph b{color:var(--ink);font-weight:600;font-size:14px}
+.thumb .edit{position:absolute;right:8px;bottom:8px;background:rgba(13,27,42,.72);color:#fff;font-size:12px;border-radius:99px;padding:4px 10px;display:flex;align-items:center;gap:4px;backdrop-filter:blur(6px)}
+.acts{display:flex;gap:6px;padding:0 10px 10px}
+.acts button{flex:1;border:0;background:#f1f5fa;border-radius:12px;min-height:42px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:13px;font-weight:600;color:var(--ink2);transition:transform .08s,background .15s}
+.acts button:active{transform:scale(.95);background:var(--brand-l)}
+.acts button.ic{flex:0 0 44px}
+.acts button.del{color:var(--err)}
+
+details.set{margin-top:4px}
+details.set summary{list-style:none;display:flex;align-items:center;gap:8px;font-weight:600;font-size:14px;color:var(--ink2);padding:10px 4px;cursor:pointer}
+details.set summary::-webkit-details-marker{display:none}
+details.set summary .chev{margin-left:auto;transition:transform .2s;color:var(--muted)}
+details.set[open] summary .chev{transform:rotate(180deg)}
+.settings{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));padding:4px 0 10px}
+.field label{display:block;font-size:12.5px;color:var(--muted);margin-bottom:5px;font-weight:500}
+.field select,.field input[type=text]{width:100%;padding:11px 12px;border:1.5px solid var(--line);border-radius:14px;background:#fff;min-height:48px;-webkit-appearance:none;appearance:none}
+.field select{background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b7a8c' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 12px center/16px;padding-right:36px}
+.field select:focus,.field input:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(39,120,185,.15)}
+.check{display:flex;align-items:center;gap:10px;font-size:14px;padding:10px 12px;border:1.5px solid var(--line);border-radius:14px;min-height:48px;align-self:end;background:#fff;user-select:none;cursor:pointer}
+.check input{-webkit-appearance:none;appearance:none;width:46px;height:28px;border-radius:99px;background:#cfd8e3;position:relative;flex:none;transition:.2s;margin:0 0 0 auto;order:2;cursor:pointer}
+.check input::after{content:'';position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:.2s}
+.check input:checked{background:var(--brand)}
+.check input:checked::after{left:21px}
+
+.pages{display:flex;flex-direction:column;gap:16px;align-items:center;background:linear-gradient(180deg,#e7edf5,#dfe7f1);border-radius:18px;padding:18px 12px}
+.page-wrap{width:100%;display:flex;flex-direction:column;align-items:center;gap:8px}
+.page-wrap canvas{background:#fff;box-shadow:0 10px 30px rgba(15,30,60,.18);border-radius:4px;max-width:100%;height:auto}
+.page-wrap.portrait canvas{width:min(100%,500px)}
+.page-wrap.landscape canvas{width:min(100%,760px)}
+.page-wrap .lbl{font-size:11.5px;color:var(--ink2);background:#fff;border-radius:99px;padding:2px 10px;font-weight:500}
+.empty{color:var(--muted);text-align:center;padding:30px 10px;display:flex;flex-direction:column;align-items:center;gap:8px;font-size:13.5px}
+.empty svg{opacity:.45}
+.export{display:flex;gap:10px;flex-wrap:wrap}
+.export > *{flex:1 1 220px;justify-content:center}
+.msg{margin-top:10px;font-size:13.5px;word-break:break-word}
+.msg:empty{display:none}
+.msg a{color:var(--brand);font-weight:600}
+.note{font-size:12.5px;color:var(--muted);background:#f6f8fb;border-radius:14px;padding:10px 12px;margin-top:12px;line-height:1.65;display:flex;gap:8px;align-items:flex-start}
+.note svg{color:var(--brand);margin-top:2px}
+
+.btn{border:1.5px solid var(--line);background:#fff;color:var(--ink);padding:10px 16px;border-radius:14px;display:inline-flex;align-items:center;gap:8px;white-space:nowrap;font-weight:600;min-height:48px;transition:transform .08s,background .15s}
+.btn:active{transform:scale(.97)}
+.btn.primary{background:var(--grad);border-color:transparent;color:#fff;box-shadow:0 6px 16px rgba(39,120,185,.3)}
+.btn.ghost{background:var(--brand-l);border-color:transparent;color:var(--brand-d)}
+.btn.danger{background:var(--err);border-color:transparent;color:#fff}
+.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none;transform:none}
+
+/* ---------- dock ---------- */
+.dock{position:fixed;left:0;right:0;bottom:0;z-index:30;background:rgba(255,255,255,.88);backdrop-filter:saturate(1.6) blur(18px);-webkit-backdrop-filter:saturate(1.6) blur(18px);border-top:1px solid var(--line);padding:10px 12px calc(10px + var(--safe-b))}
+.dock .in{max-width:880px;margin:0 auto;display:flex;flex-direction:column;gap:8px}
+.fmt{display:grid;grid-template-columns:1fr 1fr;gap:4px;background:#e9eef5;border-radius:16px;padding:4px}
+.fmt button{border:0;background:transparent;border-radius:12px;min-height:44px;font-weight:700;font-size:15px;color:var(--muted);display:flex;align-items:center;justify-content:center;gap:8px;transition:.15s}
+.fmt button small{font-weight:500;font-size:12px}
+.fmt button.active{background:#fff;color:var(--brand-d);box-shadow:0 2px 8px rgba(15,30,60,.12)}
+.acts2{display:flex;gap:8px}
+.acts2 .btn{min-height:52px;font-size:15.5px;justify-content:center;border-radius:16px}
+.acts2 #dlBtn{flex:1.5}
+.acts2 #shareBtn{flex:1}
+.btn.wa{background:#22c35e;color:#fff;border-color:transparent;box-shadow:0 6px 16px rgba(34,195,94,.3)}
+#pgCount{font-weight:500;opacity:.85;font-size:13px}
+@media (max-width:400px){ #pgCount{display:none} .fmt button small{display:none} }
+
+/* ---------- toasts / sheets / busy ---------- */
+#toasts{position:fixed;left:0;right:0;bottom:calc(150px + var(--safe-b));z-index:200;display:flex;flex-direction:column;align-items:center;gap:8px;pointer-events:none;padding:0 14px}
+body.home #toasts{bottom:calc(24px + var(--safe-b))}
+.fs.on ~ #toasts{bottom:auto;top:calc(70px + var(--safe-t))}
+.toast{background:#13233a;color:#fff;padding:11px 16px;border-radius:16px;font-size:14px;box-shadow:0 12px 30px rgba(0,0,0,.25);max-width:520px;display:flex;gap:10px;align-items:flex-start;animation:tin .22s ease-out;transition:opacity .25s,transform .25s}
+.toast.ok{background:#0d6b41}.toast.err{background:#9b1d24}.toast.warn{background:#8a5206}
+.toast.out{opacity:0;transform:translateY(8px)}
+@keyframes tin{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}
+#sheet,#dlg{position:fixed;inset:0;background:rgba(10,20,35,.45);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);display:none;align-items:flex-end;justify-content:center}
+#sheet{z-index:120} #dlg{z-index:190}
+#sheet.on,#dlg.on{display:flex;animation:fade .18s}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.sbox{background:#fff;width:100%;max-width:480px;border-radius:26px 26px 0 0;padding:8px 14px calc(14px + var(--safe-b));animation:up .26s cubic-bezier(.2,.8,.2,1);box-shadow:0 -10px 40px rgba(0,0,0,.18)}
+@keyframes up{from{transform:translateY(60px);opacity:.4}to{transform:none;opacity:1}}
+.grab{width:42px;height:5px;border-radius:99px;background:#d6dde6;margin:4px auto 12px}
+.sbox h3{font-size:17px;font-weight:700;margin:0 4px 2px}
+.sbox .sub{font-size:13px;color:var(--muted);margin:0 4px 14px}
+.opt{display:flex;align-items:center;gap:12px;width:100%;padding:12px;border:0;background:#f4f7fb;border-radius:18px;text-align:left;margin-bottom:8px;transition:transform .08s,background .15s}
+.opt:active{transform:scale(.98);background:var(--brand-l)}
+.opt .oi{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;flex:none;background:#fff;color:var(--brand);box-shadow:0 1px 3px rgba(16,24,40,.08)}
+.opt.main{background:var(--brand-l)}
+.opt.main .oi{background:var(--grad);color:#fff;box-shadow:0 6px 14px rgba(39,120,185,.3)}
+.opt b{display:block;font-weight:600;font-size:14.5px;line-height:1.35}
+.opt small{display:block;color:var(--muted);font-size:12px;line-height:1.4}
+.opt .chev{margin-left:auto;color:#a5b1c0}
+.sbox .cancel{width:100%;justify-content:center;margin-top:4px}
+.dlg-acts{display:flex;gap:10px}
+.dlg-acts .btn{flex:1;justify-content:center}
+#busy{position:fixed;inset:0;background:rgba(10,20,35,.42);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);display:none;place-items:center;z-index:180;padding:20px}
+#busy.on{display:grid;animation:fade .15s}
+#busy > div{background:#fff;padding:22px 26px;border-radius:22px;display:flex;flex-direction:column;gap:14px;align-items:center;box-shadow:0 20px 50px rgba(0,0,0,.25);min-width:220px;max-width:300px;text-align:center;font-size:14px}
+.spin{width:40px;height:40px;border:4px solid var(--brand-l);border-top-color:var(--brand);border-radius:50%;animation:sp .8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+
+/* ---------- full-screen dark screens (camera / adjust / crop) ---------- */
+.fs{position:fixed;inset:0;background:#05080d;color:#fff;display:none;flex-direction:column;z-index:100;user-select:none;-webkit-user-select:none}
+.fs.on{display:flex;animation:fade .2s}
+.fs .ftop{display:flex;align-items:center;gap:10px;padding:calc(10px + var(--safe-t)) 12px 10px;z-index:3}
+.fs .ftop .tt{flex:1;min-width:0;text-align:center}
+.fs .ftop .tt b{display:block;font-size:15.5px;font-weight:600;line-height:1.3}
+.fs .ftop .tt span{font-size:12px;opacity:.7}
+.gbtn{width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.12);color:#fff;display:grid;place-items:center;flex:none;padding:0;transition:transform .1s,background .15s;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.gbtn:active{transform:scale(.9)}
+.gbtn.on{background:#ffd54a;color:#111}
+.gbtn:disabled{opacity:.3}
+
+/* camera */
+#cam{background:#000}
+#camStage{position:absolute;inset:0;overflow:hidden}
+#camVideo,#camOverlay{position:absolute;inset:0;width:100%;height:100%}
+#camVideo{object-fit:cover}
+#cam .ftop{position:absolute;left:0;right:0;top:0;background:linear-gradient(180deg,rgba(0,0,0,.55),transparent)}
+.autoSw{display:flex;background:rgba(255,255,255,.14);border-radius:99px;padding:3px;backdrop-filter:blur(8px)}
+.autoSw button{border:0;background:transparent;color:#fff;font-size:12.5px;font-weight:600;padding:6px 12px;border-radius:99px;opacity:.75}
+.autoSw button.active{background:#fff;color:#111;opacity:1}
+#camHint{position:absolute;left:50%;top:calc(76px + var(--safe-t));transform:translateX(-50%);background:rgba(0,0,0,.55);padding:7px 14px;border-radius:99px;font-size:13.5px;white-space:nowrap;z-index:3;backdrop-filter:blur(8px);transition:background .2s}
+#camHint.ok{background:rgba(16,148,90,.85)}
+.cbot{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:14px 22px calc(22px + var(--safe-b));background:linear-gradient(0deg,rgba(0,0,0,.7),transparent);display:flex;flex-direction:column;gap:14px}
+.steps{display:flex;justify-content:center;gap:6px;flex-wrap:wrap}
+.steps span{font-size:12px;padding:4px 11px;border-radius:99px;background:rgba(255,255,255,.14);opacity:.75;display:inline-flex;gap:5px;align-items:center}
+.steps span.cur{background:#fff;color:#111;opacity:1;font-weight:600}
+.steps span.done{background:rgba(34,197,94,.85);opacity:1}
+.crow{display:flex;align-items:center;justify-content:space-between}
+.shutter{width:78px;height:78px;border-radius:50%;border:4px solid #fff;background:transparent;padding:5px;display:grid;place-items:center;position:relative;transition:transform .1s}
+.shutter:active{transform:scale(.92)}
+.shutter i{display:block;width:100%;height:100%;border-radius:50%;background:#fff;transition:background .2s}
+.shutter.armed i{background:#3fd27f}
+.shutter svg.ring{position:absolute;inset:-6px;width:calc(100% + 12px);height:calc(100% + 12px);transform:rotate(-90deg)}
+.shutter svg.ring circle{fill:none;stroke:#3fd27f;stroke-width:4;stroke-dasharray:264;stroke-dashoffset:264;transition:stroke-dashoffset .1s linear}
+.cside{width:56px;height:56px;border-radius:16px;border:2px solid rgba(255,255,255,.7);background:rgba(255,255,255,.1);display:grid;place-items:center;color:#fff;padding:0;overflow:hidden;position:relative}
+.cside canvas{width:100%;height:100%;object-fit:cover}
+.cside .n{position:absolute;right:-2px;top:-2px;background:#22c55e;color:#fff;font-size:11px;font-weight:700;border-radius:99px;min-width:20px;height:20px;display:grid;place-items:center;padding:0 5px}
+#camFlash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:4}
+#camFlash.go{animation:flash .35s ease-out}
+@keyframes flash{0%{opacity:.85}100%{opacity:0}}
+#camErr{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:30px;z-index:5}
+#camErr.on{display:flex}
+#camErr p{margin:0;opacity:.85;font-size:14px;max-width:340px}
+
+/* adjust editor */
+#adj .stage{flex:1;position:relative;display:grid;place-items:center;padding:8px 14px;min-height:0}
+#adjCanvas{max-width:100%;max-height:100%;border-radius:6px;box-shadow:0 12px 40px rgba(0,0,0,.6);transition:opacity .15s}
+#adj .tools{background:#0d131d;border-radius:26px 26px 0 0;padding:14px 14px calc(14px + var(--safe-b));display:flex;flex-direction:column;gap:12px}
+.filters{display:flex;gap:10px;overflow-x:auto;padding:2px 2px 4px;scrollbar-width:none}
+.filters::-webkit-scrollbar{display:none}
+.filters button{border:0;background:transparent;color:#cbd5e1;display:flex;flex-direction:column;align-items:center;gap:6px;font-size:12px;padding:0;flex:none;width:74px}
+.filters button canvas{width:74px;height:58px;border-radius:12px;object-fit:cover;border:2px solid transparent;background:#1c2533}
+.filters button.active{color:#fff;font-weight:600}
+.filters button.active canvas{border-color:#4aa3ef}
+.sl{display:flex;align-items:center;gap:12px;font-size:13px}
+.sl label{width:118px;flex:none;color:#cbd5e1;display:flex;align-items:center;gap:6px;white-space:nowrap;font-size:12.5px}
+.sl output{width:38px;text-align:right;color:#94a3b8;font-variant-numeric:tabular-nums}
+.sl input[type=range]{flex:1;-webkit-appearance:none;appearance:none;height:28px;background:transparent}
+.sl input[type=range]::-webkit-slider-runnable-track{height:4px;border-radius:99px;background:#2a3546}
+.sl input[type=range]::-moz-range-track{height:4px;border-radius:99px;background:#2a3546}
+.sl input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:#fff;margin-top:-10px;box-shadow:0 2px 8px rgba(0,0,0,.4)}
+.sl input[type=range]::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:#fff;border:0}
+.tbar{display:grid;grid-template-columns:repeat(4,1fr) 1.6fr;gap:8px}
+.tbar button{border:0;background:#1a2331;color:#e2e8f0;border-radius:14px;min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:11px;transition:transform .08s}
+.tbar button:active{transform:scale(.94)}
+.tbar button.ok{background:var(--grad);color:#fff;font-size:14px;font-weight:700;flex-direction:row;gap:6px}
+
+/* crop editor */
+#editor{z-index:110}
+#edStage{flex:1;position:relative;overflow:hidden;touch-action:none}
+#edCanvas{position:absolute;left:0;top:0;touch-action:none}
+#editor .ebar{display:grid;grid-template-columns:1fr 1fr 1.5fr;gap:8px;padding:12px 12px calc(12px + var(--safe-b));background:#0d131d;border-radius:26px 26px 0 0}
+#editor .ebar button{border:0;background:#1a2331;color:#e2e8f0;border-radius:14px;min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:11px}
+#editor .ebar button.ok{background:var(--grad);color:#fff;font-size:14px;font-weight:700;flex-direction:row;gap:6px}
+
+@media (max-width:640px){
+  main{padding:4px 10px 20px}
+  .card{padding:14px;border-radius:20px}
+  .slots{grid-template-columns:1fr}
+  .thumb{height:210px}
+  .settings{grid-template-columns:1fr}
+  .check{align-self:stretch}
+}
+@media (min-width:641px){
+  #sheet,#dlg{align-items:center}
+  .sbox{border-radius:26px;margin:16px}
+  .grab{display:none}
+  #adj .tools,#editor .ebar{max-width:640px;width:100%;margin:0 auto}
+}
+</style>
+</head>
+<body class="home">
+
+<header class="bar" id="bar">
+  <div class="row">
+    <button class="ibtn" id="backBtn" aria-label="ຍ້ອນກັບ"><svg class="i"><use href="#i-back"/></svg></button>
+    <div class="logo"><svg class="i"><use href="#i-scan"/></svg></div>
+    <div class="ttl">
+      <h1 id="hTitle">ສະແກນເອກະສານ</h1>
+      <div class="sub"><span class="dot" id="cvDot"></span><span id="cvPill">ກຳລັງກຽມຕົວກວດຂອບ…</span></div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="home">
+    <div class="hero">
+      <h2>ສະແກນ & ຈັດວາງເອກະສານ</h2>
+      <p>ຖ່າຍດ້ວຍກ້ອງສົດ ຫຼື ເລືອກຈາກຄັງຮູບ — ລະບົບຈະຕັດຂອບ, ດຶງໃຫ້ຊື່ ແລະ ຈັດລົງເຈ້ຍ A4 ໃຫ້ອັດຕະໂນມັດ</p>
+      <div class="chips"><span class="chip"><svg class="i s"><use href="#i-crop"/></svg>ຕັດຂອບອັດຕະໂນມັດ</span><span class="chip"><svg class="i s"><use href="#i-sun"/></svg>ປັບແສງ</span><span class="chip"><svg class="i s"><use href="#i-file"/></svg>PDF / JPG</span></div>
+    </div>
+    <p class="sec-t">ເລືອກປະເພດເອກະສານ</p>
+    <div class="modes" id="modes">
+      <button class="mode" data-mode="household"><span class="art"><svg class="i l"><use href="#i-book"/></svg></span><span class="mt"><b>ປື້ມສຳມະໂນຄົວ</b><small>ໜ້າປົກ · ໜ້າ 1 · ໜ້າ 2–3 (ສູງສຸດ 3 ພາບ)</small></span><span class="badge"></span><span class="go"><svg class="i s"><use href="#i-next"/></svg></span></button>
+      <button class="mode" data-mode="id2"><span class="art"><svg class="i l"><use href="#i-id2"/></svg></span><span class="mt"><b>ບັດປະຈຳຕົວ 2 ດ້ານ</b><small>ດ້ານໜ້າ + ດ້ານຫຼັງ ໃນເຈ້ຍແຜ່ນດຽວ</small></span><span class="badge"></span><span class="go"><svg class="i s"><use href="#i-next"/></svg></span></button>
+      <button class="mode" data-mode="id1"><span class="art"><svg class="i l"><use href="#i-id1"/></svg></span><span class="mt"><b>ບັດປະຈຳຕົວ 1 ດ້ານ</b><small>ສະເພາະດ້ານໜ້າ</small></span><span class="badge"></span><span class="go"><svg class="i s"><use href="#i-next"/></svg></span></button>
+    </div>
+    <div class="feat">
+      <div><svg class="i"><use href="#i-camera"/></svg>ກ້ອງສົດ<br>ຖ່າຍອັດຕະໂນມັດ</div>
+      <div><svg class="i"><use href="#i-wand"/></svg>ຟິວເຕີ<br>ເອກະສານ</div>
+      <div><svg class="i"><use href="#i-share"/></svg>ແຊ<br>WhatsApp</div>
+    </div>
+    <button class="install" id="installBtn"><svg class="i"><use href="#i-down"/></svg>ຕິດຕັ້ງເປັນແອັບໃນໜ້າຈໍຫຼັກ</button>
+    <p class="foot"><svg class="i s"><use href="#i-lock"/></svg>ຮູບຖືກປະມວນຜົນໃນເຄື່ອງຂອງທ່ານເອງ · <span id="verTxt"></span></p>
+  </section>
+
+  <div id="work">
+    <section class="card">
+      <div class="card-h"><span class="step">1</span><h2>ສະແກນ / ເພີ່ມຮູບ</h2><span class="prog" id="prog"></span></div>
+      <div class="scanrow">
+        <button class="big cam" id="scanBtn"><svg class="i l"><use href="#i-camera"/></svg><span class="t">ສະແກນດ້ວຍກ້ອງ<small id="scanSub">ຕັດຂອບອັດຕະໂນມັດ</small></span></button>
+        <button class="big gal" id="bulkBtn"><svg class="i"><use href="#i-image"/></svg><span class="t">ຄັງຮູບ<small>ເລືອກຫຼາຍພາບ</small></span></button>
+      </div>
+      <input type="file" id="bulkInput" accept="image/*" multiple hidden>
+      <div class="slots" id="slots"></div>
+      <div class="note"><svg class="i s"><use href="#i-info"/></svg><span>ແຕະຮູບເພື່ອ <b>ແຕ່ງແສງ/ສີ</b> ແລະ <b>ປັບຂອບ</b> · ໝຸນ ↺ ↻ · ສະລັບລຳດັບ ⇄</span></div>
+    </section>
+
+    <section class="card">
+      <div class="card-h"><span class="step">2</span><h2>ເບິ່ງຕົວຢ່າງ</h2><button class="btn" id="clearBtn" style="min-height:38px;padding:6px 12px;font-size:13px"><svg class="i s"><use href="#i-trash"/></svg>ລ້າງ</button></div>
+      <div class="pages" id="pages"><div class="empty"><svg class="i l"><use href="#i-file"/></svg>ຍັງບໍ່ມີຮູບ — ສະແກນ ຫຼື ເພີ່ມຮູບໃນຂັ້ນຕອນທີ 1</div></div>
+      <details class="set" id="setBox">
+        <summary><svg class="i s"><use href="#i-gear"/></svg>ຕັ້ງຄ່າໜ້າເຈ້ຍ ແລະ ຊື່ໄຟລ໌<svg class="i s chev"><use href="#i-down2"/></svg></summary>
+        <div class="settings">
+          <div class="field"><label>ຂະໜາດເຈ້ຍ</label><select id="paper"><option value="a4">A4 (210 × 297 mm)</option><option value="letter">Letter (8.5 × 11 in)</option></select></div>
+          <div class="field opt-id"><label>ຂະໜາດບັດໃນເຈ້ຍ</label><select id="idSize"><option value="sample">ຕາມແບບຕົວຢ່າງ (ກວ້າງ ~46% ຂອງເຈ້ຍ)</option><option value="real">ຂະໜາດຈິງ (85.6 × 54 mm)</option></select></div>
+          <label class="check opt-id"><input type="checkbox" id="round" checked> ມຸມບັດມົນ</label>
+          <label class="check opt-hh"><input type="checkbox" id="border" checked> ເສັ້ນຂອບອ້ອມຮູບ</label>
+          <div class="field"><label>ຊື່ໄຟລ໌</label><input type="text" id="fname" placeholder="ເຊັ່ນ: ສຳມະໂນຄົວ_ທ້າວ ກ"></div>
+        </div>
+      </details>
+    </section>
+
+    <section class="card">
+      <div class="card-h"><span class="step">3</span><h2>ສົ່ງອອກ</h2></div>
+      <p class="sub" style="margin:0 2px 12px;font-size:12.5px;color:var(--muted)">ເລືອກ <b>PDF</b> ຫຼື <b>JPG</b> ທີ່ແຖບລຸ່ມ · JPG ເທິງໂທລະສັບບັນທຶກລົງ<b>ຄັງຮູບ</b> · ກົດ <b>ແຊ</b> ເພື່ອສົ່ງໄປ WhatsApp</p>
+      <div class="export">
+        <button class="btn ghost" id="driveBtn"><svg class="i s"><use href="#i-cloud"/></svg>ບັນທຶກລົງ Google Drive</button>
+        <label class="check" id="mergeWrap"><input type="checkbox" id="mergeJpg"> ລວມທຸກໜ້າເປັນ JPG ພາບດຽວ</label>
+      </div>
+      <div class="msg" id="msg"></div>
+    </section>
+  </div>
+</main>
+
+<div class="dock"><div class="in">
+  <div class="fmt" id="fmtSeg">
+    <button data-fmt="pdf" class="active"><svg class="i s"><use href="#i-file"/></svg>PDF <small>ເອກະສານ</small></button>
+    <button data-fmt="jpg"><svg class="i s"><use href="#i-image"/></svg>JPG <small>ຮູບພາບ</small></button>
+  </div>
+  <div class="acts2">
+    <button class="btn primary" id="dlBtn"><span id="dlLbl">ດາວໂຫຼດ PDF</span> <span id="pgCount"></span></button>
+    <button class="btn wa" id="shareBtn"><svg class="i s"><use href="#i-share"/></svg>ແຊ</button>
+  </div>
+</div></div>
+
+<!-- ===== live camera scanner ===== -->
+<div class="fs" id="cam">
+  <div id="camStage"><video id="camVideo" playsinline muted autoplay></video><canvas id="camOverlay"></canvas></div>
+  <div class="ftop">
+    <button class="gbtn" id="camClose" aria-label="ປິດ"><svg class="i"><use href="#i-x"/></svg></button>
+    <div class="tt"><div class="autoSw" id="autoSw" style="display:inline-flex"><button data-a="1" class="active">ອັດຕະໂນມັດ</button><button data-a="0">ດ້ວຍມື</button></div></div>
+    <button class="gbtn" id="camTorch" aria-label="ໄຟ" disabled><svg class="i"><use href="#i-bolt"/></svg></button>
+  </div>
+  <div id="camHint">ວາງເອກະສານໃຫ້ຢູ່ໃນກອບ</div>
+  <div id="camFlash"></div>
+  <div class="cbot">
+    <div class="steps" id="camSteps"></div>
+    <div class="crow">
+      <button class="cside" id="camGal" aria-label="ຄັງຮູບ"><svg class="i"><use href="#i-image"/></svg></button>
+      <button class="shutter" id="camShot" aria-label="ຖ່າຍ"><i></i><svg class="ring" viewBox="0 0 90 90"><circle cx="45" cy="45" r="42"/></svg></button>
+      <button class="cside" id="camDone" aria-label="ສຳເລັດ"><svg class="i"><use href="#i-check"/></svg></button>
+    </div>
+  </div>
+  <div id="camErr"><svg class="i l"><use href="#i-camera"/></svg><b>ເປີດກ້ອງສົດບໍ່ໄດ້</b><p id="camErrMsg"></p><button class="btn primary" id="camNative"><svg class="i s"><use href="#i-camera"/></svg>ໃຊ້ແອັບກ້ອງຂອງໂທລະສັບ</button><button class="btn" id="camErrClose" style="background:#1a2331;color:#fff;border-color:transparent">ປິດ</button></div>
+  <input type="file" id="camGalInput" accept="image/*" multiple hidden>
+</div>
+
+<!-- ===== adjust (filters / brightness) ===== -->
+<div class="fs" id="adj">
+  <div class="ftop">
+    <button class="gbtn" id="adjClose" aria-label="ປິດ"><svg class="i"><use href="#i-x"/></svg></button>
+    <div class="tt"><b id="adjTitle">ແຕ່ງຮູບ</b><span>ເລືອກຟິວເຕີ ແລະ ປັບແສງ</span></div>
+    <button class="gbtn" id="adjReset" aria-label="ຄືນຄ່າເດີມ"><svg class="i"><use href="#i-undo"/></svg></button>
+  </div>
+  <div class="stage"><canvas id="adjCanvas"></canvas></div>
+  <div class="tools">
+    <div class="filters" id="filters"></div>
+    <div class="sl"><label><svg class="i s"><use href="#i-sun"/></svg>ຄວາມສະຫວ່າງ</label><input type="range" id="adjB" min="-100" max="100" value="0"><output id="adjBv">0</output></div>
+    <div class="sl"><label><svg class="i s"><use href="#i-contrast"/></svg>ຄວາມຄົມຊັດ</label><input type="range" id="adjC" min="-100" max="100" value="0"><output id="adjCv">0</output></div>
+    <div class="tbar">
+      <button id="adjCrop"><svg class="i"><use href="#i-crop"/></svg>ຕັດຂອບ</button>
+      <button id="adjRotL"><svg class="i"><use href="#i-rotl"/></svg>ໝຸນຊ້າຍ</button>
+      <button id="adjRotR"><svg class="i"><use href="#i-rotr"/></svg>ໝຸນຂວາ</button>
+      <button id="adjRetake"><svg class="i"><use href="#i-camera"/></svg>ຖ່າຍໃໝ່</button>
+      <button class="ok" id="adjOk"><svg class="i"><use href="#i-check"/></svg>ສຳເລັດ</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== crop editor ===== -->
+<div class="fs" id="editor">
+  <div class="ftop">
+    <button class="gbtn" id="edCancel" aria-label="ຍົກເລີກ"><svg class="i"><use href="#i-x"/></svg></button>
+    <div class="tt"><b id="edTitle">ປັບຂອບ</b><span>ລາກຈຸດມຸມທັງ 4 ໄປທີ່ມຸມຂອງເອກະສານ</span></div>
+    <span style="width:44px"></span>
+  </div>
+  <div id="edStage"><canvas id="edCanvas"></canvas></div>
+  <div class="ebar">
+    <button id="edAuto"><svg class="i"><use href="#i-wand"/></svg>ອັດຕະໂນມັດ</button>
+    <button id="edFull"><svg class="i"><use href="#i-full"/></svg>ທັງຮູບ</button>
+    <button class="ok" id="edOk"><svg class="i"><use href="#i-check"/></svg>ຕົກລົງ</button>
+  </div>
+</div>
+
+<!-- source picker -->
+<div id="sheet"><div class="sbox">
+  <div class="grab"></div>
+  <h3 id="sheetTitle">ເພີ່ມຮູບ</h3>
+  <p class="sub">ເລືອກວິທີເພີ່ມຮູບເອກະສານ</p>
+  <button class="opt main" id="shLive"><span class="oi"><svg class="i"><use href="#i-scan"/></svg></span><span><b>ກ້ອງສະແກນ (ແນະນຳ)</b><small>ກວດຂອບແບບສົດ · ຖ່າຍອັດຕະໂນມັດ</small></span><svg class="i s chev"><use href="#i-next"/></svg></button>
+  <button class="opt" id="shNative"><span class="oi"><svg class="i"><use href="#i-camera"/></svg></span><span><b>ແອັບກ້ອງຂອງໂທລະສັບ</b><small>ຄວາມລະອຽດສູງສຸດ</small></span><svg class="i s chev"><use href="#i-next"/></svg></button>
+  <button class="opt" id="shPick"><span class="oi"><svg class="i"><use href="#i-image"/></svg></span><span><b>ເລືອກຈາກຄັງຮູບ / ໄຟລ໌</b><small>ຮູບທີ່ມີຢູ່ແລ້ວໃນເຄື່ອງ</small></span><svg class="i s chev"><use href="#i-next"/></svg></button>
+  <button class="btn cancel" id="shCancel">ຍົກເລີກ</button>
+</div></div>
+
+<div id="dlg"><div class="sbox">
+  <div class="grab"></div>
+  <h3 id="dlgTitle"></h3>
+  <p class="sub" id="dlgMsg"></p>
+  <div class="dlg-acts"><button class="btn" id="dlgNo">ຍົກເລີກ</button><button class="btn primary" id="dlgYes">ຕົກລົງ</button></div>
+</div></div>
+
+<input type="file" id="capInput" accept="image/*" capture="environment" hidden>
+<div id="toasts"></div>
+<div id="busy"><div><span class="spin"></span><span id="busyTxt">ກຳລັງປະມວນຜົນ…</span></div></div>
+
+<!-- icon sprite -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></symbol>
+  <symbol id="i-next" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></symbol>
+  <symbol id="i-down2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="i-scan" viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M7 12h10"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="3.5"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></symbol>
+  <symbol id="i-crop" viewBox="0 0 24 24"><path d="M6 2v14a2 2 0 0 0 2 2h14"/><path d="M18 22V8a2 2 0 0 0-2-2H2"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-contrast" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v18" /><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/><path d="M9 8h7M9 11h5"/></symbol>
+  <symbol id="i-id2" viewBox="0 0 24 24"><rect x="2" y="3" width="16" height="10" rx="2"/><rect x="6" y="11" width="16" height="10" rx="2" fill="#fff"/><circle cx="10.5" cy="16" r="1.6"/><path d="M14 15h5M14 17.5h3"/></symbol>
+  <symbol id="i-id1" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2.5"/><circle cx="8" cy="12" r="2.3"/><path d="M13 10h6M13 13h5M5 16.5h6"/></symbol>
+  <symbol id="i-wand" viewBox="0 0 24 24"><path d="M15 4V2M15 16v-2M8 9h2M20 9h2M17.8 11.8l1.4 1.4M17.8 6.2l1.4-1.4M12.2 6.2L10.8 4.8"/><path d="M3 21l9-9"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M8 6V4h8v2M6 6l1 15h10l1-15"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></symbol>
+  <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M17.5 19H7a5 5 0 1 1 1.4-9.8A6 6 0 0 1 20 11a4 4 0 0 1-2.5 8z"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9z"/></symbol>
+  <symbol id="i-undo" viewBox="0 0 24 24"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-15-6.7L3 13"/></symbol>
+  <symbol id="i-rotl" viewBox="0 0 24 24"><path d="M2.5 2v6h6"/><path d="M2.7 15.5A9 9 0 1 0 5 7.3L2.5 8"/></symbol>
+  <symbol id="i-rotr" viewBox="0 0 24 24"><path d="M21.5 2v6h-6"/><path d="M21.3 15.5A9 9 0 1 1 19 7.3l2.5.7"/></symbol>
+  <symbol id="i-swap" viewBox="0 0 24 24"><path d="M7 16V4M3 8l4-4 4 4M17 8v12M21 16l-4 4-4-4"/></symbol>
+  <symbol id="i-full" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></symbol>
+</svg>
+
+<script>
+/* ---------- OpenCV loader (robust across build styles) ---------- */
+var CV = { ready:false, failed:false };
+var cvReadyPromise = new Promise(function(resolve){
+  CV._resolve = resolve;
+});
+function cvMarkReady(){ if(CV.ready) return; CV.ready=true; CV._resolve(true); setCvPill(); }
+function cvMarkFail(){ if(CV.ready||CV.failed) return; CV.failed=true; CV._resolve(false); setCvPill(); }
+function cvPoll(){
+  var t0=Date.now();
+  (function tick(){
+    try{
+      var c=window.cv;
+      if(c && typeof c.then==='function' && !c.Mat && !CV._thenHooked){
+        CV._thenHooked=true;
+        c.then(function(m){ window.cv=m; });
+      }
+      if(c && c.Mat && c.imread){ var m=new c.Mat(); m.delete(); cvMarkReady(); return; }
+    }catch(e){}
+    if(Date.now()-t0>90000){ cvMarkFail(); return; }
+    setTimeout(tick,150);
+  })();
+}
+function setCvPill(){
+  var p=document.getElementById('cvPill'), d=document.getElementById('cvDot'); if(!p) return;
+  if(CV.ready){ d.className='dot ok'; p.textContent='ຕົວກວດຂອບອັດຕະໂນມັດພ້ອມ'; }
+  else if(CV.failed){ d.className='dot warn'; p.textContent='ໂຫຼດຕົວກວດຂອບບໍ່ໄດ້ — ປັບຂອບດ້ວຍມື'; }
+}
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/@techstark/opencv-js@4.10.0-release.1/dist/opencv.js" onload="cvPoll()" onerror="cvMarkFail()"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
+<script>
+/* =================================================================
+   CONFIG
+   ================================================================= */
+var MODES = {
+  household:{ group:'hh', label:'ສຳມະໂນຄົວ', slots:[
+    {key:'cover',  label:'ໜ້າປົກ',            kind:'page'},
+    {key:'p1',     label:'ໜ້າ 1 (ຂໍ້ມູນເຮືອນ)',  kind:'page'},
+    {key:'spread', label:'ໜ້າ 2–3 (ລາຍຊື່)',    kind:'spread'} ]},
+  id2:{ group:'id', label:'ບັດປະຈຳຕົວ', slots:[
+    {key:'front', label:'ບັດ ດ້ານໜ້າ', kind:'card'},
+    {key:'back',  label:'ບັດ ດ້ານຫຼັງ', kind:'card'} ]},
+  id1:{ group:'id', label:'ບັດປະຈຳຕົວ', slots:[
+    {key:'front', label:'ບັດ ດ້ານໜ້າ', kind:'card'} ]}
+};
+var PAPER = { a4:{w:210,h:297}, letter:{w:215.9,h:279.4} };
+var DPI = 200;                 // render resolution of pages
+var CARD_RATIO = 85.6/54;      // ISO ID-1
+var MAX_SRC = 2600;            // max long side kept from the uploaded photo
+var MAX_OUT = { page:2000, spread:2800, card:1400 };
+
+var state = {
+  mode:'household', fmt:'pdf',
+  data:{ hh:{}, id:{} },       // group -> key -> slot object
+  pages:[]                     // rendered page canvases
+};
+
+/* =================================================================
+   SMALL HELPERS
+   ================================================================= */
+function $(id){ return document.getElementById(id); }
+function el(tag, cls, html){ var e=document.createElement(tag); if(cls) e.className=cls; if(html!=null) e.innerHTML=html; return e; }
+function mkCanvas(w,h){ var c=document.createElement('canvas'); c.width=Math.max(1,Math.round(w)); c.height=Math.max(1,Math.round(h)); return c; }
+function busy(on,txt){ $('busy').classList.toggle('on',!!on); if(txt) $('busyTxt').textContent=txt; }
+function nextFrame(){ return new Promise(function(r){ requestAnimationFrame(function(){ setTimeout(r,0); }); }); }
+function showMsg(html, color){
+  var m=$('msg'); m.innerHTML=html||''; m.style.color=color||'';
+  if(color==='var(--ok)') toast(m.textContent.replace(/^✓\s*/,''),'ok');
+  else if(color==='var(--err)') toast(m.textContent.replace(/^✗\s*/,''),'err');
+}
+function toast(msg, type, ms){
+  var w=$('toasts'), t=el('div','toast '+(type||''));
+  var ic={ok:'✓',err:'⚠',warn:'⚠'}[type]||'ℹ';
+  t.appendChild(el('span',null,ic)); var tx=el('span'); tx.textContent=String(msg); t.appendChild(tx);
+  w.appendChild(t);
+  setTimeout(function(){ t.classList.add('out'); setTimeout(function(){ t.remove(); },300); }, ms||3400);
+}
+function toastWarn(m){ toast(m,'warn'); }
+function uiConfirm(title, msg, yesTxt, danger){
+  return new Promise(function(res){
+    $('dlgTitle').textContent=title; $('dlgMsg').textContent=msg||'';
+    var y=$('dlgYes'), n=$('dlgNo'), d=$('dlg');
+    y.textContent=yesTxt||'ຕົກລົງ'; y.className='btn '+(danger?'danger':'primary');
+    function done(v){ d.classList.remove('on'); y.onclick=n.onclick=d.onclick=null; res(v); }
+    y.onclick=function(){ done(true); }; n.onclick=function(){ done(false); };
+    d.onclick=function(e){ if(e.target===d) done(false); };
+    d.classList.add('on');
+  });
+}
+function dist(a,b){ return Math.hypot(a[0]-b[0],a[1]-b[1]); }
+function curMode(){ return MODES[state.mode]; }
+function curGroup(){ return state.data[curMode().group]; }
+function today(){ var d=new Date(); return d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0'); }
+
+/* =================================================================
+   IMAGE LOADING
+   ================================================================= */
+function loadFile(file){
+  return new Promise(function(resolve,reject){
+    var url=URL.createObjectURL(file);
+    var img=new Image();
+    img.onload=function(){
+      var s=Math.min(1, MAX_SRC/Math.max(img.naturalWidth,img.naturalHeight));
+      var c=mkCanvas(img.naturalWidth*s, img.naturalHeight*s);
+      var ctx=c.getContext('2d'); ctx.imageSmoothingQuality='high';
+      ctx.drawImage(img,0,0,c.width,c.height);
+      URL.revokeObjectURL(url); resolve(c);
+    };
+    img.onerror=function(){ URL.revokeObjectURL(url); reject(new Error('ອ່ານຮູບບໍ່ໄດ້: '+file.name)); };
+    img.src=url;
+  });
+}
+
+/* =================================================================
+   GEOMETRY
+   ================================================================= */
+function orderQuad(pts){
+  // returns [TL,TR,BR,BL]
+  var cx=0,cy=0; pts.forEach(function(p){cx+=p[0];cy+=p[1];}); cx/=4; cy/=4;
+  var s=pts.slice().sort(function(a,b){ return Math.atan2(a[1]-cy,a[0]-cx)-Math.atan2(b[1]-cy,b[0]-cx); });
+  // s is clockwise in screen coords starting near angle -PI (left). find TL = min(x+y)
+  var k=0, best=Infinity; s.forEach(function(p,i){ var v=p[0]+p[1]; if(v<best){best=v;k=i;} });
+  return [s[k], s[(k+1)%4], s[(k+2)%4], s[(k+3)%4]];
+}
+function fullQuad(w,h){ return [[0,0],[w,0],[w,h],[0,h]]; }
+function quadArea(q){ var a=0; for(var i=0;i<4;i++){ var p=q[i],n=q[(i+1)%4]; a+=p[0]*n[1]-n[0]*p[1]; } return Math.abs(a)/2; }
+function isConvex(q){
+  var sign=0;
+  for(var i=0;i<4;i++){
+    var a=q[i],b=q[(i+1)%4],c=q[(i+2)%4];
+    var cr=(b[0]-a[0])*(c[1]-b[1])-(b[1]-a[1])*(c[0]-b[0]);
+    if(Math.abs(cr)<1e-9) return false;
+    var s=cr>0?1:-1; if(!sign) sign=s; else if(s!==sign) return false;
+  }
+  return true;
+}
+function inQuad(q,x,y){
+  var sign=0;
+  for(var i=0;i<4;i++){
+    var a=q[i],b=q[(i+1)%4];
+    var cr=(b[0]-a[0])*(y-a[1])-(b[1]-a[1])*(x-a[0]);
+    var s=cr>=0?1:-1; if(!sign) sign=s; else if(s!==sign) return false;
+  }
+  return true;
+}
+function quadSize(q){
+  var w=Math.max(dist(q[0],q[1]),dist(q[3],q[2]));
+  var h=Math.max(dist(q[0],q[3]),dist(q[1],q[2]));
+  return {w:w,h:h};
+}
+// homography mapping 4 'from' points to 4 'to' points
+function solveH(from,to){
+  var A=[],i,j,k;
+  for(i=0;i<4;i++){
+    var x=from[i][0],y=from[i][1],u=to[i][0],v=to[i][1];
+    A.push([x,y,1,0,0,0,-u*x,-u*y,u]);
+    A.push([0,0,0,x,y,1,-v*x,-v*y,v]);
+  }
+  for(i=0;i<8;i++){
+    var mx=i; for(j=i+1;j<8;j++) if(Math.abs(A[j][i])>Math.abs(A[mx][i])) mx=j;
+    var t=A[i]; A[i]=A[mx]; A[mx]=t;
+    var d=A[i][i]; if(Math.abs(d)<1e-12) return null;
+    for(k=i;k<9;k++) A[i][k]/=d;
+    for(j=0;j<8;j++) if(j!==i){ var f=A[j][i]; if(f) for(k=i;k<9;k++) A[j][k]-=f*A[i][k]; }
+  }
+  return [A[0][8],A[1][8],A[2][8],A[3][8],A[4][8],A[5][8],A[6][8],A[7][8]];
+}
+
+/* =================================================================
+   PERSPECTIVE WARP (OpenCV if available, else pure JS)
+   ================================================================= */
+function warp(src, quad, W, H){
+  W=Math.round(W); H=Math.round(H);
+  if(CV.ready){
+    try{ return warpCV(src,quad,W,H); }catch(e){ console.warn('cv warp failed, fallback',e); }
+  }
+  return warpJS(src,quad,W,H);
+}
+function warpCV(src,quad,W,H){
+  var cv=window.cv;
+  var m=cv.imread(src), dst=new cv.Mat();
+  var sp=cv.matFromArray(4,1,cv.CV_32FC2,[quad[0][0],quad[0][1],quad[1][0],quad[1][1],quad[2][0],quad[2][1],quad[3][0],quad[3][1]]);
+  var dp=cv.matFromArray(4,1,cv.CV_32FC2,[0,0,W,0,W,H,0,H]);
+  var M=cv.getPerspectiveTransform(sp,dp);
+  cv.warpPerspective(m,dst,M,new cv.Size(W,H),cv.INTER_CUBIC,cv.BORDER_REPLICATE,new cv.Scalar());
+  var out=mkCanvas(W,H); cv.imshow(out,dst);
+  m.delete(); dst.delete(); sp.delete(); dp.delete(); M.delete();
+  return out;
+}
+function warpJS(src,quad,W,H){
+  var h=solveH([[0,0],[W,0],[W,H],[0,H]],quad);
+  var sw=src.width, sh=src.height;
+  var sd=src.getContext('2d').getImageData(0,0,sw,sh).data;
+  var out=mkCanvas(W,H), octx=out.getContext('2d'), od=octx.createImageData(W,H), o=od.data;
+  for(var y=0;y<H;y++){
+    var yy=y+0.5;
+    for(var x=0;x<W;x++){
+      var xx=x+0.5, den=h[6]*xx+h[7]*yy+1;
+      var u=(h[0]*xx+h[1]*yy+h[2])/den-0.5, v=(h[3]*xx+h[4]*yy+h[5])/den-0.5;
+      if(u<0)u=0; if(v<0)v=0; if(u>sw-1)u=sw-1; if(v>sh-1)v=sh-1;
+      var x0=u|0, y0=v|0, x1=Math.min(x0+1,sw-1), y1=Math.min(y0+1,sh-1), fx=u-x0, fy=v-y0;
+      var i00=(y0*sw+x0)*4, i10=(y0*sw+x1)*4, i01=(y1*sw+x0)*4, i11=(y1*sw+x1)*4, oi=(y*W+x)*4;
+      for(var c=0;c<3;c++){
+        var top=sd[i00+c]+(sd[i10+c]-sd[i00+c])*fx, bot=sd[i01+c]+(sd[i11+c]-sd[i01+c])*fx;
+        o[oi+c]=top+(bot-top)*fy;
+      }
+      o[oi+3]=255;
+    }
+  }
+  octx.putImageData(od,0,0);
+  return out;
+}
+function rotateCanvas(c, rot){
+  rot=((rot%4)+4)%4; if(!rot) return c;
+  var w=c.width,h=c.height, o=(rot%2)?mkCanvas(h,w):mkCanvas(w,h), x=o.getContext('2d');
+  x.translate(o.width/2,o.height/2); x.rotate(rot*Math.PI/2); x.drawImage(c,-w/2,-h/2);
+  return o;
+}
+
+/* =================================================================
+   AUTOMATIC DOCUMENT DETECTION
+   ================================================================= */
+function detectQuad(src, kind){
+  var W=src.width, H=src.height;
+  if(!CV.ready) return fullQuad(W,H);
+  try{
+    var q=detectCV(src, kind);
+    return q || fullQuad(W,H);
+  }catch(e){ console.warn('detect failed',e); return fullQuad(W,H); }
+}
+
+function detectCV(src, kind, maxSide){
+  var cv=window.cv;
+  var W=src.width, H=src.height, s=Math.min(1, (maxSide||720)/Math.max(W,H));
+  var sm=mkCanvas(W*s,H*s), sctx=sm.getContext('2d'); sctx.drawImage(src,0,0,sm.width,sm.height);
+  var w=sm.width, h=sm.height, area=w*h;
+  var img=sctx.getImageData(0,0,w,h);
+  var bgMean=borderMean(img);
+
+  var mats=[];
+  function M(){ var m=new cv.Mat(); mats.push(m); return m; }
+  var rgba=cv.matFromImageData(img); mats.push(rgba);
+  var gray=M(); cv.cvtColor(rgba,gray,cv.COLOR_RGBA2GRAY);
+  var blur=M(); cv.GaussianBlur(gray,blur,new cv.Size(5,5),0);
+  var k3=cv.getStructuringElement(cv.MORPH_RECT,new cv.Size(3,3)); mats.push(k3);
+  var k7=cv.getStructuringElement(cv.MORPH_RECT,new cv.Size(7,7)); mats.push(k7);
+
+  var bins=[];
+  // A: edges
+  var edges=M(); cv.Canny(blur,edges,30,110); cv.dilate(edges,edges,k3,new cv.Point(-1,-1),2); bins.push(edges);
+  // B: Otsu on gray (both polarities)
+  var th=M(); cv.threshold(blur,th,0,255,cv.THRESH_BINARY+cv.THRESH_OTSU); cv.morphologyEx(th,th,cv.MORPH_CLOSE,k7); bins.push(th);
+  var thi=M(); cv.bitwise_not(th,thi); bins.push(thi);
+  // C: colour distance from background (frame) colour
+  var dm=new Uint8Array(area), d=img.data;
+  for(var i=0,p=0;i<area;i++,p+=4){
+    var dr=d[p]-bgMean[0], dg=d[p+1]-bgMean[1], db=d[p+2]-bgMean[2];
+    var v=Math.sqrt(dr*dr+dg*dg+db*db)*0.8; dm[i]=v>255?255:v;
+  }
+  var dmat=cv.matFromArray(h,w,cv.CV_8UC1,dm); mats.push(dmat);
+  cv.GaussianBlur(dmat,dmat,new cv.Size(5,5),0);
+  var dth=M(); cv.threshold(dmat,dth,0,255,cv.THRESH_BINARY+cv.THRESH_OTSU);
+  cv.morphologyEx(dth,dth,cv.MORPH_CLOSE,k7); cv.morphologyEx(dth,dth,cv.MORPH_OPEN,k7); bins.push(dth);
+
+  var cands=[];
+  bins.forEach(function(b){ collectQuads(cv,b,area,w,h,cands); });
+  mats.forEach(function(m){ try{m.delete();}catch(e){} });
+
+  // every side of a valid crop must separate "background" (outside) from "document" (inside)
+  var best=null, bestScore=0;
+  cands.forEach(function(c){
+    var r=sideContrast(img,c.q);
+    if(!r.ok) return;
+    var sc=r.score*Math.sqrt(c.area/area)*(c.exact?1:0.85);
+    if(sc>bestScore){ bestScore=sc; best=c; }
+  });
+  if(!best) return null;
+  var q=best.q.map(function(p){ return [p[0]/s, p[1]/s]; });
+  return orderQuad(q);
+}
+
+function borderMean(img){
+  var w=img.width,h=img.height,d=img.data,b=Math.max(2,Math.round(Math.min(w,h)*0.025));
+  var r=0,g=0,bl=0,n=0;
+  for(var y=0;y<h;y+=2) for(var x=0;x<w;x+=2){
+    if(x<b||y<b||x>=w-b||y>=h-b){ var p=(y*w+x)*4; r+=d[p]; g+=d[p+1]; bl+=d[p+2]; n++; }
+  }
+  return [r/n,g/n,bl/n];
+}
+
+function collectQuads(cv, bin, area, w, h, out){
+  var contours=new cv.MatVector(), hier=new cv.Mat();
+  var copy=bin.clone();
+  cv.findContours(copy,contours,hier,cv.RETR_EXTERNAL,cv.CHAIN_APPROX_NONE);
+  var list=[];
+  for(var i=0;i<contours.size();i++){
+    var c=contours.get(i), a=cv.contourArea(c);
+    if(a>area*0.12) list.push({c:c,a:a}); else c.delete();
+  }
+  list.sort(function(x,y){ return y.a-x.a; });
+  list.slice(0,4).forEach(function(it){
+    var hull=new cv.Mat(); cv.convexHull(it.c,hull,false,true);
+    var peri=cv.arcLength(hull,true), found=null;
+    [0.02,0.03,0.045,0.065,0.09].some(function(eps){
+      var ap=new cv.Mat(); cv.approxPolyDP(hull,ap,eps*peri,true);
+      if(ap.rows===4){ found=matPts(ap); }
+      ap.delete(); return !!found;
+    });
+    var exact=!!found;
+    if(!found){
+      var rr=cv.minAreaRect(hull), pts=cv.RotatedRect.points(rr);
+      found=pts.map(function(p){ return [p.x,p.y]; });
+    }
+    found=orderQuad(found);
+    if(exact){ var ref=refineQuad(found, contourPts(it.c), w, h); if(ref) found=ref; }
+    var qa=quadArea(found);
+    if(isConvex(found) && qa>area*0.12 && qa<area*0.995) out.push({q:found, area:qa, exact:exact});
+    hull.delete();
+  });
+  list.forEach(function(it){ it.c.delete(); });
+  contours.delete(); hier.delete(); copy.delete();
+}
+function matPts(m){ var a=m.data32S, r=[]; for(var i=0;i<m.rows;i++) r.push([a[i*2],a[i*2+1]]); return r; }
+function contourPts(c){ var a=c.data32S, r=[]; for(var i=0;i<c.rows;i++) r.push([a[i*2],a[i*2+1]]); return r; }
+
+// Fit a straight line to each side (ignoring rounded corners) and intersect neighbours.
+function refineQuad(q, pts, w, h){
+  var diag=Math.hypot(w,h), tol=diag*0.02, lines=[];
+  for(var i=0;i<4;i++){
+    var a=q[i], b=q[(i+1)%4], dx=b[0]-a[0], dy=b[1]-a[1], L=Math.hypot(dx,dy);
+    if(L<5) return null;
+    var ux=dx/L, uy=dy/L, sel=[];
+    for(var j=0;j<pts.length;j++){
+      var px=pts[j][0]-a[0], py=pts[j][1]-a[1];
+      var t=(px*ux+py*uy)/L, dd=Math.abs(px*uy-py*ux);
+      if(t>0.12 && t<0.88 && dd<tol) sel.push(pts[j]);
+    }
+    if(sel.length<12) return null;
+    // total least squares
+    var mx=0,my=0; sel.forEach(function(p){mx+=p[0];my+=p[1];}); mx/=sel.length; my/=sel.length;
+    var sxx=0,syy=0,sxy=0; sel.forEach(function(p){ var X=p[0]-mx,Y=p[1]-my; sxx+=X*X; syy+=Y*Y; sxy+=X*Y; });
+    var ang=0.5*Math.atan2(2*sxy,sxx-syy);
+    lines.push({x:mx,y:my,dx:Math.cos(ang),dy:Math.sin(ang)});
+  }
+  var r=[];
+  for(var k=0;k<4;k++){
+    var l1=lines[(k+3)%4], l2=lines[k];   // corner k is between side k-1 and side k
+    var den=l1.dx*l2.dy-l1.dy*l2.dx; if(Math.abs(den)<1e-6) return null;
+    var t=((l2.x-l1.x)*l2.dy-(l2.y-l1.y)*l2.dx)/den;
+    r.push([l1.x+t*l1.dx, l1.y+t*l1.dy]);
+  }
+  var a0=quadArea(q), a1=quadArea(r);
+  if(!isConvex(r) || a1<a0*0.9 || a1>a0*1.15) return null;
+  for(var m=0;m<4;m++){ if(r[m][0]<-w*0.03||r[m][1]<-h*0.03||r[m][0]>w*1.03||r[m][1]>h*1.03) return null; }
+  return r.map(function(p){ return [Math.min(w,Math.max(0,p[0])), Math.min(h,Math.max(0,p[1]))]; });
+}
+
+// For each side: sample colour just outside vs just inside along the edge.
+// A side lying on the image border (nothing outside) is accepted as-is.
+function sideContrast(img,q){
+  var w=img.width,h=img.height,d=img.data, off=Math.max(4,Math.round(Math.min(w,h)*0.022));
+  function px(x,y){
+    x=Math.round(x); y=Math.round(y);
+    var r=0,g=0,b=0,n=0;
+    for(var dy=-1;dy<=1;dy++) for(var dx=-1;dx<=1;dx++){
+      var xx=Math.min(w-1,Math.max(0,x+dx)), yy=Math.min(h-1,Math.max(0,y+dy)), p=(yy*w+xx)*4;
+      r+=d[p]; g+=d[p+1]; b+=d[p+2]; n++;
+    }
+    return [r/n,g/n,b/n];
+  }
+  var cx=(q[0][0]+q[1][0]+q[2][0]+q[3][0])/4, cy=(q[0][1]+q[1][1]+q[2][1]+q[3][1])/4;
+  var sides=0, total=0, N=40;
+  for(var i=0;i<4;i++){
+    var a=q[i], b=q[(i+1)%4], dx=b[0]-a[0], dy=b[1]-a[1], L=Math.hypot(dx,dy);
+    var nx=dy/L, ny=-dx/L;
+    var mx=(a[0]+b[0])/2, my=(a[1]+b[1])/2;
+    if((cx-mx)*nx+(cy-my)*ny>0){ nx=-nx; ny=-ny; }            // make normal point outwards
+    var diffs=[];
+    for(var k=0;k<N;k++){
+      var t=0.1+0.8*k/(N-1), x=a[0]+dx*t, y=a[1]+dy*t;
+      var ox=x+nx*off, oy=y+ny*off, ix=x-nx*off, iy=y-ny*off;
+      if(ox<1||oy<1||ox>w-2||oy>h-2) continue;                // outside sample falls off the photo
+      var o=px(ox,oy), n=px(ix,iy);
+      var dA=Math.hypot(o[0]-n[0],o[1]-n[1],o[2]-n[2]);
+      // second, deeper sample pair: a printed line or box edge only differs at one depth
+      var ox2=x+nx*off*2.2, oy2=y+ny*off*2.2, ix2=x-nx*off*2.2, iy2=y-ny*off*2.2, dB=dA;
+      if(ox2>=1&&oy2>=1&&ox2<=w-2&&oy2<=h-2){ var o2=px(ox2,oy2), n2=px(ix2,iy2); dB=Math.hypot(o2[0]-n2[0],o2[1]-n2[1],o2[2]-n2[2]); }
+      diffs.push(Math.min(dA,dB));
+    }
+    if(diffs.length<N*0.35) continue;                         // side sits on the image border
+    diffs.sort(function(u,v){ return u-v; });
+    var med=diffs[Math.floor(diffs.length*0.5)];
+    if(med<22) return {ok:false};                             // no real edge here → wrong crop
+    sides++; total+=med;
+  }
+  if(!sides) return {ok:false};                               // equals the whole photo
+  // whole-region check: typical colour outside the crop must differ from the document itself
+  var sep=regionSeparation(img,q);
+  if(sep<24) return {ok:false};
+  return {ok:true, score:Math.min(total/sides, sep)};
+}
+function regionSeparation(img,q){
+  var w=img.width,h=img.height,d=img.data, hi=[new Uint32Array(64),new Uint32Array(64),new Uint32Array(64)], ho=[new Uint32Array(64),new Uint32Array(64),new Uint32Array(64)], ni=0, no=0;
+  for(var y=1;y<h;y+=3) for(var x=1;x<w;x+=3){
+    var p=(y*w+x)*4, H=inQuad(q,x,y)?hi:ho;
+    H[0][d[p]>>2]++; H[1][d[p+1]>>2]++; H[2][d[p+2]>>2]++;
+    if(H===hi) ni++; else no++;
+  }
+  if(no<(ni+no)*0.03) return 0;
+  function med(arr,n){ var c=0; for(var i=0;i<64;i++){ c+=arr[i]; if(c>=n/2) return i*4+2; } return 255; }
+  var dr=med(hi[0],ni)-med(ho[0],no), dg=med(hi[1],ni)-med(ho[1],no), db=med(hi[2],ni)-med(ho[2],no);
+  return Math.sqrt(dr*dr+dg*dg+db*db);
+}
+
+/* =================================================================
+   SLOT PROCESSING
+   ================================================================= */
+function processSlot(slot, kind){
+  var q=slot.quad, sz=quadSize(q), W=sz.w, H=sz.h;
+  if(slot.auto){                       // pull auto-detected edges in slightly to drop table/shadow pixels
+    var cx=(q[0][0]+q[1][0]+q[2][0]+q[3][0])/4, cy=(q[0][1]+q[1][1]+q[2][1]+q[3][1])/4, k=0.994;
+    q=q.map(function(p){ return [cx+(p[0]-cx)*k, cy+(p[1]-cy)*k]; });
+  }
+  if(kind==='card'){
+    if(W>=H) H=W/CARD_RATIO; else W=H/CARD_RATIO;
+  }
+  var lim=MAX_OUT[kind]||2000, s=Math.min(1, lim/Math.max(W,H));
+  // do not upscale beyond source, but make sure card has reasonable size
+  W=Math.max(50,W*s); H=Math.max(50,H*s);
+  var out=warp(slot.src,q,W,H);
+  slot.base=rotateCanvas(out, slot.rot||0);
+  if(!slot.adj) slot.adj=defaultAdj(kind);
+  slot.out=applyAdjust(slot.base, slot.adj);
+}
+
+async function setSlotImage(group, key, kind, file, hintQuad){
+  var src = (file instanceof HTMLCanvasElement) ? file : await loadFile(file);
+  await cvWait();
+  var slot={ src:src, rot:0, name:(file&&file.name)||'camera.jpg', adj:defaultAdj(kind) };
+  slot.quad=detectQuad(src, kind);
+  if(hintQuad && isFull(slot.quad,src)) slot.quad=hintQuad;
+  slot.auto=!isFull(slot.quad,src);
+  // cards photographed in portrait → turn to landscape
+  if(kind==='card'){ var sz=quadSize(slot.quad); if(sz.h>sz.w*1.15) slot.rot=1; }
+  processSlot(slot, kind);
+  state.data[group][key]=slot;
+  return slot;
+}
+function isFull(q,src){ var f=fullQuad(src.width,src.height); for(var i=0;i<4;i++) if(dist(q[i],f[i])>2) return false; return true; }
+async function cvWait(){
+  if(CV.ready||CV.failed) return;
+  busy(true,'ກຳລັງໂຫຼດຕົວກວດຂອບ… (ຄັ້ງທຳອິດອາດໃຊ້ເວລາ)');
+  await Promise.race([cvReadyPromise, new Promise(function(r){ setTimeout(r,25000); })]);
+}
+
+/* =================================================================
+
+/* =================================================================
+   FILTERS · BRIGHTNESS · CONTRAST  (pure JS, works without OpenCV)
+   ================================================================= */
+var FILTERS = [
+  {id:'auto', label:'ອັດຕະໂນມັດ'},
+  {id:'orig', label:'ຕົ້ນສະບັບ'},
+  {id:'vivid', label:'ສີສົດ'},
+  {id:'gray', label:'ສີເທົາ'},
+  {id:'bw',   label:'ຂາວ-ດຳ'}
+];
+function defaultAdj(kind){ return {f:'auto', b:0, c:0}; }
+function sameAdj(a,b){ return a&&b&&a.f===b.f&&a.b===b.b&&a.c===b.c; }
+
+function pct(hist, n, p){ var t=n*p, c=0; for(var i=0;i<256;i++){ c+=hist[i]; if(c>=t) return i; } return 255; }
+
+// brightness/contrast LUT applied after the filter
+function bcLut(b,c){
+  var lut=new Uint8ClampedArray(256), cf=Math.pow(2, c/55), off=b*1.1;
+  for(var i=0;i<256;i++) lut[i]=(i-128)*cf+128+off;
+  return lut;
+}
+
+function applyAdjust(src, adj){
+  adj=adj||defaultAdj();
+  if(adj.f==='orig' && !adj.b && !adj.c) return src;
+  var w=src.width, h=src.height, out=mkCanvas(w,h), ctx=out.getContext('2d');
+  ctx.drawImage(src,0,0);
+  var id=ctx.getImageData(0,0,w,h), d=id.data, n=w*h, i, p;
+  var bc=bcLut(adj.b||0, adj.c||0);
+  // sample histogram (every ~4th pixel)
+  var step=Math.max(1, Math.floor(n/250000)), hr=new Uint32Array(256), hg=new Uint32Array(256), hb=new Uint32Array(256), hl=new Uint32Array(256), cnt=0;
+  for(p=0;p<n;p+=step){ i=p*4; hr[d[i]]++; hg[d[i+1]]++; hb[d[i+2]]++; hl[(d[i]*77+d[i+1]*150+d[i+2]*29)>>8]++; cnt++; }
+
+  if(adj.f==='orig'){
+    for(i=0;i<d.length;i+=4){ d[i]=bc[d[i]]; d[i+1]=bc[d[i+1]]; d[i+2]=bc[d[i+2]]; }
+  }else if(adj.f==='auto' || adj.f==='vivid'){
+    // per-channel levels (white balance + stretch), then mild saturation boost
+    var luts=[hr,hg,hb].map(function(H){
+      var lo=pct(H,cnt,0.008), hi=pct(H,cnt,0.985);
+      if(hi-lo<40){ var m=(hi+lo)/2; lo=Math.max(0,m-20); hi=Math.min(255,m+20); }
+      var L=new Uint8ClampedArray(256), g=adj.f==='vivid'?0.95:0.9;
+      for(var v=0;v<256;v++){ var t=(v-lo)/(hi-lo); t=t<0?0:t>1?1:t; L[v]=bc[Math.round(255*Math.pow(t,g))]; }
+      return L;
+    });
+    var sat=adj.f==='vivid'?1.45:1.12, R=luts[0], G=luts[1], B=luts[2];
+    for(i=0;i<d.length;i+=4){
+      var r=R[d[i]], g2=G[d[i+1]], b2=B[d[i+2]], l=(r*77+g2*150+b2*29)>>8;
+      d[i]=l+(r-l)*sat; d[i+1]=l+(g2-l)*sat; d[i+2]=l+(b2-l)*sat;
+    }
+  }else if(adj.f==='gray'){
+    var lo2=pct(hl,cnt,0.008), hi2=pct(hl,cnt,0.985), GL=new Uint8ClampedArray(256);
+    if(hi2-lo2<40){ lo2=0; hi2=255; }
+    for(var v2=0;v2<256;v2++){ var t2=(v2-lo2)/(hi2-lo2); t2=t2<0?0:t2>1?1:t2; GL[v2]=bc[Math.round(255*t2)]; }
+    for(i=0;i<d.length;i+=4){ var y=GL[(d[i]*77+d[i+1]*150+d[i+2]*29)>>8]; d[i]=d[i+1]=d[i+2]=y; }
+  }else if(adj.f==='bw'){
+    bwDocument(d,w,h,bc);
+  }
+  ctx.putImageData(id,0,0);
+  return out;
+}
+
+// "scanned document" look: divide by local background (removes shadows), then soft threshold
+function bwDocument(d,w,h,bc){
+  var n=w*h, g=new Uint8Array(n), i, x, y;
+  for(i=0;i<n;i++){ var k=i*4; g[i]=(d[k]*77+d[k+1]*150+d[k+2]*29)>>8; }
+  // background = local max-ish via box mean on a downscaled grid
+  var S=8, gw=Math.ceil(w/S), gh=Math.ceil(h/S), bg=new Float32Array(gw*gh);
+  for(y=0;y<gh;y++) for(x=0;x<gw;x++){
+    var mx=0, x0=x*S, y0=y*S, x1=Math.min(w,x0+S), y1=Math.min(h,y0+S), s=0, c=0, arr=[];
+    for(var yy=y0;yy<y1;yy+=2) for(var xx=x0;xx<x1;xx+=2){ var v=g[yy*w+xx]; arr.push(v); }
+    arr.sort(function(a,b){return a-b;}); bg[y*gw+x]=arr[Math.floor(arr.length*0.85)]||255;
+  }
+  // smooth the background grid (box blur, radius ~ 4 cells, 2 passes)
+  var r=Math.max(2, Math.round(Math.min(gw,gh)/24));
+  for(var pass=0;pass<2;pass++){
+    var tmp=new Float32Array(gw*gh);
+    for(y=0;y<gh;y++) for(x=0;x<gw;x++){ var s1=0,c1=0; for(var dx=-r;dx<=r;dx++){ var xx2=x+dx; if(xx2>=0&&xx2<gw){ s1+=bg[y*gw+xx2]; c1++; } } tmp[y*gw+x]=s1/c1; }
+    for(y=0;y<gh;y++) for(x=0;x<gw;x++){ var s2=0,c2=0; for(var dy=-r;dy<=r;dy++){ var yy2=y+dy; if(yy2>=0&&yy2<gh){ s2+=tmp[yy2*gw+x]; c2++; } } bg[y*gw+x]=Math.max(s2/c2, bg[y*gw+x]*0.5+s2/c2*0.5); }
+  }
+  for(y=0;y<h;y++){
+    var fy=Math.min(gh-1.001,Math.max(0,y/S-0.5)), y0=fy|0, ty=fy-y0, y1=Math.min(gh-1,y0+1);
+    for(x=0;x<w;x++){
+      var fx=Math.min(gw-1.001,Math.max(0,x/S-0.5)), x0=fx|0, tx=fx-x0, x1=Math.min(gw-1,x0+1);
+      var b=(bg[y0*gw+x0]*(1-tx)+bg[y0*gw+x1]*tx)*(1-ty)+(bg[y1*gw+x0]*(1-tx)+bg[y1*gw+x1]*tx)*ty;
+      var v=g[y*w+x]/Math.max(30,b||255);   // 1 ≈ paper
+      var t=(v-0.55)/0.33; t=t<0?0:t>1?1:t; t=t*t*(3-2*t);
+      var o=bc[Math.round(t*255)], k=(y*w+x)*4;
+      d[k]=d[k+1]=d[k+2]=o;
+    }
+  }
+}
+
+/* =================================================================
+   ADJUST SCREEN
+   ================================================================= */
+var AJ={ group:null, def:null, slot:null, adj:null, prev:null, raf:0, fromCam:false };
+function openAdjust(group, def){
+  var slot=state.data[group][def.key]; if(!slot) return;
+  AJ.group=group; AJ.def=def; AJ.slot=slot; AJ.adj=Object.assign({}, slot.adj||defaultAdj(def.kind));
+  $('adjTitle').textContent=def.label;
+  $('adj').classList.add('on'); document.body.style.overflow='hidden';
+  adjBase(); adjSync(); adjBuildFilters(); adjRender();
+  navOverlay('adj');
+}
+function closeAdjust(){ $('adj').classList.remove('on'); document.body.style.overflow=''; }
+function adjBase(){
+  var b=AJ.slot.base, s=Math.min(1, 1100/Math.max(b.width,b.height)), c=mkCanvas(b.width*s,b.height*s);
+  var x=c.getContext('2d'); x.imageSmoothingQuality='high'; x.drawImage(b,0,0,c.width,c.height); AJ.prev=c;
+}
+function adjSync(){
+  $('adjB').value=AJ.adj.b; $('adjC').value=AJ.adj.c; $('adjBv').textContent=AJ.adj.b; $('adjCv').textContent=AJ.adj.c;
+  document.querySelectorAll('#filters button').forEach(function(b){ b.classList.toggle('active', b.dataset.f===AJ.adj.f); });
+}
+function adjBuildFilters(){
+  var wrap=$('filters'); wrap.innerHTML='';
+  var b=AJ.slot.base, s=Math.min(1,150/Math.max(b.width,b.height)), t=mkCanvas(b.width*s,b.height*s);
+  t.getContext('2d').drawImage(b,0,0,t.width,t.height);
+  FILTERS.forEach(function(f){
+    var bt=el('button'); bt.dataset.f=f.id;
+    var c=applyAdjust(t,{f:f.id,b:0,c:0}); if(c===t){ c=mkCanvas(t.width,t.height); c.getContext('2d').drawImage(t,0,0); }
+    bt.appendChild(c); bt.appendChild(el('span',null,f.label));
+    bt.onclick=function(){ AJ.adj.f=f.id; adjSync(); adjRender(); };
+    wrap.appendChild(bt);
+  });
+  adjSync();
+}
+function adjRender(){
+  cancelAnimationFrame(AJ.raf);
+  AJ.raf=requestAnimationFrame(function(){
+    var o=applyAdjust(AJ.prev, AJ.adj), c=$('adjCanvas');
+    c.width=o.width; c.height=o.height; c.getContext('2d').drawImage(o,0,0);
+  });
+}
+(function bindAdjust(){
+  ['adjB','adjC'].forEach(function(id){
+    $(id).addEventListener('input',function(){
+      var v=parseInt($(id).value,10)||0; if(Math.abs(v)<4) v=0;
+      if(id==='adjB') AJ.adj.b=v; else AJ.adj.c=v;
+      $(id+'v').textContent=v; adjRender();
+    });
+    $(id).addEventListener('dblclick',function(){ $(id).value=0; $(id).dispatchEvent(new Event('input')); });
+  });
+  $('adjReset').onclick=function(){ AJ.adj=defaultAdj(AJ.def.kind); adjSync(); adjRender(); };
+  $('adjClose').onclick=function(){ navBack(); };
+  function rot(d){ var s=AJ.slot; s.rot=((s.rot||0)+d+4)%4; processSlot(s,AJ.def.kind); adjBase(); adjBuildFilters(); adjRender(); }
+  $('adjRotL').onclick=function(){ rot(-1); };
+  $('adjRotR').onclick=function(){ rot(1); };
+  $('adjCrop').onclick=function(){
+    openEditor(AJ.group, AJ.def);
+    ED.after=function(){ AJ.slot=state.data[AJ.group][AJ.def.key]; adjBase(); adjBuildFilters(); adjRender(); };
+  };
+  $('adjRetake').onclick=function(){
+    var g=AJ.group, d=AJ.def; closeAdjust(); navReplaceBase();
+    openCamera(curMode().slots.indexOf(d));
+  };
+  $('adjOk').onclick=async function(){
+    var s=AJ.slot;
+    if(!sameAdj(s.adj,AJ.adj)){
+      busy(true,'ກຳລັງນຳໃຊ້…'); await nextFrame();
+      s.adj=Object.assign({},AJ.adj); s.out=applyAdjust(s.base,s.adj);
+      busy(false);
+    }
+    navBack(); renderSlots(); renderPages();
+  };
+})();
+
+/* =================================================================
+   PAGE LAYOUT
+   ================================================================= */
+function mm2px(mm){ return mm/25.4*DPI; }
+
+function drawContain(ctx, img, box, opt){
+  opt=opt||{};
+  var s=Math.min(box.w/img.width, box.h/img.height);
+  var w=img.width*s, h=img.height*s;
+  var x=box.x+(box.w-w)/2, y=box.y+(opt.alignTop?0:(box.h-h)/2);
+  drawAt(ctx,img,x,y,w,h,opt);
+}
+function drawAt(ctx,img,x,y,w,h,opt){
+  ctx.save();
+  if(opt.radius){ roundRectPath(ctx,x,y,w,h,opt.radius); ctx.clip(); }
+  ctx.imageSmoothingQuality='high';
+  ctx.drawImage(img,x,y,w,h);
+  ctx.restore();
+  if(opt.border){
+    ctx.save(); ctx.strokeStyle='#222'; ctx.lineWidth=Math.max(1,mm2px(0.25));
+    if(opt.radius){ roundRectPath(ctx,x,y,w,h,opt.radius); ctx.stroke(); } else ctx.strokeRect(x,y,w,h);
+    ctx.restore();
+  }
+}
+function roundRectPath(ctx,x,y,w,h,r){
+  r=Math.min(r,w/2,h/2);
+  ctx.beginPath(); ctx.moveTo(x+r,y); ctx.lineTo(x+w-r,y); ctx.arcTo(x+w,y,x+w,y+r,r);
+  ctx.lineTo(x+w,y+h-r); ctx.arcTo(x+w,y+h,x+w-r,y+h,r); ctx.lineTo(x+r,y+h); ctx.arcTo(x,y+h,x,y+h-r,r);
+  ctx.lineTo(x,y+r); ctx.arcTo(x,y,x+r,y,r); ctx.closePath();
+}
+function newPage(orient){
+  var p=PAPER[$('paper').value]||PAPER.a4;
+  var wmm=orient==='landscape'?p.h:p.w, hmm=orient==='landscape'?p.w:p.h;
+  var c=mkCanvas(mm2px(wmm),mm2px(hmm)), x=c.getContext('2d');
+  x.fillStyle='#fff'; x.fillRect(0,0,c.width,c.height);
+  return {canvas:c, ctx:x, orient:orient, wmm:wmm, hmm:hmm};
+}
+
+function buildPages(){
+  var pages=[], border=$('border').checked;
+  if(state.mode==='household'){
+    var g=state.data.hh;
+    // Page 1 (landscape): cover (left) + page 1 (right)
+    if(g.cover||g.p1){
+      var P=newPage('landscape'), mx=8, my=14, gap=6;
+      var bw=(P.wmm-2*mx-gap)/2, bh=P.hmm-2*my;
+      var left={x:mm2px(mx),y:mm2px(my),w:mm2px(bw),h:mm2px(bh)};
+      var right={x:mm2px(mx+bw+gap),y:mm2px(my),w:mm2px(bw),h:mm2px(bh)};
+      if(g.cover) drawContain(P.ctx,g.cover.out,left,{border:border});
+      if(g.p1)    drawContain(P.ctx,g.p1.out,right,{border:border});
+      pages.push(P);
+    }
+    // Page 2 (landscape): spread (pages 2–3) full width
+    if(g.spread){
+      var Q=newPage('landscape'), m2=8, t2=14;
+      drawContain(Q.ctx,g.spread.out,{x:mm2px(m2),y:mm2px(t2),w:mm2px(Q.wmm-2*m2),h:mm2px(Q.hmm-2*t2)},{border:border});
+      pages.push(Q);
+    }
+  }else{
+    var gi=state.data.id, two=state.mode==='id2';
+    if(gi.front || (two && gi.back)){
+      var R=newPage('portrait');
+      var cw = $('idSize').value==='real' ? 85.6 : R.wmm*0.46;
+      var ch = cw/CARD_RATIO, gapc = 6;
+      var rad = $('round').checked ? mm2px(cw*0.037) : 0;
+      var x0 = (R.wmm-cw)/2;
+      var opt={radius:rad};
+      if(two){
+        var blockH = ch*2+gapc, cy = R.hmm*0.55;          // same placement as sample
+        var y1 = cy-blockH/2, y2 = y1+ch+gapc;
+        if(gi.front) drawCard(R.ctx,gi.front.out,x0,y1,cw,ch,opt);
+        if(gi.back)  drawCard(R.ctx,gi.back.out,x0,y2,cw,ch,opt);
+      }else{
+        var y0 = R.hmm*0.42 - ch/2;                       // single card: centred, slightly above middle
+        drawCard(R.ctx,gi.front.out,x0,y0,cw,ch,opt);
+      }
+      pages.push(R);
+    }
+  }
+  return pages;
+}
+function drawCard(ctx,img,xmm,ymm,wmm,hmm,opt){
+  var box={x:mm2px(xmm),y:mm2px(ymm),w:mm2px(wmm),h:mm2px(hmm)};
+  // card images are already at ID-1 ratio; if a non-card ratio was rotated in, fit inside the box
+  var r=img.width/img.height;
+  if(Math.abs(r-CARD_RATIO)<0.03) drawAt(ctx,img,box.x,box.y,box.w,box.h,opt);
+  else drawContain(ctx,img,box,opt);
+}
+
+var renderTimer=null;
+function renderPages(){
+  clearTimeout(renderTimer);
+  renderTimer=setTimeout(function(){
+    state.pages=buildPages();
+    var wrap=$('pages'); wrap.innerHTML='';
+    if(!state.pages.length){ wrap.innerHTML='<div class="empty">'+svgI('file','l')+'ຍັງບໍ່ມີຮູບ — ສະແກນ ຫຼື ເພີ່ມຮູບໃນຂັ້ນຕອນທີ 1</div>'; updateExportUI(); return; }
+    state.pages.forEach(function(p,i){
+      var w=el('div','page-wrap '+p.orient);
+      var c=p.canvas; w.appendChild(c);
+      w.appendChild(el('div','lbl','ໜ້າ '+(i+1)+' / '+state.pages.length+' · '+($('paper').value==='a4'?'A4':'Letter')+' '+(p.orient==='landscape'?'ແນວນອນ':'ແນວຕັ້ງ')));
+      wrap.appendChild(w);
+    });
+    updateExportUI();
+  },60);
+}
+
+/* =================================================================
+   EXPORT
+   ================================================================= */
+function updateExportUI(){
+  var has=state.pages.length>0;
+  $('dlBtn').disabled=!has; $('driveBtn').disabled=!has;
+  var nOut = (state.fmt==='jpg' && $('mergeJpg').checked) ? 1 : state.pages.length;
+  $('pgCount').textContent = has ? '· '+nOut+(state.fmt==='jpg'?' ຮູບ':' ໜ້າ') : '';
+  $('dlLbl').textContent = state.fmt==='pdf' ? 'ດາວໂຫຼດ PDF' : (IS_MOBILE ? 'ບັນທຶກລົງຄັງຮູບ' : 'ດາວໂຫຼດ JPG');
+  $('shareBtn').style.display = CAN_SHARE ? '' : 'none';
+  $('shareBtn').disabled = !has;
+  $('mergeWrap').style.display=(state.fmt==='jpg' && state.pages.length>1)?'':'none';
+  $('driveBtn').style.display=(window.google&&google.script&&google.script.run)?'':'none';
+}
+function baseName(){
+  var n=($('fname').value||'').trim();
+  if(!n) n=curMode().label+'_'+today();
+  return n.replace(/[\\/:*?"<>|]+/g,'_');
+}
+async function buildFiles(){
+  // flush pending render
+  clearTimeout(renderTimer); state.pages=buildPages();
+  var name=baseName(), files=[];
+  if(state.fmt==='pdf'){
+    var jsPDF=window.jspdf&&window.jspdf.jsPDF; if(!jsPDF) throw new Error('ໂຫຼດ jsPDF ບໍ່ໄດ້ — ກວດສອບອິນເຕີເນັດ');
+    var first=state.pages[0], fmt=$('paper').value;
+    var doc=new jsPDF({orientation:first.orient, unit:'mm', format:fmt, compress:true});
+    state.pages.forEach(function(p,i){
+      if(i>0) doc.addPage(fmt,p.orient);
+      doc.addImage(p.canvas.toDataURL('image/jpeg',0.92),'JPEG',0,0,p.wmm,p.hmm,undefined,'FAST');
+    });
+    files.push({name:name+'.pdf', mime:'application/pdf', blob:doc.output('blob')});
+  }else{
+    var list=state.pages.map(function(p){ return p.canvas; });
+    if($('mergeJpg').checked && list.length>1){
+      var gap=Math.round(mm2px(6)), W=Math.max.apply(null,list.map(function(c){return c.width;}));
+      var H=list.reduce(function(s,c){ return s+c.height; },0)+gap*(list.length-1);
+      var m=mkCanvas(W,H), x=m.getContext('2d'); x.fillStyle='#fff'; x.fillRect(0,0,W,H);
+      var y=0; list.forEach(function(c){ x.drawImage(c,(W-c.width)/2,y); y+=c.height+gap; });
+      list=[m];
+    }
+    for(var i=0;i<list.length;i++){
+      var b=await new Promise(function(r){ list[i].toBlob(r,'image/jpeg',0.92); });
+      files.push({name:name+(list.length>1?'_ໜ້າ'+(i+1):'')+'.jpg', mime:'image/jpeg', blob:b});
+    }
+  }
+  return files;
+}
+function downloadBlob(blob,name){
+  var url=URL.createObjectURL(blob), a=document.createElement('a');
+  a.href=url; a.download=name; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(function(){ URL.revokeObjectURL(url); },30000);
+}
+/* device + share helpers */
+var IS_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform==='MacIntel' && navigator.maxTouchPoints>1);
+var IS_MOBILE = IS_IOS || /Android|Mobi/i.test(navigator.userAgent);
+var CAN_SHARE = (function(){
+  try{
+    if(!navigator.share || !navigator.canShare) return false;
+    return navigator.canShare({ files:[ new File([new Blob(['x'],{type:'image/jpeg'})],'t.jpg',{type:'image/jpeg'}) ] });
+  }catch(e){ return false; }
+})();
+function toShareFiles(files){ return files.map(function(f){ return new File([f.blob], f.name, {type:f.mime}); }); }
+async function shareOnce(files, title){
+  try{ await navigator.share({ files:toShareFiles(files), title:title }); return 'ok'; }
+  catch(e){
+    if(e && e.name==='AbortError') return 'abort';
+    console.warn('share', e);
+    return (e && e.name==='NotAllowedError') ? 'retry' : 'fail';
+  }
+}
+async function shareFiles(files){
+  var title = files[0].name.replace(/\.(pdf|jpg)$/i,'');
+  var r = await shareOnce(files, title);
+  if(r==='retry'){
+    // building the files took long enough that the tap "expired" — one more tap opens the share sheet
+    var ok = await uiConfirm('ໄຟລ໌ພ້ອມແລ້ວ', 'ກົດ "ແຊດຽວນີ້" ເພື່ອເລືອກແອັບ ເຊັ່ນ WhatsApp, Messenger, Telegram…', '↗ ແຊດຽວນີ້');
+    if(!ok) return 'abort';
+    r = await shareOnce(files, title);
+    if(r==='retry') r='fail';
+  }
+  return r;
+}
+async function downloadAll(files){
+  for(var i=0;i<files.length;i++){
+    downloadBlob(files[i].blob, files[i].name);
+    if(i<files.length-1) await new Promise(function(r){ setTimeout(r,500); });
+  }
+}
+async function doDownload(){
+  var files;
+  try{
+    busy(true,'ກຳລັງສ້າງໄຟລ໌…'); await nextFrame();
+    files = await buildFiles();
+  }catch(e){ busy(false); showMsg('✗ '+(e.message||e),'var(--err)'); return; }
+  busy(false);
+  try{
+    if(state.fmt==='jpg' && IS_MOBILE){
+      // iPhone/iPad: images only reach Photos through the share sheet ("Save Image")
+      if(IS_IOS && CAN_SHARE){
+        toast('ເລືອກ "ບັນທຶກຮູບ / Save Image" ເພື່ອເກັບລົງຄັງຮູບ', null, 5000);
+        var r = await shareFiles(files);
+        if(r==='ok'){ showMsg('✓ ບັນທຶກລົງຄັງຮູບແລ້ວ','var(--ok)'); return; }
+        if(r==='abort') return;
+      }
+      // Android: saved images appear in Gallery / Google Photos (album "Download")
+      await downloadAll(files);
+      showMsg('✓ ບັນທຶກລົງຄັງຮູບແລ້ວ '+files.length+' ຮູບ — ເບິ່ງໃນ Gallery / Google Photos (ອັນລະບັ້ມ Download)','var(--ok)');
+      return;
+    }
+    await downloadAll(files);
+    showMsg('✓ ດາວໂຫຼດແລ້ວ: '+files.map(function(f){return f.name;}).join(', '),'var(--ok)');
+  }catch(e){ showMsg('✗ '+(e.message||e),'var(--err)'); }
+}
+async function doShare(){
+  var files;
+  try{
+    busy(true,'ກຳລັງກຽມໄຟລ໌ເພື່ອແຊ…'); await nextFrame();
+    files = await buildFiles();
+  }catch(e){ busy(false); showMsg('✗ '+(e.message||e),'var(--err)'); return; }
+  busy(false);
+  var r = await shareFiles(files);
+  if(r==='ok') toast('ແຊແລ້ວ','ok');
+  else if(r==='fail') toast('ແຊບໍ່ສຳເລັດ — ກະລຸນາບັນທຶກໄຟລ໌ກ່ອນ ແລ້ວສົ່ງຜ່ານ WhatsApp ເອງ','err',5500);
+}
+function blobToBase64(blob){
+  return new Promise(function(res,rej){ var r=new FileReader(); r.onload=function(){ res(String(r.result).split(',')[1]); }; r.onerror=rej; r.readAsDataURL(blob); });
+}
+async function doDrive(){
+  try{
+    busy(true,'ກຳລັງບັນທຶກລົງ Google Drive…'); await nextFrame();
+    var files=await buildFiles(), links=[], folder='';
+    for(var i=0;i<files.length;i++){
+      var data=await blobToBase64(files[i].blob);
+      var res=await new Promise(function(resolve,reject){
+        google.script.run.withSuccessHandler(resolve).withFailureHandler(reject)
+          .saveToDrive({data:data, mime:files[i].mime, name:files[i].name});
+      });
+      links.push('<a href="'+res.url+'" target="_blank">'+res.name+'</a>'); folder=res.folderUrl;
+    }
+    showMsg('✓ ບັນທຶກລົງ Drive ແລ້ວ: '+links.join(', ')+(folder?' · <a href="'+folder+'" target="_blank">ເປີດໂຟນເດີ</a>':''),'var(--ok)');
+  }catch(e){ showMsg('✗ ບັນທຶກບໍ່ສຳເລັດ: '+(e.message||e),'var(--err)'); }
+  busy(false);
+}
+
+var ED={ group:null, def:null, slot:null, quad:null, scale:1, ox:0, oy:0, drag:-1, ptr:null };
+function openEditor(group, def){
+  var slot=state.data[group][def.key]; if(!slot) return;
+  ED.group=group; ED.def=def; ED.slot=slot; ED.quad=slot.quad.map(function(p){return p.slice();}); ED.drag=-1;
+  $('edTitle').textContent='ປັບຂອບ — '+def.label;
+  $('editor').classList.add('on'); document.body.style.overflow='hidden'; ED.after=null;
+  layoutEditor();
+}
+function closeEditor(){ $('editor').classList.remove('on'); document.body.style.overflow=''; }
+function layoutEditor(){
+  var st=$('edStage'), cv=$('edCanvas'), src=ED.slot.src;
+  var W=st.clientWidth, H=st.clientHeight, pad=24;
+  var s=Math.min((W-pad*2)/src.width,(H-pad*2)/src.height);
+  ED.scale=s; ED.ox=(W-src.width*s)/2; ED.oy=(H-src.height*s)/2;
+  var dpr=window.devicePixelRatio||1;
+  cv.width=W*dpr; cv.height=H*dpr; cv.style.width=W+'px'; cv.style.height=H+'px';
+  drawEditor();
+}
+function toScreen(p){ return [ED.ox+p[0]*ED.scale, ED.oy+p[1]*ED.scale]; }
+function toSrc(x,y){ return [(x-ED.ox)/ED.scale,(y-ED.oy)/ED.scale]; }
+function drawEditor(){
+  var cv=$('edCanvas'), ctx=cv.getContext('2d'), dpr=window.devicePixelRatio||1, src=ED.slot.src;
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  var W=cv.width/dpr, H=cv.height/dpr;
+  ctx.clearRect(0,0,W,H);
+  ctx.drawImage(src,ED.ox,ED.oy,src.width*ED.scale,src.height*ED.scale);
+  var q=ED.quad.map(toScreen);
+  // dim outside
+  ctx.save(); ctx.fillStyle='rgba(0,0,0,.45)'; ctx.beginPath(); ctx.rect(0,0,W,H);
+  ctx.moveTo(q[0][0],q[0][1]); for(var i=3;i>=1;i--) ctx.lineTo(q[i][0],q[i][1]); ctx.closePath(); ctx.fill('evenodd'); ctx.restore();
+  // outline
+  ctx.save(); ctx.strokeStyle='#38bdf8'; ctx.lineWidth=2; ctx.beginPath();
+  ctx.moveTo(q[0][0],q[0][1]); for(var j=1;j<4;j++) ctx.lineTo(q[j][0],q[j][1]); ctx.closePath(); ctx.stroke(); ctx.restore();
+  // handles
+  q.forEach(function(p,i){
+    ctx.beginPath(); ctx.arc(p[0],p[1],ED.drag===i?14:11,0,Math.PI*2);
+    ctx.fillStyle=ED.drag===i?'rgba(56,189,248,.55)':'rgba(255,255,255,.35)'; ctx.fill();
+    ctx.lineWidth=2.5; ctx.strokeStyle='#38bdf8'; ctx.stroke();
+  });
+  // loupe while dragging
+  if(ED.drag>=0){
+    var sp=ED.quad[ED.drag], R=64, Z=3;
+    var lx = (q[ED.drag][0] < W/2) ? W-R-14 : R+14, ly=R+14;
+    ctx.save(); ctx.beginPath(); ctx.arc(lx,ly,R,0,Math.PI*2); ctx.clip();
+    ctx.fillStyle='#000'; ctx.fillRect(lx-R,ly-R,2*R,2*R);
+    var sw=(2*R)/(Z*ED.scale);
+    ctx.drawImage(src, sp[0]-sw/2, sp[1]-sw/2, sw, sw, lx-R, ly-R, 2*R, 2*R);
+    ctx.strokeStyle='#38bdf8'; ctx.lineWidth=1.5;
+    ctx.beginPath(); ctx.moveTo(lx-R,ly); ctx.lineTo(lx+R,ly); ctx.moveTo(lx,ly-R); ctx.lineTo(lx,ly+R); ctx.stroke();
+    ctx.restore();
+    ctx.beginPath(); ctx.arc(lx,ly,R,0,Math.PI*2); ctx.strokeStyle='#fff'; ctx.lineWidth=3; ctx.stroke();
+  }
+}
+(function bindEditor(){
+  var cv=$('edCanvas');
+  function pos(e){ var r=cv.getBoundingClientRect(); return [e.clientX-r.left,e.clientY-r.top]; }
+  cv.addEventListener('pointerdown',function(e){
+    var p=pos(e), q=ED.quad.map(toScreen), best=-1, bd=40;
+    q.forEach(function(h,i){ var d=dist(h,p); if(d<bd){ bd=d; best=i; } });
+    if(best>=0){ ED.drag=best; ED.grab=[q[best][0]-p[0], q[best][1]-p[1]]; cv.setPointerCapture(e.pointerId); drawEditor(); e.preventDefault(); }
+  });
+  cv.addEventListener('pointermove',function(e){
+    if(ED.drag<0) return;
+    var p=pos(e), s=toSrc(p[0]+ED.grab[0], p[1]+ED.grab[1]), src=ED.slot.src;
+    ED.quad[ED.drag]=[Math.min(src.width,Math.max(0,s[0])), Math.min(src.height,Math.max(0,s[1]))];
+    drawEditor(); e.preventDefault();
+  });
+  function up(){ if(ED.drag>=0){ ED.drag=-1; drawEditor(); } }
+  cv.addEventListener('pointerup',up); cv.addEventListener('pointercancel',up);
+  window.addEventListener('resize',function(){ if($('editor').classList.contains('on')) layoutEditor(); });
+  $('edCancel').onclick=function(){ closeEditor(); if(ED.after){ var f=ED.after; ED.after=null; f(); } };
+  $('edFull').onclick=function(){ var s=ED.slot.src; ED.quad=fullQuad(s.width,s.height); drawEditor(); };
+  $('edAuto').onclick=async function(){
+    if(!CV.ready){ busy(true,'ກຳລັງໂຫຼດຕົວກວດຂອບ…'); await cvWait(); busy(false); }
+    if(!CV.ready){ toastWarn('ຕົວກວດຂອບອັດຕະໂນມັດບໍ່ພ້ອມ — ກະລຸນາລາກມຸມດ້ວຍມື'); return; }
+    var q=detectQuad(ED.slot.src, ED.def.kind);
+    if(isFull(q,ED.slot.src)) toastWarn('ກວດບໍ່ພົບຂອບເອກະສານ — ກະລຸນາລາກມຸມດ້ວຍມື');
+    ED.quad=q; drawEditor();
+  };
+  $('edOk').onclick=function(){
+    var q=orderQuad(ED.quad);
+    if(!isConvex(q) || quadArea(q)<100){ toastWarn('ຮູບສີ່ແຈບໍ່ຖືກຕ້ອງ — ກະລຸນາກວດຈຸດມຸມອີກຄັ້ງ'); return; }
+    var slot=ED.slot;
+    slot.quad=q; slot.auto=!isFull(q,slot.src);
+    processSlot(slot, ED.def.kind);
+    closeEditor(); renderSlots(); renderPages();
+    if(ED.after){ var f=ED.after; ED.after=null; f(); }
+  };
+})();
+
+function thumbCanvas(c){
+  var s=Math.min(1, 520/Math.max(c.width,c.height)), t=mkCanvas(c.width*s,c.height*s);
+  var x=t.getContext('2d'); x.imageSmoothingQuality='high'; x.drawImage(c,0,0,t.width,t.height); return t;
+}
+function swapSlots(idx){
+  var mode=curMode(), grp=curGroup(), a=mode.slots[idx], b=mode.slots[(idx+1)%mode.slots.length];
+  var sa=grp[a.key], sb=grp[b.key];
+  if(sb) grp[a.key]=sb; else delete grp[a.key];
+  if(sa) grp[b.key]=sa; else delete grp[b.key];
+  if(grp[a.key]) processSlot(grp[a.key],a.kind);
+  if(grp[b.key]) processSlot(grp[b.key],b.kind);
+  renderSlots(); renderPages();
+}
+
+/* bulk upload with automatic ordering */
+async function bulkUpload(files){
+  var mode=curMode(), max=mode.slots.length;
+  files=Array.prototype.filter.call(files,function(f){ return /^image\//.test(f.type)||/\.(jpe?g|png|webp|heic)$/i.test(f.name); });
+  if(!files.length) return;
+  if(files.length>max) toastWarn('ເລືອກໄດ້ສູງສຸດ '+max+' ພາບ — ຈະໃຊ້ '+max+' ພາບທຳອິດ');
+  files=files.slice(0,max);
+  busy(true,'ກຳລັງປະມວນຜົນ '+files.length+' ພາບ…'); await nextFrame();
+  try{
+    await cvWait();
+    var items=[];
+    for(var i=0;i<files.length;i++){
+      busy(true,'ກຳລັງປະມວນຜົນພາບທີ '+(i+1)+'/'+files.length+'…'); await nextFrame();
+      var src=await loadFile(files[i]);
+      var kindGuess = mode.group==='id' ? 'card' : 'page';
+      var q=detectQuad(src,kindGuess);
+      items.push({ src:src, quad:q, rot:0, name:files[i].name, auto:!isFull(q,src) });
+    }
+    var grp=state.data[mode.group];
+    if(mode.group==='hh'){
+      assignHousehold(items, grp);
+    }else{
+      if(mode.slots.length===1) delete grp.front;
+      else { delete grp.front; delete grp.back; }
+      items.forEach(function(it,i){
+        var sz=quadSize(it.quad); if(sz.h>sz.w*1.15) it.rot=1;
+        grp[mode.slots[i].key]=it;
+      });
+    }
+    mode.slots.forEach(function(def){ if(grp[def.key]) processSlot(grp[def.key],def.kind); });
+  }catch(e){ toast(e.message||e,'err'); }
+  busy(false); renderSlots(); renderPages();
+}
+function assignHousehold(items, grp){
+  delete grp.cover; delete grp.p1; delete grp.spread;
+  var rest=items.slice();
+  // widest (landscape) photo → spread (ໜ້າ 2–3)
+  var wi=-1, wr=1.15;
+  rest.forEach(function(it,i){ var sz=quadSize(it.quad), r=sz.w/sz.h; if(r>wr){ wr=r; wi=i; } });
+  if(wi>=0){ grp.spread=rest.splice(wi,1)[0]; }
+  // bluest photo → cover
+  if(rest.length){
+    var bi=0, bb=-1e9;
+    rest.forEach(function(it,i){ var b=blueness(it.src); if(b>bb){ bb=b; bi=i; } });
+    if(rest.length===2 && Math.abs(blueness(rest[0].src)-blueness(rest[1].src))<12) bi=0;
+    grp.cover=rest.splice(bi,1)[0];
+  }
+  if(rest.length) grp.p1=rest.shift();
+  if(rest.length && !grp.spread) grp.spread=rest.shift();
+}
+function blueness(c){
+  var s=Math.min(1,120/Math.max(c.width,c.height)), t=mkCanvas(c.width*s,c.height*s);
+  t.getContext('2d').drawImage(c,0,0,t.width,t.height);
+  var d=t.getContext('2d').getImageData(0,0,t.width,t.height).data, sum=0, n=0;
+  for(var i=0;i<d.length;i+=4){ sum+=d[i+2]-(d[i]+d[i+1])/2; n++; }
+  return sum/n;
+}
+
+/* =================================================================
+   UI: MODES & SLOTS
+   ================================================================= */
+var APP_VERSION='2.0.0';
+function svgI(id,cls){ return '<svg class="i'+(cls?' '+cls:'')+'"><use href="#i-'+id+'"/></svg>'; }
+function ibtn(icon, txt, fn, cls, title){
+  var b=el('button', cls||'', svgI(icon,'s')+(txt?'<span>'+txt+'</span>':''));
+  b.onclick=function(e){ e.stopPropagation(); fn(); }; if(title){ b.title=title; b.setAttribute('aria-label',title); }
+  return b;
+}
+function renderModes(){
+  var isHH=state.mode==='household';
+  document.querySelectorAll('.opt-id').forEach(function(e){ e.style.display=isHH?'none':''; });
+  document.querySelectorAll('.opt-hh').forEach(function(e){ e.style.display=isHH?'':'none'; });
+  $('fname').placeholder = isHH ? 'ເຊັ່ນ: ສຳມະໂນຄົວ_ເລກທີ 282' : 'ເຊັ່ນ: ບັດປະຈຳຕົວ_ພິລັນ';
+  $('scanSub').textContent = isHH ? 'ຖ່າຍຕໍ່ເນື່ອງ 3 ໜ້າ' : (state.mode==='id2' ? 'ດ້ານໜ້າ → ດ້ານຫຼັງ' : 'ຕັດຂອບອັດຕະໂນມັດ');
+}
+function updateProg(){
+  var m=curMode(), g=curGroup(), n=m.slots.filter(function(s){ return g[s.key]; }).length;
+  var p=$('prog'); p.textContent=n+' / '+m.slots.length; p.classList.toggle('done', n===m.slots.length);
+}
+function renderSlots(){
+  var wrap=$('slots'); wrap.innerHTML='';
+  var mode=curMode(), grp=curGroup();
+  mode.slots.forEach(function(def, idx){
+    var slot=grp[def.key];
+    var box=el('div','slot'+(slot?' filled':''));
+    var top=el('div','top');
+    top.appendChild(el('b',null,def.label));
+    var fl=slot && slot.adj ? (FILTERS.filter(function(f){return f.id===slot.adj.f;})[0]||{}).label : '';
+    top.appendChild(el('span','num', slot ? (slot.auto?'✂ ຕັດຂອບແລ້ວ':'▢ ທັງຮູບ')+(fl?' · '+fl:'') : 'ພາບທີ '+(idx+1)));
+    box.appendChild(top);
+
+    var th=el('button','thumb');
+    if(slot){
+      th.appendChild(thumbCanvas(slot.out));
+      th.appendChild(el('span','edit',svgI('edit','s')+'ແຕ່ງ'));
+      th.onclick=function(){ openAdjust(mode.group, def); };
+    }else{
+      th.innerHTML='<div class="ph"><span class="pi">'+svgI('plus','l')+'</span><b>ແຕະເພື່ອສະແກນ ຫຼື ເລືອກຮູບ</b><span>ກ້ອງສະແກນ · ແອັບກ້ອງ · ຄັງຮູບ</span></div>';
+      th.onclick=function(){ openPicker(mode.group, def, input); };
+    }
+    var input=el('input'); input.type='file'; input.accept='image/*'; input.hidden=true;
+    input.onchange=function(){ if(input.files[0]) useFile(mode.group, def, input.files[0]); };
+    box.ondragover=function(e){ e.preventDefault(); box.classList.add('drag'); };
+    box.ondragleave=function(){ box.classList.remove('drag'); };
+    box.ondrop=function(e){
+      e.preventDefault(); box.classList.remove('drag');
+      var f=e.dataTransfer.files && e.dataTransfer.files[0]; if(!f||!/^image\//.test(f.type)) return;
+      useFile(mode.group, def, f);
+    };
+    box.appendChild(th); box.appendChild(input);
+
+    var acts=el('div','acts');
+    if(slot){
+      acts.appendChild(ibtn('crop','ຂອບ',function(){ openEditor(mode.group,def); }));
+      acts.appendChild(ibtn('camera','ໃໝ່',function(){ openPicker(mode.group, def, input); }));
+      acts.appendChild(ibtn('rotl','',function(){ slot.rot=((slot.rot||0)+3)%4; processSlot(slot,def.kind); renderSlots(); renderPages(); },'ic','ໝຸນຊ້າຍ'));
+      acts.appendChild(ibtn('rotr','',function(){ slot.rot=((slot.rot||0)+1)%4; processSlot(slot,def.kind); renderSlots(); renderPages(); },'ic','ໝຸນຂວາ'));
+    }else{
+      acts.appendChild(ibtn('scan','ກ້ອງສະແກນ',function(){ openCamera(idx); }));
+      acts.appendChild(ibtn('image','ຄັງຮູບ',function(){ input.value=''; input.click(); }));
+    }
+    if(mode.slots.length>1 && (slot || grp[mode.slots[(idx+1)%mode.slots.length].key])){
+      acts.appendChild(ibtn('swap','',function(){ swapSlots(idx); },'ic','ສະລັບກັບຊ່ອງຖັດໄປ'));
+    }
+    if(slot) acts.appendChild(ibtn('trash','',function(){ delete grp[def.key]; renderSlots(); renderPages(); },'ic del','ລຶບ'));
+    box.appendChild(acts);
+    wrap.appendChild(box);
+  });
+  updateProg();
+}
+
+/* =================================================================
+   SOURCE PICKER
+   ================================================================= */
+var PICK={ group:null, def:null, input:null };
+function openPicker(group, def, input){
+  PICK.group=group; PICK.def=def; PICK.input=input;
+  $('sheetTitle').textContent='ເພີ່ມຮູບ — '+def.label;
+  $('sheet').classList.add('on');
+}
+function closePicker(){ $('sheet').classList.remove('on'); }
+async function useFile(group, def, file){
+  try{ busy(true,'ກຳລັງຕັດຂອບອັດຕະໂນມັດ…'); await nextFrame();
+    await setSlotImage(group, def.key, def.kind, file);
+  }catch(e){ toast(e.message||e,'err'); }
+  busy(false); renderSlots(); renderPages();
+}
+function nativeCapture(group, def){
+  var ci=$('capInput'); ci.value='';
+  ci.onchange=function(){ var f=ci.files&&ci.files[0]; if(f) useFile(group, def, f); };
+  ci.click();
+}
+(function bindPicker(){
+  $('sheet').addEventListener('click',function(e){ if(e.target===$('sheet')) closePicker(); });
+  $('shCancel').onclick=closePicker;
+  $('shLive').onclick=function(){ closePicker(); openCamera(curMode().slots.indexOf(PICK.def)); };
+  $('shPick').onclick=function(){ closePicker(); PICK.input.value=''; PICK.input.click(); };
+  $('shNative').onclick=function(){ closePicker(); nativeCapture(PICK.group, PICK.def); };
+})();
+
+/* =================================================================
+   SCREENS & NAVIGATION (phone back button closes overlays first)
+   ================================================================= */
+var MODE_TITLE={ household:'ປື້ມສຳມະໂນຄົວ', id2:'ບັດປະຈຳຕົວ 2 ດ້ານ', id1:'ບັດປະຈຳຕົວ 1 ດ້ານ' };
+function setView(v){
+  document.body.classList.toggle('home', v==='home');
+  document.body.classList.toggle('work', v==='work');
+  $('hTitle').textContent = v==='work' ? MODE_TITLE[state.mode] : 'ສະແກນເອກະສານ';
+  window.scrollTo(0,0);
+}
+function openMode(m){
+  state.mode=m; renderModes(); renderSlots(); renderPages(); showMsg('');
+  setView('work'); navPush();
+}
+function goHome(){
+  closePicker(); $('dlg').classList.remove('on');
+  if(!document.body.classList.contains('home')){ setView('home'); updateBadges(); }
+}
+function updateBadges(){
+  document.querySelectorAll('.mode').forEach(function(b){
+    var md=MODES[b.dataset.mode], g=state.data[md.group];
+    var n=md.slots.filter(function(s){ return g[s.key]; }).length;
+    var bd=b.querySelector('.badge'); if(bd) bd.textContent = n ? n+' ຮູບ' : '';
+  });
+}
+function navOverlay(){}
+function navReplaceBase(){}
+function topOverlay(){
+  if($('editor').classList.contains('on')) return 'editor';
+  if($('adj').classList.contains('on')) return 'adj';
+  if($('cam').classList.contains('on')) return 'cam';
+  if($('sheet').classList.contains('on')) return 'sheet';
+  if($('dlg').classList.contains('on')) return 'dlg';
+  return null;
+}
+function navBack(){
+  var t=topOverlay();
+  if(t==='editor') $('edCancel').click();
+  else if(t==='adj'){ closeAdjust(); }
+  else if(t==='cam') closeCamera();
+  else if(t==='sheet') closePicker();
+  else if(t==='dlg') $('dlgNo').click();
+  return t;
+}
+function hasGsHistory(){ return !!(window.google && google.script && google.script.history); }
+function navPush(){
+  try{
+    if(hasGsHistory()) google.script.history.push({v:'work'}, null, 'work');
+    else history.pushState({v:'work'}, '', '#work');
+  }catch(e){}
+}
+function onHistory(st){
+  if(navBack()){ if(document.body.classList.contains('work')) navPush(); return; }
+  if(!st || st.v!=='work') goHome();
+}
+(function bindNav(){
+  $('backBtn').onclick=function(){ goHome(); try{ if(!hasGsHistory() && location.hash==='#work') history.replaceState(null,'',location.pathname+location.search); }catch(e){} };
+  try{
+    if(hasGsHistory()) google.script.history.setChangeHandler(function(e){ onHistory(e.state); });
+    else window.addEventListener('popstate', function(e){ onHistory(e.state); });
+  }catch(e){}
+  window.addEventListener('scroll',function(){ $('bar').classList.toggle('scrolled', window.scrollY>4); },{passive:true});
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') navBack(); });
+})();
+
+/* =================================================================
+   PWA (GitHub Pages) — install button + offline cache
+   ================================================================= */
+var IS_GAS = /googleusercontent\.com$|script\.google\.com$/.test(location.hostname) || !!(window.google&&google.script);
+(function pwa(){
+  var deferred=null;
+  window.addEventListener('beforeinstallprompt',function(e){ e.preventDefault(); deferred=e; $('installBtn').classList.add('on'); });
+  $('installBtn').onclick=async function(){ if(!deferred) return; deferred.prompt(); try{ await deferred.userChoice; }catch(e){} deferred=null; $('installBtn').classList.remove('on'); };
+  if(!IS_GAS && 'serviceWorker' in navigator && location.protocol==='https:'){
+    window.addEventListener('load',function(){ navigator.serviceWorker.register('sw.js').catch(function(){}); });
+  }
+})();
+
+/* =================================================================
+   INIT
+   ================================================================= */
+document.querySelectorAll('.mode').forEach(function(b){ b.onclick=function(){ openMode(b.dataset.mode); }; });
+document.querySelectorAll('#fmtSeg button').forEach(function(b){
+  b.onclick=function(){ state.fmt=b.dataset.fmt; document.querySelectorAll('#fmtSeg button').forEach(function(x){ x.classList.toggle('active',x===b); }); updateExportUI(); };
+});
+$('scanBtn').onclick=function(){ openCamera(firstEmptyIdx()); };
+$('bulkBtn').onclick=function(){ $('bulkInput').value=''; $('bulkInput').click(); };
+$('bulkInput').onchange=function(){ bulkUpload($('bulkInput').files); };
+$('clearBtn').onclick=async function(){
+  if(!Object.keys(curGroup()).length){ toast('ຍັງບໍ່ມີຮູບໃຫ້ລ້າງ'); return; }
+  var ok=await uiConfirm('ລ້າງຮູບທັງໝົດ?','ຮູບ'+curMode().label+'ທີ່ເພີ່ມໄວ້ທັງໝົດຈະຖືກລຶບອອກ','ລ້າງເລີຍ',true);
+  if(!ok) return; state.data[curMode().group]={}; renderSlots(); renderPages(); showMsg('');
+};
+['paper','idSize','round','border'].forEach(function(id){ $(id).onchange=renderPages; });
+$('dlBtn').onclick=doDownload;
+$('shareBtn').onclick=doShare;
+$('mergeJpg').onchange=updateExportUI;
+$('driveBtn').onclick=doDrive;
+$('verTxt').textContent='v'+APP_VERSION+(IS_GAS?' · GAS':'');
+renderModes(); renderSlots(); renderPages(); setCvPill(); setView('home'); updateBadges();
+
+/* =================================================================
+   LIVE CAMERA SCANNER  (real-time edge detection + auto capture)
+   ================================================================= */
+var CAM={ stream:null, track:null, on:false, idx:0, auto:true, loop:0, lastT:0, busy:false,
+          quad:null, disp:null, stable:0, need:7, shots:0, torch:false, frame:null, capturing:false };
+
+function camAvailable(){
+  if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return false;
+  try{ if(document.featurePolicy && document.featurePolicy.allowsFeature && !document.featurePolicy.allowsFeature('camera')) return false; }catch(e){}
+  return true;
+}
+function firstEmptyIdx(){
+  var m=curMode(), g=curGroup();
+  for(var i=0;i<m.slots.length;i++) if(!g[m.slots[i].key]) return i;
+  return 0;
+}
+async function openCamera(startIdx){
+  CAM.idx = (startIdx==null || startIdx<0) ? firstEmptyIdx() : startIdx;
+  CAM.shots=0; CAM.quad=null; CAM.disp=null; CAM.stable=0;
+  $('cam').classList.add('on'); document.body.style.overflow='hidden';
+  $('camErr').classList.remove('on');
+  camSteps(); camHint('ກຳລັງເປີດກ້ອງ…'); camThumb();
+  if(!camAvailable()){ camFail('ໜ້າເວັບນີ້ບໍ່ອະນຸຍາດໃຫ້ໃຊ້ກ້ອງສົດ'); return; }
+  try{
+    var s;
+    try{
+      s=await navigator.mediaDevices.getUserMedia({audio:false, video:{facingMode:{ideal:'environment'}, width:{ideal:3840}, height:{ideal:2160}}});
+    }catch(e1){
+      if(e1 && (e1.name==='NotAllowedError'||e1.name==='SecurityError')) throw e1;
+      s=await navigator.mediaDevices.getUserMedia({audio:false, video:{facingMode:'environment'}});
+    }
+    if(!$('cam').classList.contains('on')){ s.getTracks().forEach(function(t){t.stop();}); return; }
+    CAM.stream=s; CAM.track=s.getVideoTracks()[0];
+    try{ await CAM.track.applyConstraints({advanced:[{focusMode:'continuous'}]}); }catch(e){}
+    var v=$('camVideo'); v.srcObject=s; await v.play().catch(function(){});
+    await new Promise(function(r){ if(v.videoWidth) r(); else v.onloadedmetadata=function(){ r(); }; });
+    CAM.on=true; CAM.torch=false;
+    var caps={}; try{ caps=CAM.track.getCapabilities?CAM.track.getCapabilities():{}; }catch(e){}
+    $('camTorch').disabled=!caps.torch; $('camTorch').classList.remove('on');
+    camHint('ວາງເອກະສານໃຫ້ຢູ່ໃນກອບ');
+    if(!CV.ready && !CV.failed) cvReadyPromise.then(function(){ if(CAM.on) camHint('ວາງເອກະສານໃຫ້ຢູ່ໃນກອບ'); });
+    camTick();
+  }catch(e){
+    console.warn('camera',e);
+    var m = (e&&e.name==='NotAllowedError') ? 'ບໍ່ໄດ້ຮັບອະນຸຍາດໃຫ້ໃຊ້ກ້ອງ — ກະລຸນາອະນຸຍາດໃນການຕັ້ງຄ່າ browser ຫຼື ໃຊ້ແອັບກ້ອງແທນ'
+          : (e&&e.name==='NotFoundError') ? 'ບໍ່ພົບກ້ອງໃນອຸປະກອນນີ້' : 'ເປີດກ້ອງບໍ່ໄດ້ ('+((e&&e.name)||e)+')';
+    camFail(m);
+  }
+}
+function camFail(msg){
+  $('camErrMsg').textContent=msg+' · ສາມາດໃຊ້ແອັບກ້ອງຂອງໂທລະສັບ ຫຼື ເລືອກຈາກຄັງຮູບແທນໄດ້';
+  $('camErr').classList.add('on'); camHint('');
+}
+function closeCamera(){
+  CAM.on=false; cancelAnimationFrame(CAM.loop);
+  if(CAM.stream){ CAM.stream.getTracks().forEach(function(t){ t.stop(); }); }
+  CAM.stream=null; CAM.track=null; $('camVideo').srcObject=null;
+  $('cam').classList.remove('on'); document.body.style.overflow='';
+  var o=$('camOverlay'); o.getContext('2d').clearRect(0,0,o.width,o.height);
+  renderSlots(); renderPages();
+}
+function camHint(t, ok){ var h=$('camHint'); h.textContent=t; h.style.display=t?'':'none'; h.classList.toggle('ok',!!ok); }
+function camSteps(){
+  var m=curMode(), g=curGroup(), w=$('camSteps'); w.innerHTML='';
+  if(m.slots.length<2){ w.appendChild(el('span','cur',m.slots[0].label)); return; }
+  m.slots.forEach(function(s,i){
+    var sp=el('span', i===CAM.idx?'cur':(g[s.key]?'done':''), (g[s.key]&&i!==CAM.idx?'✓ ':'')+s.label);
+    sp.onclick=function(){ CAM.idx=i; camSteps(); };
+    w.appendChild(sp);
+  });
+}
+function camThumb(){
+  var b=$('camDone'), m=curMode(), g=curGroup(), last=null, n=0;
+  m.slots.forEach(function(s){ if(g[s.key]){ n++; last=g[s.key]; } });
+  b.innerHTML='';
+  if(last){ var t=thumbCanvas(last.out); b.appendChild(t); var c=el('span','n',String(n)); b.appendChild(c); }
+  else b.innerHTML='<svg class="i"><use href="#i-check"/></svg>';
+}
+
+/* map video pixel → overlay pixel (object-fit: cover) */
+function camMap(){
+  var v=$('camVideo'), vw=v.videoWidth, vh=v.videoHeight, W=v.clientWidth, H=v.clientHeight;
+  var s=Math.max(W/vw, H/vh);
+  return {s:s, ox:(W-vw*s)/2, oy:(H-vh*s)/2, W:W, H:H};
+}
+function camTick(){
+  if(!CAM.on) return;
+  CAM.loop=requestAnimationFrame(camTick);
+  var now=performance.now();
+  camDraw();
+  if(CAM.busy || CAM.capturing || now-CAM.lastT<110) return;
+  CAM.lastT=now;
+  if(!CV.ready) return;
+  CAM.busy=true;
+  try{ camDetect(); }catch(e){ console.warn(e); }
+  CAM.busy=false;
+}
+function camDetect(){
+  var v=$('camVideo'), vw=v.videoWidth, vh=v.videoHeight; if(!vw) return;
+  var s=Math.min(1, 400/Math.max(vw,vh));
+  if(!CAM.frame) CAM.frame=mkCanvas(1,1);
+  var f=CAM.frame; f.width=Math.round(vw*s); f.height=Math.round(vh*s);
+  f.getContext('2d').drawImage(v,0,0,f.width,f.height);
+  var kind=curMode().slots[CAM.idx].kind;
+  var q=null; try{ q=detectCV(f, kind, 400); }catch(e){}
+  if(q){
+    q=q.map(function(p){ return [p[0]/s, p[1]/s]; });
+    var diag=Math.hypot(vw,vh), moved=CAM.quad ? Math.max.apply(null,q.map(function(p,i){ return dist(p,CAM.quad[i]); }))/diag : 1;
+    CAM.stable = moved<0.022 ? CAM.stable+1 : (moved<0.05 ? Math.max(0,CAM.stable-1) : 0);
+    CAM.quad=q; CAM.miss=0;
+  }else{
+    CAM.miss=(CAM.miss||0)+1;
+    if(CAM.miss>3){ CAM.quad=null; CAM.stable=0; }
+  }
+  var ring=$('camShot').querySelector('circle'), sh=$('camShot');
+  if(CAM.quad){
+    var pr=Math.min(1, CAM.stable/CAM.need);
+    sh.classList.add('armed');
+    ring.style.strokeDashoffset = CAM.auto ? String(264*(1-pr)) : '264';
+    camHint(CAM.auto ? (pr<1?'ພົບເອກະສານແລ້ວ — ຖືໄວ້ນິ່ງໆ…':'ກຳລັງຖ່າຍ…') : 'ພົບເອກະສານແລ້ວ — ກົດຖ່າຍ', true);
+    if(CAM.auto && CAM.stable>=CAM.need) camCapture();
+  }else{
+    sh.classList.remove('armed'); ring.style.strokeDashoffset='264';
+    camHint(kind==='card' ? 'ວາງບັດໃນກອບ ເທິງພື້ນສີເຂັ້ມ' : 'ວາງເອກະສານໃຫ້ຢູ່ໃນກອບ');
+  }
+}
+function camDraw(){
+  var o=$('camOverlay'), dpr=window.devicePixelRatio||1, W=o.clientWidth, H=o.clientHeight;
+  if(o.width!==Math.round(W*dpr)||o.height!==Math.round(H*dpr)){ o.width=Math.round(W*dpr); o.height=Math.round(H*dpr); }
+  var x=o.getContext('2d'); x.setTransform(dpr,0,0,dpr,0,0); x.clearRect(0,0,W,H);
+  if(!$('camVideo').videoWidth) return;
+  var M=camMap(), kind=curMode().slots[CAM.idx].kind;
+  if(CAM.quad){
+    var tgt=CAM.quad.map(function(p){ return [M.ox+p[0]*M.s, M.oy+p[1]*M.s]; });
+    if(!CAM.disp) CAM.disp=tgt.map(function(p){return p.slice();});
+    CAM.disp=CAM.disp.map(function(p,i){ return [p[0]+(tgt[i][0]-p[0])*0.35, p[1]+(tgt[i][1]-p[1])*0.35]; });
+    var q=CAM.disp;
+    x.save(); x.fillStyle='rgba(0,0,0,.35)'; x.beginPath(); x.rect(0,0,W,H);
+    x.moveTo(q[0][0],q[0][1]); for(var i=3;i>=1;i--) x.lineTo(q[i][0],q[i][1]); x.closePath(); x.fill('evenodd');
+    x.beginPath(); x.moveTo(q[0][0],q[0][1]); for(var j=1;j<4;j++) x.lineTo(q[j][0],q[j][1]); x.closePath();
+    x.fillStyle='rgba(63,210,127,.16)'; x.fill();
+    x.lineWidth=3; x.strokeStyle='#3fd27f'; x.lineJoin='round'; x.shadowColor='rgba(63,210,127,.8)'; x.shadowBlur=12; x.stroke();
+    x.shadowBlur=0;
+    q.forEach(function(p){ x.beginPath(); x.arc(p[0],p[1],7,0,Math.PI*2); x.fillStyle='#fff'; x.fill(); x.lineWidth=3; x.stroke(); });
+    x.restore();
+  }else{
+    CAM.disp=null;
+    // guide frame
+    var gw, gh;
+    if(kind==='card'){ gw=Math.min(W*0.84, (H*0.5)*CARD_RATIO); gh=gw/CARD_RATIO; }
+    else if(kind==='spread'){ gw=W*0.9; gh=Math.min(H*0.55, gw*0.72); }
+    else { gh=Math.min(H*0.62, W*0.86*1.4); gw=gh/1.4; }
+    var gx=(W-gw)/2, gy=(H-gh)/2-10, L=Math.min(gw,gh)*0.14;
+    x.save(); x.strokeStyle='rgba(255,255,255,.9)'; x.lineWidth=4; x.lineCap='round';
+    [[gx,gy,1,1],[gx+gw,gy,-1,1],[gx+gw,gy+gh,-1,-1],[gx,gy+gh,1,-1]].forEach(function(c){
+      x.beginPath(); x.moveTo(c[0],c[1]+L*c[3]); x.lineTo(c[0],c[1]); x.lineTo(c[0]+L*c[2],c[1]); x.stroke();
+    });
+    x.restore();
+  }
+}
+async function camCapture(){
+  if(CAM.capturing) return;
+  var v=$('camVideo'); if(!v.videoWidth) return;
+  CAM.capturing=true;
+  var fl=$('camFlash'); fl.classList.remove('go'); void fl.offsetWidth; fl.classList.add('go');
+  try{ if(navigator.vibrate) navigator.vibrate(30); }catch(e){}
+  var vw=v.videoWidth, vh=v.videoHeight, s=Math.min(1, MAX_SRC/Math.max(vw,vh));
+  var c=mkCanvas(vw*s,vh*s), cx=c.getContext('2d'); cx.imageSmoothingQuality='high'; cx.drawImage(v,0,0,c.width,c.height);
+  var hint=CAM.quad ? CAM.quad.map(function(p){ return [p[0]*s, p[1]*s]; }) : null;
+  var m=curMode(), def=m.slots[CAM.idx];
+  camHint('ກຳລັງປະມວນຜົນ…', true);
+  await nextFrame();
+  try{
+    await setSlotImage(m.group, def.key, def.kind, c, hint);
+    CAM.shots++;
+  }catch(e){ toast(e.message||e,'err'); }
+  CAM.quad=null; CAM.disp=null; CAM.stable=0;
+  camThumb();
+  // next empty slot, or finish
+  var g=curGroup(), next=-1;
+  for(var i=1;i<=m.slots.length;i++){ var k=(CAM.idx+i)%m.slots.length; if(!g[m.slots[k].key]){ next=k; break; } }
+  if(next<0){
+    camHint('ສຳເລັດ ✓', true);
+    setTimeout(function(){ CAM.capturing=false; closeCamera(); toast('ສະແກນຄົບແລ້ວ — ແຕະຮູບເພື່ອແຕ່ງແສງ/ສີ','ok'); }, 450);
+    return;
+  }
+  CAM.idx=next; camSteps();
+  camHint('ຕໍ່ໄປ: '+m.slots[next].label, true);
+  setTimeout(function(){ CAM.capturing=false; }, 1100);
+}
+(function bindCamera(){
+  $('camClose').onclick=closeCamera;
+  $('camShot').onclick=function(){ if(CAM.on) camCapture(); };
+  $('camDone').onclick=closeCamera;
+  $('autoSw').querySelectorAll('button').forEach(function(b){
+    b.onclick=function(){ CAM.auto=b.dataset.a==='1'; CAM.stable=0;
+      $('autoSw').querySelectorAll('button').forEach(function(x){ x.classList.toggle('active',x===b); });
+      try{ localStorage.setItem('scan.auto', CAM.auto?'1':'0'); }catch(e){} };
+  });
+  try{ if(localStorage.getItem('scan.auto')==='0') $('autoSw').querySelector('[data-a="0"]').click(); }catch(e){}
+  $('camTorch').onclick=async function(){
+    if(!CAM.track) return; CAM.torch=!CAM.torch;
+    try{ await CAM.track.applyConstraints({advanced:[{torch:CAM.torch}]}); $('camTorch').classList.toggle('on',CAM.torch); }
+    catch(e){ CAM.torch=false; toastWarn('ເປີດໄຟບໍ່ໄດ້'); }
+  };
+  $('camGal').onclick=function(){ var i=$('camGalInput'); i.value=''; i.click(); };
+  $('camGalInput').onchange=async function(){
+    var files=Array.prototype.slice.call($('camGalInput').files||[]); if(!files.length) return;
+    var m=curMode(), idx=CAM.idx;
+    closeCamera();
+    if(files.length>1) { await bulkUpload(files); return; }
+    await useFile(m.group, m.slots[idx], files[0]);
+  };
+  $('camNative').onclick=function(){ var m=curMode(), d=m.slots[CAM.idx]; closeCamera(); nativeCapture(m.group,d); };
+  $('camErrClose').onclick=closeCamera;
+  document.addEventListener('visibilitychange',function(){ if(document.hidden && CAM.on) closeCamera(); });
+})();
+
+</script>
+</body>
+</html>

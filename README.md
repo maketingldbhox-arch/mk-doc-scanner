@@ -1,0 +1,46 @@
+# ສະແກນເອກະສານ · ສຳມະໂນຄົວ & ບັດປະຈຳຕົວ
+
+ເວັບແອັບສະແກນເອກະສານສຳລັບໂທລະສັບ — ຖ່າຍ **ປື້ມສຳມະໂນຄົວ** ຫຼື **ບັດປະຈຳຕົວ** ແລ້ວລະບົບຈະ
+ຕັດຂອບ, ດຶງໃຫ້ຊື່ ແລະ ຈັດວາງລົງເຈ້ຍ A4 ໃຫ້ອັດຕະໂນມັດ, ສົ່ງອອກເປັນ PDF / JPG ຫຼື ແຊໄປ WhatsApp.
+
+**ເປີດໃຊ້:** https://maketingldbhox-arch.github.io/mk-doc-scanner/
+(ໃນ Chrome / Safari ກົດ "ເພີ່ມໃສ່ໜ້າຈໍຫຼັກ" ເພື່ອໃຊ້ຄືແອັບ)
+
+## ຄຸນສົມບັດ
+
+| | |
+|---|---|
+| 📷 ກ້ອງສະແກນສົດ | ກວດຫາຂອບເອກະສານແບບ real-time, **ຖ່າຍອັດຕະໂນມັດ** ເມື່ອຖືນິ່ງ (ຫຼື ໂໝດດ້ວຍມື), ເປີດໄຟແຟລດ, ຖ່າຍຕໍ່ເນື່ອງທຸກໜ້າ |
+| 🖼 ຄັງຮູບ | ເລືອກຫຼາຍພາບພ້ອມກັນ — ລະບົບຈັດລຳດັບໜ້າໃຫ້ (ໜ້າປົກ / ໜ້າ 1 / ໜ້າ 2–3) |
+| ✂ ຕັດຂອບອັດຕະໂນມັດ | OpenCV.js + ການແກ້ມຸມມອງ (perspective), ປັບມຸມທັງ 4 ດ້ວຍມືໄດ້ ພ້ອມແວ່ນຂະຫຍາຍ |
+| 🎨 ແຕ່ງຮູບ | ຟິວເຕີ: ອັດຕະໂນມັດ · ຕົ້ນສະບັບ · ສີສົດ · ສີເທົາ · ຂາວ-ດຳ (ລຶບເງົາ) + ຄວາມສະຫວ່າງ / ຄວາມຄົມຊັດ |
+| 📄 ສົ່ງອອກ | PDF ຫຼື JPG (A4 / Letter), ບັນທຶກລົງຄັງຮູບ, ແຊ, ບັນທຶກລົງ Google Drive (ສະບັບ GAS) |
+| 🔒 ຄວາມເປັນສ່ວນຕົວ | ຮູບປະມວນຜົນໃນເຄື່ອງເທົ່ານັ້ນ — ບໍ່ສົ່ງຂຶ້ນເຊີບເວີ |
+
+## ລະບົບອັດຕະໂນມັດ
+
+```
+push ໂຄດ → GitHub (main)
+   ├─ GitHub Actions: ກວດ syntax → deploy GitHub Pages ອັດຕະໂນມັດ
+   └─ Google Apps Script (/exec ເດີມ): doGet() ດຶງ index.html ລ່າສຸດຈາກ GitHub ເອງ (cache 2 ນາທີ)
+```
+
+ແກ້ໄຂແຕ່ `index.html` ແລ້ວ push — ທັງເວັບ GitHub Pages ແລະ ແອັບ GAS ຈະອັບເດດເອງ ບໍ່ຕ້ອງ Deploy ໃໝ່.
+
+## ໂຄງສ້າງ
+
+```
+index.html            ແອັບທັງໝົດ (HTML + CSS + JS ໄຟລ໌ດຽວ)
+manifest.webmanifest  PWA (ຕິດຕັ້ງເປັນແອັບ)
+sw.js                 offline cache
+icons/                ໄອຄອນແອັບ
+gas/Code.gs           Google Apps Script: ໂຫຼດໂຄດຈາກ GitHub + saveToDrive()
+gas/appsscript.json   manifest ຂອງ GAS
+.github/workflows/    deploy GitHub Pages
+```
+
+ໝາຍເຫດ: ກ້ອງສົດ ຕ້ອງການ HTTPS ແລະ ການອະນຸຍາດກ້ອງ. ຖ້າເປີດກ້ອງສົດບໍ່ໄດ້ (ເຊັ່ນ ໃນບາງ browser ຫຼື iframe)
+ແອັບຈະສະເໜີ "ແອັບກ້ອງຂອງໂທລະສັບ" ແທນ — ຍັງຕັດຂອບອັດຕະໂນມັດຄືເກົ່າ.
+
+---
+Built for LDB Muang Khop Service Unit · Libraries: [OpenCV.js](https://github.com/TechStark/opencv-js), [jsPDF](https://github.com/parallax/jsPDF)
