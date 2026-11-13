@@ -1610,7 +1610,8 @@ function dayLabel(ts){
   var d=new Date(ts); return 'ວັນທີ '+String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear();
 }
 async function refreshLibCount(){
-  try{ var a=await dbAll(); LIB.all=a; }catch(e){ LIB.all=[]; }
+  try{ var a=await dbAll(); LIB.all=a; LIB.err=''; }catch(e){ LIB.all=[]; LIB.err=(e&&e.message)||String(e); }
+  if(LIB.err) $('libInfo').textContent='⚠ ບັນທຶກໃນເຄື່ອງບໍ່ໄດ້ໃນ browser ນີ້: '+LIB.err;
   var n=LIB.all.length;
   $('libCount').textContent=n?String(n):''; $('libCardN').textContent=n?n+' ເອກະສານ':'ຍັງບໍ່ມີ';
   $('libCardSub').textContent=n?('ລ່າສຸດ: '+LIB.all[0].name):'ເອກະສານທີ່ບັນທຶກຈະຢູ່ທີ່ນີ້';
