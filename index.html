@@ -50,8 +50,12 @@ svg.i.l{width:28px;height:28px}
 .ibtn{width:42px;height:42px;border-radius:14px;border:0;background:#fff;color:var(--ink);display:grid;place-items:center;flex:none;box-shadow:var(--sh);padding:0;transition:transform .1s}
 .ibtn:active{transform:scale(.92)}
 #backBtn{display:none}
-body.work #backBtn{display:grid}
-body.work .bar .logo{display:none}
+body.work #backBtn,body.lib #backBtn{display:grid}
+body.work .bar .logo,body.lib .bar .logo{display:none}
+#libBtn{position:relative}
+body.lib #libBtn{display:none}
+#libCount{position:absolute;top:-4px;right:-4px;background:var(--brand);color:#fff;font-size:10.5px;font-weight:700;min-width:19px;height:19px;border-radius:99px;display:grid;place-items:center;padding:0 5px;border:2px solid var(--bg)}
+#libCount:empty{display:none}
 
 main{max-width:880px;margin:0 auto;padding:6px 14px 24px}
 
@@ -88,9 +92,64 @@ main{max-width:880px;margin:0 auto;padding:6px 14px 24px}
 body.work #work{display:block;animation:vin .25s cubic-bezier(.2,.8,.2,1)}
 body.work #home{display:none}
 body.home #home{animation:vin .25s cubic-bezier(.2,.8,.2,1)}
-body.home .dock{display:none}
+body.home .dock,body.lib .dock{display:none}
+#lib{display:none;max-width:680px;margin:0 auto}
+body.lib #lib{display:block;animation:vin .25s cubic-bezier(.2,.8,.2,1)}
+body.lib #home,body.lib #work{display:none}
 body.work{padding-bottom:calc(158px + var(--safe-b))}
 @keyframes vin{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+/* ---------- library ---------- */
+.libcard{display:flex;align-items:center;gap:14px;width:100%;text-align:left;border:0;background:#fff;border-radius:var(--r);padding:14px;box-shadow:var(--sh);margin-top:12px;transition:transform .12s}
+.libcard:active{transform:scale(.975)}
+.libcard .art{width:56px;height:56px;border-radius:18px;background:#ece9fb;color:#5b47c9;display:grid;place-items:center;flex:none}
+.libcard .mt{flex:1;min-width:0}
+.libcard b{display:block;font-size:15.5px;font-weight:600}
+.libcard small{display:block;font-size:12.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.libcard .n{font-size:12px;font-weight:700;color:#5b47c9;background:#ece9fb;border-radius:99px;padding:3px 10px;white-space:nowrap}
+.searchbox{display:flex;align-items:center;gap:8px;background:#fff;border-radius:18px;padding:0 14px;box-shadow:var(--sh);border:1.5px solid transparent;transition:border-color .15s}
+.searchbox:focus-within{border-color:var(--brand)}
+.searchbox svg{color:var(--muted)}
+.searchbox input{flex:1;border:0;outline:none;background:transparent;min-height:52px;font-size:15.5px;min-width:0}
+.filt{display:flex;gap:8px;align-items:center;margin:12px 0 6px;flex-wrap:wrap}
+.chips2{display:flex;gap:6px;flex-wrap:wrap}
+.chips2 button{border:0;background:#fff;color:var(--ink2);border-radius:99px;padding:7px 13px;font-size:13px;font-weight:600;box-shadow:var(--sh)}
+.chips2 button.active{background:var(--brand);color:#fff}
+.datebox{display:flex;align-items:center;gap:6px;background:#fff;border-radius:99px;padding:0 6px 0 12px;box-shadow:var(--sh);margin-left:auto;color:var(--ink2)}
+.datebox input{border:0;background:transparent;min-height:36px;font-size:13px;color:var(--ink);outline:none;max-width:140px}
+.datebox button{border:0;background:#eef2f7;border-radius:50%;width:26px;height:26px;display:grid;place-items:center;padding:0}
+#libSum{font-size:12px;color:var(--muted);margin:8px 4px 4px}
+.lib-day{font-size:12.5px;font-weight:700;color:var(--muted);margin:16px 4px 8px}
+.lib-item{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:0;background:#fff;border-radius:18px;padding:10px;box-shadow:var(--sh);margin-bottom:8px;transition:transform .1s}
+.lib-item:active{transform:scale(.98)}
+.lib-th{width:64px;height:64px;border-radius:12px;background:#eef2f7 center/cover no-repeat;flex:none;border:1px solid var(--line)}
+.lib-tx{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.lib-tx b{font-size:14.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lib-tx small{font-size:12px;color:var(--muted)}
+.lib-dt{display:flex;align-items:center;gap:4px}
+svg.i.xs{width:13px;height:13px}
+.lib-item .go{width:32px;height:32px;border-radius:10px;background:var(--brand-ll);color:var(--brand);display:grid;place-items:center;flex:none}
+#libInfo{text-align:center;font-size:12px;color:var(--muted);margin:16px 0}
+/* saved doc sheet */
+#docSheet,#nameDlg{position:fixed;inset:0;background:rgba(10,20,35,.45);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);display:none;align-items:flex-end;justify-content:center}
+#docSheet{z-index:130} #nameDlg{z-index:210}
+#docSheet.on,#nameDlg.on{display:flex;animation:fade .18s}
+.docpages{display:flex;gap:10px;overflow-x:auto;padding:4px 2px 12px;scroll-snap-type:x mandatory}
+.docpages img{height:230px;border-radius:6px;box-shadow:0 6px 18px rgba(15,30,60,.18);scroll-snap-align:center;flex:none;background:#fff}
+.docpages img.portrait{height:260px}
+.dochead{display:flex;align-items:flex-start;gap:10px;margin:0 4px 10px}
+.dochead .t{flex:1;min-width:0}
+.dochead h3{margin:0;font-size:17px;font-weight:700;word-break:break-word}
+.dochead p{margin:2px 0 0;font-size:12.5px;color:var(--muted)}
+.docacts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.docacts button{border:0;background:#f1f5fa;border-radius:14px;min-height:62px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:12.5px;font-weight:600;color:var(--ink2);transition:transform .08s}
+.docacts button:active{transform:scale(.95)}
+.docacts button.pri{background:var(--grad);color:#fff}
+.docacts button.wa{background:#22c35e;color:#fff}
+.docacts button.del{color:var(--err)}
+.namein{width:100%;padding:13px 14px;border:1.5px solid var(--line);border-radius:14px;font-size:16px;min-height:52px;outline:none;margin-bottom:6px}
+.namein:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(39,120,185,.15)}
+#nameErr{color:var(--err);font-size:12.5px;min-height:18px;margin:0 4px 6px}
 
 /* ---------- work ---------- */
 .card{background:var(--card);border-radius:var(--r);padding:16px;margin-bottom:14px;box-shadow:var(--sh)}
@@ -192,7 +251,7 @@ body.home #toasts{bottom:calc(24px + var(--safe-b))}
 .toast.out{opacity:0;transform:translateY(8px)}
 @keyframes tin{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}
 #sheet,#dlg{position:fixed;inset:0;background:rgba(10,20,35,.45);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);display:none;align-items:flex-end;justify-content:center}
-#sheet{z-index:120} #dlg{z-index:190}
+#sheet{z-index:120} #dlg{z-index:211}
 #sheet.on,#dlg.on{display:flex;animation:fade .18s}
 @keyframes fade{from{opacity:0}to{opacity:1}}
 .sbox{background:#fff;width:100%;max-width:480px;border-radius:26px 26px 0 0;padding:8px 14px calc(14px + var(--safe-b));animation:up .26s cubic-bezier(.2,.8,.2,1);box-shadow:0 -10px 40px rgba(0,0,0,.18)}
@@ -302,7 +361,7 @@ body.home #toasts{bottom:calc(24px + var(--safe-b))}
   .check{align-self:stretch}
 }
 @media (min-width:641px){
-  #sheet,#dlg{align-items:center}
+  #sheet,#dlg,#docSheet,#nameDlg{align-items:center}
   .sbox{border-radius:26px;margin:16px}
   .grab{display:none}
   #adj .tools,#editor .ebar{max-width:640px;width:100%;margin:0 auto}
@@ -319,6 +378,7 @@ body.home #toasts{bottom:calc(24px + var(--safe-b))}
       <h1 id="hTitle">ສະແກນເອກະສານ</h1>
       <div class="sub"><span class="dot" id="cvDot"></span><span id="cvPill">ກຳລັງກຽມຕົວກວດຂອບ…</span></div>
     </div>
+    <button class="ibtn" id="libBtn" aria-label="ເອກະສານຂອງຂ້ອຍ" title="ເອກະສານຂອງຂ້ອຍ"><svg class="i"><use href="#i-folder"/></svg><span id="libCount"></span></button>
   </div>
 </header>
 
@@ -335,6 +395,7 @@ body.home #toasts{bottom:calc(24px + var(--safe-b))}
       <button class="mode" data-mode="id2"><span class="art"><svg class="i l"><use href="#i-id2"/></svg></span><span class="mt"><b>ບັດປະຈຳຕົວ 2 ດ້ານ</b><small>ດ້ານໜ້າ + ດ້ານຫຼັງ ໃນເຈ້ຍແຜ່ນດຽວ</small></span><span class="badge"></span><span class="go"><svg class="i s"><use href="#i-next"/></svg></span></button>
       <button class="mode" data-mode="id1"><span class="art"><svg class="i l"><use href="#i-id1"/></svg></span><span class="mt"><b>ບັດປະຈຳຕົວ 1 ດ້ານ</b><small>ສະເພາະດ້ານໜ້າ</small></span><span class="badge"></span><span class="go"><svg class="i s"><use href="#i-next"/></svg></span></button>
     </div>
+    <button class="libcard" id="libCard"><span class="art"><svg class="i l"><use href="#i-folder"/></svg></span><span class="mt"><b>ເອກະສານຂອງຂ້ອຍ</b><small id="libCardSub">ເອກະສານທີ່ບັນທຶກຈະຢູ່ທີ່ນີ້</small></span><span class="n" id="libCardN"></span></button>
     <div class="feat">
       <div><svg class="i"><use href="#i-camera"/></svg>ກ້ອງສົດ<br>ຖ່າຍອັດຕະໂນມັດ</div>
       <div><svg class="i"><use href="#i-wand"/></svg>ຟິວເຕີ<br>ເອກະສານ</div>
@@ -343,6 +404,17 @@ body.home #toasts{bottom:calc(24px + var(--safe-b))}
     <a class="install" id="webBtn" href="https://maketingldbhox-arch.github.io/mk-doc-scanner/" target="_blank" rel="noopener" style="text-decoration:none"><svg class="i"><use href="#i-camera"/></svg>ເປີດສະບັບເວັບ — ກ້ອງສະແກນສົດ + ຕິດຕັ້ງເປັນແອັບ</a>
     <button class="install" id="installBtn"><svg class="i"><use href="#i-down"/></svg>ຕິດຕັ້ງເປັນແອັບໃນໜ້າຈໍຫຼັກ</button>
     <p class="foot"><svg class="i s"><use href="#i-lock"/></svg>ຮູບຖືກປະມວນຜົນໃນເຄື່ອງຂອງທ່ານເອງ · <span id="verTxt"></span></p>
+  </section>
+
+  <section id="lib">
+    <div class="searchbox"><svg class="i"><use href="#i-search"/></svg><input type="search" id="libQ" placeholder="ຄົ້ນຫາດ້ວຍຊື່ເອກະສານ…" autocomplete="off"></div>
+    <div class="filt">
+      <div class="chips2" id="libChips"><button data-r="all" class="active">ທັງໝົດ</button><button data-r="today">ມື້ນີ້</button><button data-r="7">7 ມື້</button><button data-r="30">30 ມື້</button></div>
+      <label class="datebox" title="ຄົ້ນຫາຕາມວັນທີບັນທຶກ"><svg class="i s"><use href="#i-cal"/></svg><input type="date" id="libDate" aria-label="ວັນທີບັນທຶກ"><button type="button" id="libDateClr" style="display:none" aria-label="ລ້າງວັນທີ"><svg class="i xs"><use href="#i-x"/></svg></button></label>
+    </div>
+    <div id="libSum"></div>
+    <div id="libList"></div>
+    <p id="libInfo"><svg class="i xs"><use href="#i-lock"/></svg> ເອກະສານຖືກເກັບໄວ້ໃນເຄື່ອງນີ້ເທົ່ານັ້ນ</p>
   </section>
 
   <div id="work">
@@ -361,21 +433,21 @@ body.home #toasts{bottom:calc(24px + var(--safe-b))}
       <div class="card-h"><span class="step">2</span><h2>ເບິ່ງຕົວຢ່າງ</h2><button class="btn" id="clearBtn" style="min-height:38px;padding:6px 12px;font-size:13px"><svg class="i s"><use href="#i-trash"/></svg>ລ້າງ</button></div>
       <div class="pages" id="pages"><div class="empty"><svg class="i l"><use href="#i-file"/></svg>ຍັງບໍ່ມີຮູບ — ສະແກນ ຫຼື ເພີ່ມຮູບໃນຂັ້ນຕອນທີ 1</div></div>
       <details class="set" id="setBox">
-        <summary><svg class="i s"><use href="#i-gear"/></svg>ຕັ້ງຄ່າໜ້າເຈ້ຍ ແລະ ຊື່ໄຟລ໌<svg class="i s chev"><use href="#i-down2"/></svg></summary>
+        <summary><svg class="i s"><use href="#i-gear"/></svg>ຕັ້ງຄ່າໜ້າເຈ້ຍ<svg class="i s chev"><use href="#i-down2"/></svg></summary>
         <div class="settings">
           <div class="field"><label>ຂະໜາດເຈ້ຍ</label><select id="paper"><option value="a4">A4 (210 × 297 mm)</option><option value="letter">Letter (8.5 × 11 in)</option></select></div>
           <div class="field opt-id"><label>ຂະໜາດບັດໃນເຈ້ຍ</label><select id="idSize"><option value="sample">ຕາມແບບຕົວຢ່າງ (ກວ້າງ ~46% ຂອງເຈ້ຍ)</option><option value="real">ຂະໜາດຈິງ (85.6 × 54 mm)</option></select></div>
           <label class="check opt-id"><input type="checkbox" id="round" checked> ມຸມບັດມົນ</label>
           <label class="check opt-hh"><input type="checkbox" id="border" checked> ເສັ້ນຂອບອ້ອມຮູບ</label>
-          <div class="field"><label>ຊື່ໄຟລ໌</label><input type="text" id="fname" placeholder="ເຊັ່ນ: ສຳມະໂນຄົວ_ທ້າວ ກ"></div>
         </div>
       </details>
     </section>
 
     <section class="card">
       <div class="card-h"><span class="step">3</span><h2>ສົ່ງອອກ</h2></div>
-      <p class="sub" style="margin:0 2px 12px;font-size:12.5px;color:var(--muted)">ເລືອກ <b>PDF</b> ຫຼື <b>JPG</b> ທີ່ແຖບລຸ່ມ · JPG ເທິງໂທລະສັບບັນທຶກລົງ<b>ຄັງຮູບ</b> · ກົດ <b>ແຊ</b> ເພື່ອສົ່ງໄປ WhatsApp</p>
+      <p class="sub" style="margin:0 2px 12px;font-size:12.5px;color:var(--muted)">ທຸກຄັ້ງທີ່ດາວໂຫຼດ ຫຼື ແຊ ຈະໃຫ້ຕັ້ງຊື່ກ່ອນ ແລະ <b>ບັນທຶກໄວ້ໃນເຄື່ອງ</b> ໃຫ້ອັດຕະໂນມັດ — ເປີດເບິ່ງຄືນໄດ້ທີ່ <b>ເອກະສານຂອງຂ້ອຍ</b></p>
       <div class="export">
+        <button class="btn ghost" id="saveBtn"><svg class="i s"><use href="#i-save"/></svg>ບັນທຶກລົງເຄື່ອງເທົ່ານັ້ນ</button>
         <button class="btn ghost" id="driveBtn"><svg class="i s"><use href="#i-cloud"/></svg>ບັນທຶກລົງ Google Drive</button>
         <label class="check" id="mergeWrap"><input type="checkbox" id="mergeJpg"> ລວມທຸກໜ້າເປັນ JPG ພາບດຽວ</label>
       </div>
@@ -391,7 +463,7 @@ body.home #toasts{bottom:calc(24px + var(--safe-b))}
   </div>
   <div class="acts2">
     <button class="btn primary" id="dlBtn"><span id="dlLbl">ດາວໂຫຼດ PDF</span> <span id="pgCount"></span></button>
-    <button class="btn wa" id="shareBtn"><svg class="i s"><use href="#i-share"/></svg>ແຊ</button>
+    <button class="btn wa" id="shareBtn"><svg class="i s"><use href="#i-share"/></svg><span id="shareLbl">ແຊ</span></button>
   </div>
 </div></div>
 
@@ -472,6 +544,28 @@ body.home #toasts{bottom:calc(24px + var(--safe-b))}
   <div class="dlg-acts"><button class="btn" id="dlgNo">ຍົກເລີກ</button><button class="btn primary" id="dlgYes">ຕົກລົງ</button></div>
 </div></div>
 
+ <div id="nameDlg"><div class="sbox">
+  <div class="grab"></div>
+  <h3 id="nameTitle">ຕັ້ງຊື່ເອກະສານ</h3>
+  <p class="sub" id="nameSub"></p>
+  <input class="namein" id="nameInp" type="text" maxlength="80" placeholder="ເຊັ່ນ: ບັດປະຈຳຕົວ_ທ້າວ ກ" autocomplete="off" enterkeyhint="done">
+  <div id="nameErr"></div>
+  <div class="dlg-acts"><button class="btn" id="nameNo">ຍົກເລີກ</button><button class="btn primary" id="nameOk">ຕົກລົງ</button></div>
+</div></div>
+
+<div id="docSheet"><div class="sbox">
+  <div class="grab"></div>
+  <div class="dochead"><div class="t"><h3 id="docName"></h3><p id="docMeta"></p></div><button class="ibtn" id="docClose" aria-label="ປິດ"><svg class="i s"><use href="#i-x"/></svg></button></div>
+  <div class="docpages" id="docPages"></div>
+  <div class="docacts">
+    <button class="pri" id="docPdf"><svg class="i"><use href="#i-file"/></svg>ດາວໂຫຼດ PDF</button>
+    <button id="docJpg"><svg class="i"><use href="#i-image"/></svg>ດາວໂຫຼດ JPG</button>
+    <button class="wa" id="docShare"><svg class="i"><use href="#i-share"/></svg>ແຊ</button>
+    <button id="docRename"><svg class="i"><use href="#i-edit"/></svg>ປ່ຽນຊື່</button>
+    <button class="del" id="docDel"><svg class="i"><use href="#i-trash"/></svg>ລຶບ</button>
+  </div>
+</div></div>
+
 <input type="file" id="capInput" accept="image/*" capture="environment" hidden>
 <div id="toasts"></div>
 <div id="busy"><div><span class="spin"></span><span id="busyTxt">ກຳລັງປະມວນຜົນ…</span></div></div>
@@ -508,6 +602,11 @@ body.home #toasts{bottom:calc(24px + var(--safe-b))}
   <symbol id="i-swap" viewBox="0 0 24 24"><path d="M7 16V4M3 8l4-4 4 4M17 8v12M21 16l-4 4-4-4"/></symbol>
   <symbol id="i-full" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/></symbol>
   <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-save" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8M7 3v5h8"/></symbol>
   <symbol id="i-edit" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></symbol>
 </svg>
 
@@ -566,7 +665,9 @@ var MAX_OUT = { page:2000, spread:2800, card:1400 };
 var state = {
   mode:'household', fmt:'pdf',
   data:{ hh:{}, id:{} },       // group -> key -> slot object
-  pages:[]                     // rendered page canvases
+  pages:[],                    // rendered page canvases
+  saved:{},                    // mode -> {id,name,sig} of the last on-device save
+  docName:''
 };
 
 /* =================================================================
@@ -941,6 +1042,7 @@ function processSlot(slot, kind){
   var lim=MAX_OUT[kind]||2000, s=Math.min(1, lim/Math.max(W,H));
   // do not upscale beyond source, but make sure card has reasonable size
   W=Math.max(50,W*s); H=Math.max(50,H*s);
+  if(!slot.uid) slot.uid=Math.random().toString(36).slice(2,9);
   var out=warp(slot.src,q,W,H);
   slot.base=rotateCanvas(out, slot.rot||0);
   if(!slot.adj) slot.adj=defaultAdj(kind);
@@ -1246,18 +1348,19 @@ function renderPages(){
    ================================================================= */
 function updateExportUI(){
   var has=state.pages.length>0;
-  $('dlBtn').disabled=!has; $('driveBtn').disabled=!has;
+  ['dlBtn','driveBtn','saveBtn','shareBtn'].forEach(function(id){ $(id).disabled=!has; });
   var nOut = (state.fmt==='jpg' && $('mergeJpg').checked) ? 1 : state.pages.length;
   $('pgCount').textContent = has ? '· '+nOut+(state.fmt==='jpg'?' ຮູບ':' ໜ້າ') : '';
-  $('dlLbl').textContent = state.fmt==='pdf' ? 'ດາວໂຫຼດ PDF' : (IS_MOBILE ? 'ບັນທຶກລົງຄັງຮູບ' : 'ດາວໂຫຼດ JPG');
+  var base = state.fmt==='pdf' ? 'ດາວໂຫຼດ PDF' : (IS_MOBILE ? 'ບັນທຶກລົງຄັງຮູບ' : 'ດາວໂຫຼດ JPG');
+  $('dlLbl').textContent = has ? (state.fmt==='pdf' ? 'ດາວໂຫຼດ + ບັນທຶກ' : (IS_MOBILE ? 'ຄັງຮູບ + ບັນທຶກ' : 'ດາວໂຫຼດ + ບັນທຶກ')) : base;
+  $('shareLbl').textContent = has ? 'ແຊ + ບັນທຶກ' : 'ແຊ';
   $('shareBtn').style.display = CAN_SHARE ? '' : 'none';
-  $('shareBtn').disabled = !has;
   $('mergeWrap').style.display=(state.fmt==='jpg' && state.pages.length>1)?'':'none';
   $('driveBtn').style.display=(window.google&&google.script&&google.script.run)?'':'none';
 }
 function baseName(){
-  var n=($('fname').value||'').trim();
-  if(!n) n=curMode().label+'_'+today();
+  var n=(state.docName||'').trim();
+  if(!n) n=defaultName();
   return n.replace(/[\\/:*?"<>|]+/g,'_');
 }
 async function buildFiles(){
@@ -1330,23 +1433,27 @@ async function downloadAll(files){
     if(i<files.length-1) await new Promise(function(r){ setTimeout(r,500); });
   }
 }
-async function doDownload(){
-  var files;
+/* ask name → save on this device → then download / share */
+async function nameAndSave(title, okTxt){
+  var name=await askName(title,'ເອກະສານຈະຖືກບັນທຶກໄວ້ໃນເຄື່ອງນີ້ ພາຍໃຕ້ຊື່ນີ້', okTxt);
+  if(!name) return null;
+  state.docName=name;
   try{
-    busy(true,'ກຳລັງສ້າງໄຟລ໌…'); await nextFrame();
-    files = await buildFiles();
-  }catch(e){ busy(false); showMsg('✗ '+(e.message||e),'var(--err)'); return; }
-  busy(false);
+    busy(true,'ກຳລັງບັນທຶກລົງເຄື່ອງ…'); await nextFrame();
+    var r=await saveCurrentDoc(name);
+    busy(false);
+    return { name:name, updated:r.updated };
+  }catch(e){ busy(false); toast('ບັນທຶກລົງເຄື່ອງບໍ່ສຳເລັດ: '+(e.message||e),'err',5000); return { name:name, failed:true }; }
+}
+async function deliverDownload(files, fmt){
   try{
-    if(state.fmt==='jpg' && IS_MOBILE){
-      // iPhone/iPad: images only reach Photos through the share sheet ("Save Image")
+    if(fmt==='jpg' && IS_MOBILE){
       if(IS_IOS && CAN_SHARE){
         toast('ເລືອກ "ບັນທຶກຮູບ / Save Image" ເພື່ອເກັບລົງຄັງຮູບ', null, 5000);
         var r = await shareFiles(files);
         if(r==='ok'){ showMsg('✓ ບັນທຶກລົງຄັງຮູບແລ້ວ','var(--ok)'); return; }
         if(r==='abort') return;
       }
-      // Android: saved images appear in Gallery / Google Photos (album "Download")
       await downloadAll(files);
       showMsg('✓ ບັນທຶກລົງຄັງຮູບແລ້ວ '+files.length+' ຮູບ — ເບິ່ງໃນ Gallery / Google Photos (ອັນລະບັ້ມ Download)','var(--ok)');
       return;
@@ -1355,21 +1462,36 @@ async function doDownload(){
     showMsg('✓ ດາວໂຫຼດແລ້ວ: '+files.map(function(f){return f.name;}).join(', '),'var(--ok)');
   }catch(e){ showMsg('✗ '+(e.message||e),'var(--err)'); }
 }
-async function doShare(){
+async function doDownload(){
+  var sv=await nameAndSave(state.fmt==='pdf'?'ດາວໂຫຼດ PDF + ບັນທຶກ':'ດາວໂຫຼດ JPG + ບັນທຶກ','ດາວໂຫຼດ'); if(!sv) return;
   var files;
-  try{
-    busy(true,'ກຳລັງກຽມໄຟລ໌ເພື່ອແຊ…'); await nextFrame();
-    files = await buildFiles();
-  }catch(e){ busy(false); showMsg('✗ '+(e.message||e),'var(--err)'); return; }
+  try{ busy(true,'ກຳລັງສ້າງໄຟລ໌…'); await nextFrame(); files = await buildFiles(); }
+  catch(e){ busy(false); showMsg('✗ '+(e.message||e),'var(--err)'); return; }
+  busy(false);
+  if(!sv.failed) toast(sv.updated?'ອັບເດດເອກະສານໃນເຄື່ອງແລ້ວ':'ບັນທຶກລົງເຄື່ອງແລ້ວ — ເບິ່ງໃນ “ເອກະສານຂອງຂ້ອຍ”','ok');
+  await deliverDownload(files, state.fmt);
+}
+async function doShare(){
+  var sv=await nameAndSave('ແຊ + ບັນທຶກ','ແຊ'); if(!sv) return;
+  var files;
+  try{ busy(true,'ກຳລັງກຽມໄຟລ໌ເພື່ອແຊ…'); await nextFrame(); files = await buildFiles(); }
+  catch(e){ busy(false); showMsg('✗ '+(e.message||e),'var(--err)'); return; }
   busy(false);
   var r = await shareFiles(files);
-  if(r==='ok') toast('ແຊແລ້ວ','ok');
-  else if(r==='fail') toast('ແຊບໍ່ສຳເລັດ — ກະລຸນາບັນທຶກໄຟລ໌ກ່ອນ ແລ້ວສົ່ງຜ່ານ WhatsApp ເອງ','err',5500);
+  if(r==='ok') toast('ແຊແລ້ວ'+(sv.failed?'':' · ບັນທຶກໃນເຄື່ອງແລ້ວ'),'ok');
+  else if(r==='fail') toast('ແຊບໍ່ສຳເລັດ — ເອກະສານຖືກບັນທຶກໃນເຄື່ອງແລ້ວ ລອງແຊຈາກ “ເອກະສານຂອງຂ້ອຍ”','err',5500);
+  else if(!sv.failed) toast('ບັນທຶກໃນເຄື່ອງແລ້ວ','ok');
+}
+async function doSave(){
+  var sv=await nameAndSave('ບັນທຶກລົງເຄື່ອງ','ບັນທຶກ'); if(!sv||sv.failed) return;
+  showMsg('✓ '+(sv.updated?'ອັບເດດ':'ບັນທຶກ')+' “'+sv.name+'” ລົງເຄື່ອງແລ້ວ','var(--ok)');
 }
 function blobToBase64(blob){
   return new Promise(function(res,rej){ var r=new FileReader(); r.onload=function(){ res(String(r.result).split(',')[1]); }; r.onerror=rej; r.readAsDataURL(blob); });
 }
 async function doDrive(){
+  var nm=await askName('ບັນທຶກລົງ Google Drive','ຊື່ໄຟລ໌ໃນ Google Drive','ບັນທຶກ'); if(!nm) return;
+  state.docName=nm;
   try{
     busy(true,'ກຳລັງບັນທຶກລົງ Google Drive…'); await nextFrame();
     var files=await buildFiles(), links=[], folder='';
@@ -1385,6 +1507,233 @@ async function doDrive(){
   }catch(e){ showMsg('✗ ບັນທຶກບໍ່ສຳເລັດ: '+(e.message||e),'var(--err)'); }
   busy(false);
 }
+
+/* =================================================================
+   ON-DEVICE DOCUMENT LIBRARY (IndexedDB)
+   record: {id, name, mode, paper, createdAt, savedAt, pages:[{blob,orient,wmm,hmm}], thumb:Blob}
+   ================================================================= */
+var DB={ db:null, name:'mk-doc-scanner', store:'docs' };
+function dbOpen(){
+  if(DB.db) return Promise.resolve(DB.db);
+  return new Promise(function(res,rej){
+    if(!window.indexedDB){ rej(new Error('ເຄື່ອງນີ້ບໍ່ຮອງຮັບການບັນທຶກໃນເຄື່ອງ')); return; }
+    var r=indexedDB.open(DB.name,1);
+    r.onupgradeneeded=function(){ var s=r.result.createObjectStore(DB.store,{keyPath:'id'}); s.createIndex('savedAt','savedAt'); };
+    r.onsuccess=function(){ DB.db=r.result; res(DB.db); };
+    r.onerror=function(){ rej(r.error||new Error('ເປີດບ່ອນເກັບຂໍ້ມູນບໍ່ໄດ້')); };
+  });
+}
+function dbTx(mode, fn){
+  return dbOpen().then(function(db){ return new Promise(function(res,rej){
+    var tx=db.transaction(DB.store,mode), st=tx.objectStore(DB.store), out;
+    var r=fn(st); if(r) r.onsuccess=function(){ out=r.result; };
+    tx.oncomplete=function(){ res(out); }; tx.onerror=tx.onabort=function(){ rej(tx.error||new Error('ບັນທຶກບໍ່ສຳເລັດ')); };
+  }); });
+}
+function dbPut(rec){ return dbTx('readwrite',function(s){ return s.put(rec); }); }
+function dbGet(id){ return dbTx('readonly',function(s){ return s.get(id); }); }
+function dbDel(id){ return dbTx('readwrite',function(s){ return s.delete(id); }); }
+function dbAll(){ return dbTx('readonly',function(s){ return s.getAll(); }).then(function(a){ return (a||[]).sort(function(x,y){ return y.savedAt-x.savedAt; }); }); }
+
+function canvasBlob(c,q){ return new Promise(function(r){ c.toBlob(r,'image/jpeg',q||0.88); }); }
+function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,8); }
+
+/* signature of the current work → tells whether it changed since the last save */
+function workSig(){
+  var m=curMode(), g=curGroup(), parts=[state.mode,$('paper').value,$('idSize').value,$('round').checked,$('border').checked];
+  m.slots.forEach(function(s){ var x=g[s.key]; parts.push(x?[x.uid,x.rot,JSON.stringify(x.adj),JSON.stringify(x.quad.map(function(p){return p.map(Math.round);}))].join('/'):'-'); });
+  return parts.join('|');
+}
+function defaultName(){
+  var d=new Date(), p=function(n){ return String(n).padStart(2,'0'); };
+  return curMode().label+'_'+d.getFullYear()+p(d.getMonth()+1)+p(d.getDate())+'_'+p(d.getHours())+p(d.getMinutes());
+}
+function suggestName(){
+  var sv=state.saved[state.mode];
+  if(sv && sv.sig===workSig()) return sv.name;
+  return defaultName();
+}
+
+/* save current pages to the device; same work + same name → update the same record */
+async function saveCurrentDoc(name){
+  clearTimeout(renderTimer); state.pages=buildPages();
+  if(!state.pages.length) throw new Error('ຍັງບໍ່ມີໜ້າເອກະສານ');
+  var sig=workSig(), sv=state.saved[state.mode], now=Date.now(), rec;
+  var reuse = sv && (sv.name===name || sv.sig===sig);   // same work renamed, or same name re-saved after edits
+  rec = reuse ? (await dbGet(sv.id).catch(function(){ return null; })) : null;
+  if(!rec) rec={ id:uid(), createdAt:now };
+  rec.name=name; rec.mode=state.mode; rec.paper=$('paper').value; rec.savedAt=now;
+  rec.pages=[];
+  for(var i=0;i<state.pages.length;i++){
+    var p=state.pages[i];
+    rec.pages.push({ blob:await canvasBlob(p.canvas,0.88), orient:p.orient, wmm:p.wmm, hmm:p.hmm });
+  }
+  var c0=state.pages[0].canvas, s=Math.min(1,360/Math.max(c0.width,c0.height)), t=mkCanvas(c0.width*s,c0.height*s);
+  t.getContext('2d').drawImage(c0,0,0,t.width,t.height); rec.thumb=await canvasBlob(t,0.8);
+  await dbPut(rec);
+  state.saved[state.mode]={ id:rec.id, name:name, sig:sig };
+  try{ if(navigator.storage && navigator.storage.persist) navigator.storage.persist(); }catch(e){}
+  refreshLibCount();
+  return { rec:rec, updated:!!reuse };
+}
+
+/* ---------- name prompt (shown before every export / save) ---------- */
+function askName(title, sub, okTxt, initial){
+  return new Promise(function(res){
+    var d=$('nameDlg'), inp=$('nameInp'), ok=$('nameOk'), no=$('nameNo');
+    $('nameTitle').textContent=title; $('nameSub').textContent=sub||'';
+    ok.innerHTML=okTxt||'ຕົກລົງ'; inp.value=initial!=null?initial:suggestName(); $('nameErr').textContent='';
+    d.classList.add('on');
+    setTimeout(function(){ try{ inp.focus(); inp.select(); }catch(e){} }, 60);
+    function done(v){ d.classList.remove('on'); ok.onclick=no.onclick=d.onclick=inp.onkeydown=null; res(v); }
+    ok.onclick=function(){
+      var v=inp.value.replace(/[\\/:*?"<>|]+/g,' ').replace(/\s+/g,' ').trim();
+      if(!v){ $('nameErr').textContent='ກະລຸນາໃສ່ຊື່ເອກະສານ'; inp.focus(); return; }
+      done(v.slice(0,80));
+    };
+    no.onclick=function(){ done(null); };
+    d.onclick=function(e){ if(e.target===d) done(null); };
+    inp.onkeydown=function(e){ if(e.key==='Enter'){ e.preventDefault(); ok.click(); } };
+  });
+}
+
+/* ---------- library screen ---------- */
+var LIB={ all:[], range:'all', urls:[] };
+function fmtDate(ts){
+  var d=new Date(ts), p=function(n){ return String(n).padStart(2,'0'); };
+  return p(d.getDate())+'/'+p(d.getMonth()+1)+'/'+d.getFullYear()+' · '+p(d.getHours())+':'+p(d.getMinutes());
+}
+function dayKey(ts){ var d=new Date(ts); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function dayLabel(ts){
+  var k=dayKey(ts), t=new Date(), y=new Date(Date.now()-864e5);
+  if(k===dayKey(t)) return 'ມື້ນີ້'; if(k===dayKey(y)) return 'ມື້ວານ';
+  var d=new Date(ts); return 'ວັນທີ '+String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear();
+}
+async function refreshLibCount(){
+  try{ var a=await dbAll(); LIB.all=a; }catch(e){ LIB.all=[]; }
+  var n=LIB.all.length;
+  $('libCount').textContent=n?String(n):''; $('libCardN').textContent=n?n+' ເອກະສານ':'ຍັງບໍ່ມີ';
+  $('libCardSub').textContent=n?('ລ່າສຸດ: '+LIB.all[0].name):'ເອກະສານທີ່ບັນທຶກຈະຢູ່ທີ່ນີ້';
+  if(document.body.classList.contains('lib')) renderLib();
+}
+async function openLib(){
+  setView('lib'); navPush('lib');
+  await refreshLibCount(); renderLib();
+}
+function libFilter(){
+  var q=($('libQ').value||'').trim().toLowerCase(), dt=$('libDate').value, now=Date.now(), r=LIB.range;
+  return LIB.all.filter(function(d){
+    if(q && d.name.toLowerCase().indexOf(q)<0 && (MODE_TITLE[d.mode]||'').toLowerCase().indexOf(q)<0) return false;
+    if(dt) return dayKey(d.savedAt)===dt;
+    if(r==='today') return dayKey(d.savedAt)===dayKey(now);
+    if(r==='7') return d.savedAt>=now-7*864e5;
+    if(r==='30') return d.savedAt>=now-30*864e5;
+    return true;
+  });
+}
+function renderLib(){
+  LIB.urls.forEach(function(u){ URL.revokeObjectURL(u); }); LIB.urls=[];
+  var list=$('libList'); list.innerHTML='';
+  var items=libFilter(), q=$('libQ').value.trim()||$('libDate').value;
+  $('libSum').textContent = LIB.all.length ? ('ພົບ '+items.length+' / '+LIB.all.length+' ເອກະສານ') : '';
+  if(!items.length){
+    list.innerHTML='<div class="empty">'+svgI(LIB.all.length?'search':'folder','l')+(LIB.all.length?'ບໍ່ພົບເອກະສານທີ່ກົງກັບການຄົ້ນຫາ':'ຍັງບໍ່ມີເອກະສານທີ່ບັນທຶກ<br><small>ກົດ “ດາວໂຫຼດ + ບັນທຶກ” ຫຼື “ບັນທຶກລົງເຄື່ອງ” ໃນໜ້າສະແກນ</small>')+'</div>';
+    return;
+  }
+  var lastDay='';
+  items.forEach(function(d){
+    var dk=dayKey(d.savedAt);
+    if(dk!==lastDay){ lastDay=dk; list.appendChild(el('div','lib-day',dayLabel(d.savedAt))); }
+    var row=el('button','lib-item');
+    var th=el('span','lib-th'); if(d.thumb){ var u=URL.createObjectURL(d.thumb); LIB.urls.push(u); th.style.backgroundImage='url('+u+')'; }
+    row.appendChild(th);
+    var tx=el('span','lib-tx');
+    var nm=el('b'); nm.textContent=d.name; tx.appendChild(nm);
+    tx.appendChild(el('small',null,(MODE_TITLE[d.mode]||'')+' · '+d.pages.length+' ໜ້າ'));
+    tx.appendChild(el('small','lib-dt',svgI('clock','xs')+fmtDate(d.savedAt)));
+    row.appendChild(tx);
+    row.appendChild(el('span','go',svgI('next','s')));
+    row.onclick=function(){ openDoc(d.id); };
+    list.appendChild(row);
+  });
+}
+
+/* ---------- saved document sheet ---------- */
+var DOC={ rec:null, urls:[] };
+async function openDoc(id){
+  var rec=await dbGet(id); if(!rec){ toast('ບໍ່ພົບເອກະສານ','err'); return; }
+  DOC.rec=rec; DOC.urls.forEach(function(u){ URL.revokeObjectURL(u); }); DOC.urls=[];
+  $('docName').textContent=rec.name;
+  $('docMeta').textContent=(MODE_TITLE[rec.mode]||'')+' · '+rec.pages.length+' ໜ້າ · ບັນທຶກ '+fmtDate(rec.savedAt);
+  var st=$('docPages'); st.innerHTML='';
+  rec.pages.forEach(function(p,i){
+    var u=URL.createObjectURL(p.blob); DOC.urls.push(u);
+    var im=el('img'); im.src=u; im.alt='ໜ້າ '+(i+1); im.className=p.orient; st.appendChild(im);
+  });
+  $('docShare').style.display=CAN_SHARE?'':'none';
+  $('docSheet').classList.add('on');
+}
+function closeDoc(){ $('docSheet').classList.remove('on'); }
+function blobToDataURL(b){ return new Promise(function(res,rej){ var r=new FileReader(); r.onload=function(){ res(r.result); }; r.onerror=rej; r.readAsDataURL(b); }); }
+async function docFiles(rec, fmt){
+  var name=rec.name;
+  if(fmt==='pdf'){
+    var jsPDF=window.jspdf&&window.jspdf.jsPDF; if(!jsPDF) throw new Error('ໂຫຼດ jsPDF ບໍ່ໄດ້ — ກວດສອບອິນເຕີເນັດ');
+    var f=rec.paper||'a4', p0=rec.pages[0];
+    var doc=new jsPDF({orientation:p0.orient, unit:'mm', format:f, compress:true});
+    for(var i=0;i<rec.pages.length;i++){
+      var p=rec.pages[i]; if(i>0) doc.addPage(f,p.orient);
+      doc.addImage(await blobToDataURL(p.blob),'JPEG',0,0,p.wmm,p.hmm,undefined,'FAST');
+    }
+    return [{name:name+'.pdf', mime:'application/pdf', blob:doc.output('blob')}];
+  }
+  return rec.pages.map(function(p,i){ return {name:name+(rec.pages.length>1?'_ໜ້າ'+(i+1):'')+'.jpg', mime:'image/jpeg', blob:p.blob}; });
+}
+async function docExport(fmt, share){
+  var rec=DOC.rec; if(!rec) return;
+  var nm=await askName(share?'ແຊເອກະສານ':'ດາວໂຫຼດ '+fmt.toUpperCase(),'ກວດຊື່ເອກະສານກ່ອນສົ່ງອອກ', share?'ແຊ':'ດາວໂຫຼດ', rec.name);
+  if(!nm) return;
+  if(nm!==rec.name){ rec.name=nm; await dbPut(rec); $('docName').textContent=nm; refreshLibCount(); }
+  var files;
+  try{ busy(true,'ກຳລັງສ້າງໄຟລ໌…'); await nextFrame(); files=await docFiles(rec, fmt); }
+  catch(e){ busy(false); toast(e.message||e,'err'); return; }
+  busy(false);
+  if(share){
+    var r=await shareFiles(files);
+    if(r==='ok') toast('ແຊແລ້ວ','ok'); else if(r==='fail') toast('ແຊບໍ່ສຳເລັດ','err');
+  }else{
+    await deliverDownload(files, fmt);
+  }
+}
+(function bindLib(){
+  $('libBtn').onclick=openLib; $('libCard').onclick=openLib;
+  $('libQ').addEventListener('input',renderLib);
+  $('libDate').addEventListener('change',function(){ if($('libDate').value){ LIB.range='all'; syncChips(); } $('libDateClr').style.display=$('libDate').value?'':'none'; renderLib(); });
+  $('libDateClr').onclick=function(){ $('libDate').value=''; $('libDateClr').style.display='none'; renderLib(); };
+  function syncChips(){ document.querySelectorAll('#libChips button').forEach(function(b){ b.classList.toggle('active', b.dataset.r===LIB.range && !$('libDate').value); }); }
+  document.querySelectorAll('#libChips button').forEach(function(b){
+    b.onclick=function(){ LIB.range=b.dataset.r; $('libDate').value=''; $('libDateClr').style.display='none'; syncChips(); renderLib(); };
+  });
+  $('docSheet').addEventListener('click',function(e){ if(e.target===$('docSheet')) closeDoc(); });
+  $('docClose').onclick=closeDoc;
+  $('docPdf').onclick=function(){ docExport('pdf',false); };
+  $('docJpg').onclick=function(){ docExport('jpg',false); };
+  $('docShare').onclick=function(){ docExport(state.fmt,true); };
+  $('docRename').onclick=async function(){
+    var rec=DOC.rec, nm=await askName('ປ່ຽນຊື່ເອກະສານ','', 'ບັນທຶກ', rec.name);
+    if(!nm||nm===rec.name) return;
+    rec.name=nm; await dbPut(rec); $('docName').textContent=nm;
+    Object.keys(state.saved).forEach(function(k){ if(state.saved[k]&&state.saved[k].id===rec.id) state.saved[k].name=nm; });
+    toast('ປ່ຽນຊື່ແລ້ວ','ok'); refreshLibCount();
+  };
+  $('docDel').onclick=async function(){
+    var rec=DOC.rec, ok=await uiConfirm('ລຶບເອກະສານ?','“'+rec.name+'” ຈະຖືກລຶບອອກຈາກເຄື່ອງຖາວອນ — ກູ້ຄືນບໍ່ໄດ້','ລຶບເລີຍ',true);
+    if(!ok) return;
+    await dbDel(rec.id); closeDoc(); toast('ລຶບແລ້ວ','ok');
+    Object.keys(state.saved).forEach(function(k){ if(state.saved[k]&&state.saved[k].id===rec.id) state.saved[k]=null; });
+    refreshLibCount();
+  };
+})();
 
 var ED={ group:null, def:null, slot:null, quad:null, scale:1, ox:0, oy:0, drag:-1, ptr:null };
 function openEditor(group, def){
@@ -1551,7 +1900,7 @@ function blueness(c){
 /* =================================================================
    UI: MODES & SLOTS
    ================================================================= */
-var APP_VERSION='2.0.0';
+var APP_VERSION='2.1.0';
 function svgI(id,cls){ return '<svg class="i'+(cls?' '+cls:'')+'"><use href="#i-'+id+'"/></svg>'; }
 function ibtn(icon, txt, fn, cls, title){
   var b=el('button', cls||'', svgI(icon,'s')+(txt?'<span>'+txt+'</span>':''));
@@ -1562,7 +1911,6 @@ function renderModes(){
   var isHH=state.mode==='household';
   document.querySelectorAll('.opt-id').forEach(function(e){ e.style.display=isHH?'none':''; });
   document.querySelectorAll('.opt-hh').forEach(function(e){ e.style.display=isHH?'':'none'; });
-  $('fname').placeholder = isHH ? 'ເຊັ່ນ: ສຳມະໂນຄົວ_ເລກທີ 282' : 'ເຊັ່ນ: ບັດປະຈຳຕົວ_ພິລັນ';
   $('scanSub').textContent = isHH ? 'ຖ່າຍຕໍ່ເນື່ອງ 3 ໜ້າ' : (state.mode==='id2' ? 'ດ້ານໜ້າ → ດ້ານຫຼັງ' : 'ຕັດຂອບອັດຕະໂນມັດ');
 }
 function updateProg(){
@@ -1655,18 +2003,19 @@ function nativeCapture(group, def){
    ================================================================= */
 var MODE_TITLE={ household:'ປື້ມສຳມະໂນຄົວ', id2:'ບັດປະຈຳຕົວ 2 ດ້ານ', id1:'ບັດປະຈຳຕົວ 1 ດ້ານ' };
 function setView(v){
-  document.body.classList.toggle('home', v==='home');
-  document.body.classList.toggle('work', v==='work');
-  $('hTitle').textContent = v==='work' ? MODE_TITLE[state.mode] : 'ສະແກນເອກະສານ';
+  ['home','work','lib'].forEach(function(k){ document.body.classList.toggle(k, v===k); });
+  $('hTitle').textContent = v==='work' ? MODE_TITLE[state.mode] : (v==='lib' ? 'ເອກະສານຂອງຂ້ອຍ' : 'ສະແກນເອກະສານ');
   window.scrollTo(0,0);
 }
 function openMode(m){
+  if(state.mode!==m) state.docName='';
   state.mode=m; renderModes(); renderSlots(); renderPages(); showMsg('');
   setView('work'); navPush();
 }
 function goHome(){
   closePicker(); $('dlg').classList.remove('on');
-  if(!document.body.classList.contains('home')){ setView('home'); updateBadges(); }
+  closeDoc();
+  if(!document.body.classList.contains('home')){ setView('home'); updateBadges(); refreshLibCount(); }
 }
 function updateBadges(){
   document.querySelectorAll('.mode').forEach(function(b){
@@ -1681,6 +2030,8 @@ function topOverlay(){
   if($('editor').classList.contains('on')) return 'editor';
   if($('adj').classList.contains('on')) return 'adj';
   if($('cam').classList.contains('on')) return 'cam';
+  if($('nameDlg').classList.contains('on')) return 'name';
+  if($('docSheet').classList.contains('on')) return 'doc';
   if($('sheet').classList.contains('on')) return 'sheet';
   if($('dlg').classList.contains('on')) return 'dlg';
   return null;
@@ -1690,23 +2041,27 @@ function navBack(){
   if(t==='editor') $('edCancel').click();
   else if(t==='adj'){ closeAdjust(); }
   else if(t==='cam') closeCamera();
+  else if(t==='name') $('nameNo').click();
+  else if(t==='doc') closeDoc();
   else if(t==='sheet') closePicker();
   else if(t==='dlg') $('dlgNo').click();
   return t;
 }
 function hasGsHistory(){ return !!(window.google && google.script && google.script.history); }
-function navPush(){
+function curView(){ return document.body.classList.contains('work')?'work':(document.body.classList.contains('lib')?'lib':'home'); }
+function navPush(v){
+  v=v||'work';
   try{
-    if(hasGsHistory()) google.script.history.push({v:'work'}, null, 'work');
-    else history.pushState({v:'work'}, '', '#work');
+    if(hasGsHistory()) google.script.history.push({v:v}, null, v);
+    else history.pushState({v:v}, '', '#'+v);
   }catch(e){}
 }
 function onHistory(st){
-  if(navBack()){ if(document.body.classList.contains('work')) navPush(); return; }
-  if(!st || st.v!=='work') goHome();
+  if(navBack()){ if(curView()!=='home') navPush(curView()); return; }
+  if(!st || (st.v!=='work' && st.v!=='lib')) goHome();
 }
 (function bindNav(){
-  $('backBtn').onclick=function(){ goHome(); try{ if(!hasGsHistory() && location.hash==='#work') history.replaceState(null,'',location.pathname+location.search); }catch(e){} };
+  $('backBtn').onclick=function(){ goHome(); try{ if(!hasGsHistory() && /^#(work|lib)$/.test(location.hash)) history.replaceState(null,'',location.pathname+location.search); }catch(e){} };
   try{
     if(hasGsHistory()) google.script.history.setChangeHandler(function(e){ onHistory(e.state); });
     else window.addEventListener('popstate', function(e){ onHistory(e.state); });
@@ -1741,16 +2096,17 @@ $('bulkInput').onchange=function(){ bulkUpload($('bulkInput').files); };
 $('clearBtn').onclick=async function(){
   if(!Object.keys(curGroup()).length){ toast('ຍັງບໍ່ມີຮູບໃຫ້ລ້າງ'); return; }
   var ok=await uiConfirm('ລ້າງຮູບທັງໝົດ?','ຮູບ'+curMode().label+'ທີ່ເພີ່ມໄວ້ທັງໝົດຈະຖືກລຶບອອກ','ລ້າງເລີຍ',true);
-  if(!ok) return; state.data[curMode().group]={}; renderSlots(); renderPages(); showMsg('');
+  if(!ok) return; state.data[curMode().group]={}; state.saved[state.mode]=null; state.docName=''; renderSlots(); renderPages(); showMsg('');
 };
 ['paper','idSize','round','border'].forEach(function(id){ $(id).onchange=renderPages; });
 $('dlBtn').onclick=doDownload;
 $('shareBtn').onclick=doShare;
 $('mergeJpg').onchange=updateExportUI;
 $('driveBtn').onclick=doDrive;
+$('saveBtn').onclick=doSave;
 $('verTxt').textContent='v'+APP_VERSION+(IS_GAS?' · GAS':'');
 if(IS_GAS){ $('webBtn').classList.add('on'); $('camWeb').style.display=''; }
-renderModes(); renderSlots(); renderPages(); setCvPill(); setView('home'); updateBadges();
+renderModes(); renderSlots(); renderPages(); setCvPill(); setView('home'); updateBadges(); refreshLibCount();
 
 /* =================================================================
    LIVE CAMERA SCANNER  (real-time edge detection + auto capture)
