@@ -75,6 +75,7 @@ main{max-width:880px;margin:0 auto;padding:6px 14px 24px}
 .mode .art{width:72px;height:72px;border-radius:20px;display:grid;place-items:center;flex:none;background:var(--brand-l);color:var(--brand)}
 .mode[data-mode=id2] .art{background:#e2f6f1;color:#0f8a72}
 .mode[data-mode=id1] .art{background:#fdf2dc;color:#b7700a}
+.mode[data-mode=passport] .art{background:#fde8ec;color:#b4234a}
 .mode .mt{flex:1;min-width:0}
 .mode b{display:block;font-size:16px;font-weight:600;line-height:1.35}
 .mode small{display:block;font-size:12.5px;color:var(--muted);line-height:1.45;margin-top:3px}
@@ -394,6 +395,7 @@ body.home #toasts{bottom:calc(24px + var(--safe-b))}
       <button class="mode" data-mode="household"><span class="art"><svg class="i l"><use href="#i-book"/></svg></span><span class="mt"><b>ປື້ມສຳມະໂນຄົວ</b><small>ໜ້າປົກ · ໜ້າ 1 · ໜ້າ 2–3 (ສູງສຸດ 3 ພາບ)</small></span><span class="badge"></span><span class="go"><svg class="i s"><use href="#i-next"/></svg></span></button>
       <button class="mode" data-mode="id2"><span class="art"><svg class="i l"><use href="#i-id2"/></svg></span><span class="mt"><b>ບັດປະຈຳຕົວ 2 ດ້ານ</b><small>ດ້ານໜ້າ + ດ້ານຫຼັງ ໃນເຈ້ຍແຜ່ນດຽວ</small></span><span class="badge"></span><span class="go"><svg class="i s"><use href="#i-next"/></svg></span></button>
       <button class="mode" data-mode="id1"><span class="art"><svg class="i l"><use href="#i-id1"/></svg></span><span class="mt"><b>ບັດປະຈຳຕົວ 1 ດ້ານ</b><small>ສະເພາະດ້ານໜ້າ</small></span><span class="badge"></span><span class="go"><svg class="i s"><use href="#i-next"/></svg></span></button>
+      <button class="mode" data-mode="passport"><span class="art"><svg class="i l"><use href="#i-passport"/></svg></span><span class="mt"><b>Passport</b><small>ໜັງສືຜ່ານແດນ · ໜ້າຂໍ້ມູນ (ໜ້າມີຮູບ)</small></span><span class="badge"></span><span class="go"><svg class="i s"><use href="#i-next"/></svg></span></button>
     </div>
     <button class="libcard" id="libCard"><span class="art"><svg class="i l"><use href="#i-folder"/></svg></span><span class="mt"><b>ເອກະສານຂອງຂ້ອຍ</b><small id="libCardSub">ເອກະສານທີ່ບັນທຶກຈະຢູ່ທີ່ນີ້</small></span><span class="n" id="libCardN"></span></button>
     <div class="feat">
@@ -436,7 +438,7 @@ body.home #toasts{bottom:calc(24px + var(--safe-b))}
         <summary><svg class="i s"><use href="#i-gear"/></svg>ຕັ້ງຄ່າໜ້າເຈ້ຍ<svg class="i s chev"><use href="#i-down2"/></svg></summary>
         <div class="settings">
           <div class="field"><label>ຂະໜາດເຈ້ຍ</label><select id="paper"><option value="a4">A4 (210 × 297 mm)</option><option value="letter">Letter (8.5 × 11 in)</option></select></div>
-          <div class="field opt-id"><label>ຂະໜາດບັດໃນເຈ້ຍ</label><select id="idSize"><option value="sample">ຕາມແບບຕົວຢ່າງ (ກວ້າງ ~46% ຂອງເຈ້ຍ)</option><option value="real">ຂະໜາດຈິງ (85.6 × 54 mm)</option></select></div>
+          <div class="field opt-id"><label>ຂະໜາດໃນເຈ້ຍ</label><select id="idSize"><option value="sample">ຕາມແບບຕົວຢ່າງ (ກວ້າງ ~46% ຂອງເຈ້ຍ)</option><option value="real">ຂະໜາດຈິງ (85.6 × 54 mm)</option></select></div>
           <label class="check opt-id"><input type="checkbox" id="round" checked> ມຸມບັດມົນ</label>
           <label class="check opt-hh"><input type="checkbox" id="border" checked> ເສັ້ນຂອບອ້ອມຮູບ</label>
         </div>
@@ -602,6 +604,7 @@ body.home #toasts{bottom:calc(24px + var(--safe-b))}
   <symbol id="i-swap" viewBox="0 0 24 24"><path d="M7 16V4M3 8l4-4 4 4M17 8v12M21 16l-4 4-4-4"/></symbol>
   <symbol id="i-full" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/></symbol>
   <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-passport" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><circle cx="12" cy="10" r="3.2"/><path d="M8.8 10h6.4M12 6.8c-1 1-1.4 2-1.4 3.2s.4 2.2 1.4 3.2c1-1 1.4-2 1.4-3.2s-.4-2.2-1.4-3.2M8.5 17h7"/></symbol>
   <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
   <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></symbol>
   <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
@@ -654,17 +657,21 @@ var MODES = {
     {key:'front', label:'ບັດ ດ້ານໜ້າ', kind:'card'},
     {key:'back',  label:'ບັດ ດ້ານຫຼັງ', kind:'card'} ]},
   id1:{ group:'id', label:'ບັດປະຈຳຕົວ', slots:[
-    {key:'front', label:'ບັດ ດ້ານໜ້າ', kind:'card'} ]}
+    {key:'front', label:'ບັດ ດ້ານໜ້າ', kind:'card'} ]},
+  passport:{ group:'pp', label:'Passport', slots:[
+    {key:'bio', label:'ໜ້າຂໍ້ມູນ (ໜ້າມີຮູບ)', kind:'passport'} ]}
 };
 var PAPER = { a4:{w:210,h:297}, letter:{w:215.9,h:279.4} };
 var DPI = 200;                 // render resolution of pages
 var CARD_RATIO = 85.6/54;      // ISO ID-1
+var PASS_RATIO = 125/88;       // ISO ID-3 (passport data page)
+function kindRatio(kind){ return kind==='card'?CARD_RATIO:(kind==='passport'?PASS_RATIO:0); }
 var MAX_SRC = 2600;            // max long side kept from the uploaded photo
-var MAX_OUT = { page:2000, spread:2800, card:1400 };
+var MAX_OUT = { page:2000, spread:2800, card:1400, passport:2000 };
 
 var state = {
   mode:'household', fmt:'pdf',
-  data:{ hh:{}, id:{} },       // group -> key -> slot object
+  data:{ hh:{}, id:{}, pp:{} },       // group -> key -> slot object
   pages:[],                    // rendered page canvases
   saved:{},                    // mode -> {id,name,sig} of the last on-device save
   docName:''
@@ -1036,8 +1043,9 @@ function processSlot(slot, kind){
     var cx=(q[0][0]+q[1][0]+q[2][0]+q[3][0])/4, cy=(q[0][1]+q[1][1]+q[2][1]+q[3][1])/4, k=0.994;
     q=q.map(function(p){ return [cx+(p[0]-cx)*k, cy+(p[1]-cy)*k]; });
   }
-  if(kind==='card'){
-    if(W>=H) H=W/CARD_RATIO; else W=H/CARD_RATIO;
+  var KR=kindRatio(kind);
+  if(KR){
+    if(W>=H) H=W/KR; else W=H/KR;
   }
   var lim=MAX_OUT[kind]||2000, s=Math.min(1, lim/Math.max(W,H));
   // do not upscale beyond source, but make sure card has reasonable size
@@ -1057,7 +1065,7 @@ async function setSlotImage(group, key, kind, file, hintQuad){
   if(hintQuad && isFull(slot.quad,src)) slot.quad=hintQuad;
   slot.auto=!isFull(slot.quad,src);
   // cards photographed in portrait → turn to landscape
-  if(kind==='card'){ var sz=quadSize(slot.quad); if(sz.h>sz.w*1.15) slot.rot=1; }
+  if(kindRatio(kind)){ var sz=quadSize(slot.quad); if(sz.h>sz.w*1.15) slot.rot=1; }
   processSlot(slot, kind);
   state.data[group][key]=slot;
   return slot;
@@ -1294,6 +1302,15 @@ function buildPages(){
       var Q=newPage('landscape'), m2=8, t2=14;
       drawContain(Q.ctx,g.spread.out,{x:mm2px(m2),y:mm2px(t2),w:mm2px(Q.wmm-2*m2),h:mm2px(Q.hmm-2*t2)},{border:border});
       pages.push(Q);
+    }
+  }else if(state.mode==='passport'){
+    var gp=state.data.pp;
+    if(gp.bio){
+      var Pp=newPage('portrait');
+      var pw = $('idSize').value==='real' ? 125 : Pp.wmm*0.70;
+      var ph = pw/PASS_RATIO, px0=(Pp.wmm-pw)/2, py0=Pp.hmm*0.36-ph/2;
+      drawContain(Pp.ctx, gp.bio.out, {x:mm2px(px0),y:mm2px(py0),w:mm2px(pw),h:mm2px(ph)}, {border:$('border').checked});
+      pages.push(Pp);
     }
   }else{
     var gi=state.data.id, two=state.mode==='id2';
@@ -1854,7 +1871,7 @@ async function bulkUpload(files){
     for(var i=0;i<files.length;i++){
       busy(true,'ກຳລັງປະມວນຜົນພາບທີ '+(i+1)+'/'+files.length+'…'); await nextFrame();
       var src=await loadFile(files[i]);
-      var kindGuess = mode.group==='id' ? 'card' : 'page';
+      var kindGuess = mode.slots[Math.min(i,mode.slots.length-1)].kind;
       var q=detectQuad(src,kindGuess);
       items.push({ src:src, quad:q, rot:0, name:files[i].name, auto:!isFull(q,src) });
     }
@@ -1862,8 +1879,7 @@ async function bulkUpload(files){
     if(mode.group==='hh'){
       assignHousehold(items, grp);
     }else{
-      if(mode.slots.length===1) delete grp.front;
-      else { delete grp.front; delete grp.back; }
+      mode.slots.forEach(function(sd){ delete grp[sd.key]; });
       items.forEach(function(it,i){
         var sz=quadSize(it.quad); if(sz.h>sz.w*1.15) it.rot=1;
         grp[mode.slots[i].key]=it;
@@ -1901,7 +1917,7 @@ function blueness(c){
 /* =================================================================
    UI: MODES & SLOTS
    ================================================================= */
-var APP_VERSION='2.1.0';
+var APP_VERSION='2.2.0';
 function svgI(id,cls){ return '<svg class="i'+(cls?' '+cls:'')+'"><use href="#i-'+id+'"/></svg>'; }
 function ibtn(icon, txt, fn, cls, title){
   var b=el('button', cls||'', svgI(icon,'s')+(txt?'<span>'+txt+'</span>':''));
@@ -1909,10 +1925,14 @@ function ibtn(icon, txt, fn, cls, title){
   return b;
 }
 function renderModes(){
-  var isHH=state.mode==='household';
+  var isHH=state.mode==='household', isPP=state.mode==='passport';
   document.querySelectorAll('.opt-id').forEach(function(e){ e.style.display=isHH?'none':''; });
-  document.querySelectorAll('.opt-hh').forEach(function(e){ e.style.display=isHH?'':'none'; });
-  $('scanSub').textContent = isHH ? 'ຖ່າຍຕໍ່ເນື່ອງ 3 ໜ້າ' : (state.mode==='id2' ? 'ດ້ານໜ້າ → ດ້ານຫຼັງ' : 'ຕັດຂອບອັດຕະໂນມັດ');
+  document.querySelectorAll('.opt-hh').forEach(function(e){ e.style.display=(isHH||isPP)?'':'none'; });
+  $('round').closest('label').style.display=(isHH||isPP)?'none':'';
+  var o=$('idSize').options;
+  o[0].text = isPP ? 'ຕາມແບບ (ກວ້າງ ~70% ຂອງເຈ້ຍ)' : 'ຕາມແບບຕົວຢ່າງ (ກວ້າງ ~46% ຂອງເຈ້ຍ)';
+  o[1].text = isPP ? 'ຂະໜາດຈິງ (125 × 88 mm)' : 'ຂະໜາດຈິງ (85.6 × 54 mm)';
+  $('scanSub').textContent = isHH ? 'ຖ່າຍຕໍ່ເນື່ອງ 3 ໜ້າ' : (state.mode==='id2' ? 'ດ້ານໜ້າ → ດ້ານຫຼັງ' : (isPP ? 'ໜ້າຂໍ້ມູນ (ໜ້າມີຮູບ)' : 'ຕັດຂອບອັດຕະໂນມັດ'));
 }
 function updateProg(){
   var m=curMode(), g=curGroup(), n=m.slots.filter(function(s){ return g[s.key]; }).length;
@@ -2002,7 +2022,7 @@ function nativeCapture(group, def){
 /* =================================================================
    SCREENS & NAVIGATION (phone back button closes overlays first)
    ================================================================= */
-var MODE_TITLE={ household:'ປື້ມສຳມະໂນຄົວ', id2:'ບັດປະຈຳຕົວ 2 ດ້ານ', id1:'ບັດປະຈຳຕົວ 1 ດ້ານ' };
+var MODE_TITLE={ household:'ປື້ມສຳມະໂນຄົວ', id2:'ບັດປະຈຳຕົວ 2 ດ້ານ', id1:'ບັດປະຈຳຕົວ 1 ດ້ານ', passport:'Passport (ໜັງສືຜ່ານແດນ)' };
 function setView(v){
   ['home','work','lib'].forEach(function(k){ document.body.classList.toggle(k, v===k); });
   $('hTitle').textContent = v==='work' ? MODE_TITLE[state.mode] : (v==='lib' ? 'ເອກະສານຂອງຂ້ອຍ' : 'ສະແກນເອກະສານ');
@@ -2238,7 +2258,7 @@ function camDetect(){
     if(CAM.auto && CAM.stable>=CAM.need) camCapture();
   }else{
     sh.classList.remove('armed'); ring.style.strokeDashoffset='264';
-    camHint(kind==='card' ? 'ວາງບັດໃນກອບ ເທິງພື້ນສີເຂັ້ມ' : 'ວາງເອກະສານໃຫ້ຢູ່ໃນກອບ');
+    camHint(kind==='card' ? 'ວາງບັດໃນກອບ ເທິງພື້ນສີເຂັ້ມ' : (kind==='passport' ? 'ເປີດໜ້າມີຮູບ ວາງໃຫ້ຢູ່ໃນກອບ' : 'ວາງເອກະສານໃຫ້ຢູ່ໃນກອບ'));
   }
 }
 function camDraw(){
@@ -2264,7 +2284,7 @@ function camDraw(){
     CAM.disp=null;
     // guide frame
     var gw, gh;
-    if(kind==='card'){ gw=Math.min(W*0.84, (H*0.5)*CARD_RATIO); gh=gw/CARD_RATIO; }
+    if(kindRatio(kind)){ var KR=kindRatio(kind); gw=Math.min(W*0.88, (H*0.5)*KR); gh=gw/KR; }
     else if(kind==='spread'){ gw=W*0.9; gh=Math.min(H*0.55, gw*0.72); }
     else { gh=Math.min(H*0.62, W*0.86*1.4); gw=gh/1.4; }
     var gx=(W-gw)/2, gy=(H-gh)/2-10, L=Math.min(gw,gh)*0.14;
